@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>SupMod Documentation</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="Documentation for the plugin SupMod Minecraft">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.2/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="assets/plugins/simplelightbox/simple-lightbox.min.css">
+
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
+
+</head> 
+
+<body class="docs-page">    
+    <header class="header fixed-top">	    
+        <div class="branding docs-branding">
+            <div class="container-fluid position-relative py-2">
+                <div class="docs-logo-wrapper">
+					<button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+	                    <span></span>
+	                    <span></span>
+	                    <span></span>
+	                </button>
+	                <div class="site-logo"><a class="navbar-brand" href="index.html"><img class="logo-icon me-2" src="favicon.ico" width="40px" height="40px" alt="logo"><span class="logo-text">SupMod</span></a></div>
+                </div><!--//docs-logo-wrapper-->
+	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+	                <div class="top-search-box d-none d-lg-flex">
+		                <form class="search-form">
+				            <input type="text" placeholder="(under construction)" name="search" class="form-control search-input disabled" disabled>
+				            <button type="submit" class="btn search-btn disabled" value="Search" disabled><i class="fas fa-search"></i></button>
+				        </form>
+	                </div>
+	
+					<ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
+						<li class="list-inline-item"><a href="https://discord.gg/Va9yEBpa3F"><i class="fab fa-discord fa-fw"></i></a></li>
+		            </ul><!--//social-list-->
+					<a href="https://www.spigotmc.org/resources/supmod.108806/history" class="btn btn-primary d-none d-lg-flex">Download</a>
+	            </div><!--//docs-top-utilities-->
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+    
+    
+    <div class="docs-wrapper">
+	    <div id="docs-sidebar" class="docs-sidebar">
+		    <div class="top-search-box d-lg-none p-3">
+                <form class="search-form">
+		            <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
+		            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+		        </form>
+            </div>
+		    <nav id="docs-nav" class="docs-nav navbar">
+			    <ul class="section-items list-unstyled nav flex-column pb-3">
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-arrow-down"></i></span>Installation</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-2"><span class="theme-icon-holder me-2"><i class="fas fa-file"></i></span>File .yml</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-1">Config.yml</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-2">Emojy.yml</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-3"><span class="theme-icon-holder me-2"><i class="fas fa-language"></i></span>Language</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-1">en_US</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-2">fr_FR</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-4"><span class="theme-icon-holder me-2"><i class="fas fa-keyboard"></i></span>Commands</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-4-1">SupMod</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-4-2">Coins</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-4-3">Report</a></li>
+					<li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-5"><span class="theme-icon-holder me-2"><i class="fas fa-tools"></i></span>Additional features</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-5-1">Bad Words System</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-5-2">Auto-Rule Message</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-5-3">Emojy/Symbol in Chat</a></li>
+					<li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-6"><span class="theme-icon-holder me-2"><i class="fas fa-puzzle-piece"></i></span>Soft Depend</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-6-1">PlaceHolder API</a></li>
+
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-Galery"><span class="theme-icon-holder me-2"><i class="fas fa-image"></i></i></span>Galery</a></li>
+
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-9"><span class="theme-icon-holder me-2"><i class="fas fa-lightbulb"></i></span>FAQs (Under Redaction)</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-9-1">(FAQ Category One)</a></li>
+			    </ul>
+
+		    </nav>
+	    </div>
+	    <div class="docs-content">
+		    <div class="container">
+
+			    <article class="docs-article" id="section-1">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">Installation</h1>
+					    <section class="docs-intro">
+							<ol>
+								<li>You need to go on <a href="https://www.spigotmc.org/resources/supmod.108806/" class="accordion-body">Spigot</a>, click on <span class="fw-bold">Download Now</span></li>
+								<li>Now use the "plugin" directory of your Minecraft Server (if you haven't created a server, see how to do it here).</li>
+								<li>Add the SupMod.jar file to the "plugin" directory.</li>
+								<li>Launch your server and the plugin will be functional!</li>
+							</ol>
+						</section>
+				    </header>
+			    </article>
+			    
+			    
+			    <article class="docs-article" id="section-2">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">File .yml</h1>
+					    <section class="docs-intro">
+						    <p>Presentation of the different .yml configuration files.</p>
+						</section>
+				    </header>
+				     <section class="docs-section" id="item-2-1">
+						<h2 class="section-heading">Config.yml</h2>
+						 <div class="docs-code-block overflow-scroll" style="height: 500px">
+							 <script src="https://gist.github.com/SupMod/eb9764663c2f3d66c5f05f7db9514903.js"></script>
+						 </div>
+						<p>All data can be modified according to your preferences and needs.</p>
+					</section>
+					
+					<section class="docs-section" id="item-2-2">
+						<h2 class="section-heading">Emojy.yml</h2>
+						<div class="docs-code-block">
+							<script src="https://gist.github.com/SupMod/04484b30ab2bb4d283f27dbd7717513e.js"></script>
+						</div>
+						<p>All data can be modified according to your preferences and needs.</p>
+					</section>
+			    </article>
+
+
+			    <article class="docs-article" id="section-3">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">Language</h1>
+					    <section class="docs-intro">
+						    <p>Two languages are available: en_US (English) and fr_FR (French). You can also create your own language file or modify an existing one as desired.<br>
+								If any information or data is missing, the plugin will automatically use the en_US file present in the .jar to retrieve the message to display.</p>
+						</section>
+				    </header>
+				     <section class="docs-section" id="item-3-1">
+						<h2 class="section-heading">en_US</h2>
+						 <div class="docs-code-block overflow-scroll" style="height: 500px">
+							 <script src="https://gist.github.com/SupMod/e27612c943c8bfd633e3395fa92c28b6.js"></script>
+						 </div>
+					</section>
+					
+					<section class="docs-section" id="item-3-2">
+						<h2 class="section-heading">fr_FR</h2>
+						<div class="docs-code-block overflow-scroll" style="height: 500px">
+							<script src="https://gist.github.com/SupMod/c31152029370469376820a5af68f9956.js"></script>
+						</div>
+					</section>
+			    </article>
+
+
+				<article class="docs-article" id="section-4">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">Commands</h1>
+					    <section class="docs-intro">
+						    <p>
+								Here is the list of different commands.<br>
+								For arguments enclosed in [...], it means they are optional, whereas arguments enclosed in <...> are mandatory.<br>
+								For arguments with @player_name, you need to specify a player name.<br>
+								For arguments starting with #, you need to put a specific information.
+							</p>
+						</section>
+				    </header>
+				     <section class="docs-section" id="item-4-1">
+						 <h2 class="section-heading">SupMod</h2>
+						 <div class="table-responsive my-4">
+							 <table class="table table-striped">
+								 <thead>
+								 <tr>
+									 <th scope="col">Command</th>
+									 <th scope="col">Argument</th>
+									 <th scope="col">Permission</th>
+									 <th scope="col">Description</th>
+								 </tr>
+								 </thead>
+								 <tbody>
+								 <tr>
+									 <th class="align-middle" scope="row">/supmod gamerule</th>
+									 <td class="align-middle"></td>
+									 <td class="align-middle">supmod.admin.gamerule</td>
+									 <td class="align-middle">Show GameRule GUI to configure it</td>
+								 </tr>
+								 <tr>
+									 <th class="align-middle" scope="row">/supmod help</th>
+									 <td class="align-middle">[commands | perms]</td>
+									 <td class="align-middle">supmod.help</td>
+									 <td class="align-middle">Show command / perms or all informations</td>
+								 </tr>
+
+								 <tr>
+									 <th class="align-middle" scope="row">/supmod menu admin</th>
+									 <td class="align-middle">report [closed | pending]</td>
+									 <td class="align-middle">supmod.admin</td>
+									 <td class="align-middle">Show pending, closed or all reports with information about it.</td>
+								 </tr>
+
+								 <tr>
+									 <th class="align-middle" scope="row">/supmod menu drop</th>
+									 <td class="align-middle">[add | list | off | on | remove]</td>
+									 <td class="align-middle">supmod.admin</td>
+									 <td class="align-middle">You can show what player drop, when and where. On/Off is to enable or disable it. Add, Remove and list are to show player who are logged</td>
+								 </tr>
+
+								 <tr>
+									 <th class="align-middle" scope="row">/supmod menu player</th>
+									 <td class="align-middle"></td>
+									 <td class="align-middle">supmod.player</td>
+									 <td class="align-middle">Show all player in your server and all information about it.</td>
+								 </tr>
+
+								 <tr>
+									 <th class="align-middle" scope="row">/supmod reload</th>
+									 <td class="align-middle"></td>
+									 <td class="align-middle">supmod.reload</td>
+									 <td class="align-middle">Reload all file and data for the plugin.</td>
+								 </tr>
+
+								 <tr>
+									 <th class="align-middle" scope="row">/supmod spec_teleport</th>
+									 <td class="align-middle">&#60;true | false&#62;</td>
+									 <td class="align-middle">supmod.admin.spectatortp</td>
+									 <td class="align-middle">This option is to enable or disable, when you use /supmod menu player and click to teleport to a player, to be in spectator mode or no</td>
+								 </tr>
+
+								 <tr>
+									 <th class="align-middle" scope="row">/supmod version</th>
+									 <td class="align-middle"></td>
+									 <td class="align-middle">supmod.version</td>
+									 <td class="align-middle">Show current version of the plugin</td>
+								 </tr>
+
+								 <tr>
+									 <th class="align-middle" scope="row">/supmod webhook</th>
+									 <td class="align-middle">&#60;on | off&#62;</td>
+									 <td class="align-middle">supmod.admin</td>
+									 <td class="align-middle">Enable or Disable Webhook.</td>
+								 </tr>
+								 <tr>
+									 <th class="align-middle" scope="row">/supmod webhook</th>
+									 <td class="align-middle">player_join_server &#60;on | off&#62;<br> player_kill_player &#60;on | off&#62;<br> player_leave_server &#60;on | off&#62;<br> player_send_message_on_chat &#60;on | off&#62;</td>
+									 <td class="align-middle">supmod.admin</td>
+									 <td class="align-middle">Enable or Disable different options of the webhook</td>
+								 </tr>
+
+								 </tbody>
+							 </table>
+						 </div>
+
+						 <div class="simplelightbox-gallery row mb-3">
+							 <div class="col-12 col-md-3 col-lg-2 mb-3">
+								 <a href="assets/supmod_images/normal/supmod_webhook.png"><img class="figure-img img-fluid shadow rounded" src="assets/supmod_images/thumb/supmod_webhook-thumb.png" alt="" title="Gamerule GUI"/></a>
+							 </div>
+							 <div class="col-12 col-md-3 col-lg-2 mb-3">
+								 <a href="assets/supmod_images/normal/supmod_gamerule_gui.png"><img class="figure-img img-fluid shadow rounded" src="assets/supmod_images/thumb/supmod_gamerule_gui-thumb.png" alt="" title="Gamerule GUI"/></a>
+							 </div>
+							 <div class="col-12 col-md-3 col-lg-2 mb-3">
+								 <a href="assets/supmod_images/normal/supmod_gamerule_gui2.png"><img class="figure-img img-fluid shadow rounded" src="assets/supmod_images/thumb/supmod_gamerule_gui2-thumb.png" alt="" title="Option in Gamerule GUI"/></a>
+							 </div>
+						 </div>
+					</section>
+
+					<section class="docs-section" id="item-4-2">
+						<h2 class="section-heading">Coins</h2>
+						<div class="table-responsive my-4">
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									<th scope="col">Command</th>
+									<th scope="col">Argument</th>
+									<th scope="col">Permission</th>
+									<th scope="col">Description</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr>
+									<th class="align-middle" scope="row">/coins</th>
+									<td class="align-middle"></td>
+									<td class="align-middle">supmod.admin.gamerule</td>
+									<td class="align-middle">Show your own balance</td>
+								</tr>
+
+								<tr>
+									<th class="align-middle" scope="row">/coins balance</th>
+									<td class="align-middle">&#60;@player_name&#62;</td>
+									<td class="align-middle">supmod.coins.player</td>
+									<td class="align-middle">Show balance for a specific player</td>
+								</tr>
+
+								<tr>
+									<th class="align-middle" scope="row">/coins give</th>
+									<td class="align-middle">&#60;@player_name&#62; &#60;#amount&#62;</td>
+									<td class="align-middle">supmod.coins.admin</td>
+									<td class="align-middle">Give a specific amount of coins to a player</td>
+								</tr>
+
+								<tr>
+									<th class="align-middle" scope="row">/coins help</th>
+									<td class="align-middle"></td>
+									<td class="align-middle"></td>
+									<td class="align-middle">Show command information</td>
+								</tr>
+
+								<tr>
+									<th class="align-middle" scope="row">/coins pay</th>
+									<td class="align-middle">&#60;@player_name&#62; &#60;#amount&#62;</td>
+									<td class="align-middle">supmod.coins.pay</td>
+									<td class="align-middle">Pay a player with a specific amount of coins</td>
+								</tr>
+
+								<tr>
+									<th class="align-middle" scope="row">/coins remove</th>
+									<td class="align-middle">&#60;@player_name&#62; &#60;#amount&#62;</td>
+									<td class="align-middle">supmod.coins.admin</td>
+									<td class="align-middle">Remove a specific amount of coins to a player</td>
+								</tr>
+
+								<tr>
+									<th class="align-middle" scope="row">/coins set</th>
+									<td class="align-middle">&#60;@player_name&#62; &#60;#amount&#62;</td>
+									<td class="align-middle">supmod.coins.admin</td>
+									<td class="align-middle">Set a specific amount of coins to a player</td>
+								</tr>
+
+								</tbody>
+							</table>
+						</div>
+					</section>
+
+					<section class="docs-section" id="item-4-3">
+						<h2 class="section-heading">Report</h2>
+						<div class="table-responsive my-4">
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									<th scope="col">Command</th>
+									<th scope="col">Argument</th>
+									<th scope="col">Permission</th>
+									<th scope="col">Description</th>
+								</tr>
+								</thead>
+								<tbody>
+
+								<tr>
+									<th class="align-middle" scope="row">/report</th>
+									<td class="align-middle">[@player_name]</td>
+									<td class="align-middle">supmod.player</td>
+									<td class="align-middle">Show all player InGame to report it. You can specify a player to show directly the GUI for the report</td>
+								</tr>
+
+								</tbody>
+							</table>
+						</div>
+					</section>
+			    </article>
+
+
+				<article class="docs-article" id="section-5">
+					<header class="docs-header">
+						<h1 class="docs-heading">Additional features</h1>
+						<section class="docs-intro">
+							<p>Here, all the features added by the plugin will be displayed and described.</p>
+						</section>
+					</header>
+					<section class="docs-section" id="item-5-1">
+						<h2 class="section-heading">Bad Words System</h2>
+						<p>In the configuration file, you have a "moderation_chat:" section where you can add various words. These words will be logged when a player uses them, and later you can take action by going to their profile to see the list of words they have used.</p>
+					</section>
+					<section class="docs-section" id="item-5-2">
+						<h2 class="section-heading">Auto-Rule Message</h2>
+						<p>You can now send a message a few seconds after the player connects to remind them of the rules to follow! You have the option to modify the content of the message as you wish by using the auto_rule.txt file located in the plugin folder (configurable in the config.yml file).</p>
+						<div class="simplelightbox-gallery row mb-3">
+							<div class="col-12 col-md-4 mb-3">
+								<a href="assets/supmod_images/normal/supmod_auto_rule.png"><img class="figure-img img-fluid shadow rounded" src="assets/supmod_images/thumb/supmod_auto_rule-thumb.png" alt="" title="Auto Rule Message"/></a>
+							</div>
+						</div>
+					</section>
+					<section class="docs-section" id="item-5-3">
+						<h2 class="section-heading">Emojy/Symbol in Chat</h2>
+						<p>
+							You have the ability to send small emojis in the chat, which you have previously configured in the <a class="text-link" href="#item-2-2">emojy.yml</a> file.<br>
+							To use them, you can configure the symbol (default is "<>") to surround the name of your emoji.
+						</p>
+						<div class="simplelightbox-gallery row mb-3">
+							<div class="col-12 col-md-4 mb-3">
+								<a href="assets/supmod_images/normal/supmod_emojy.png"><img class="figure-img img-fluid shadow rounded" src="assets/supmod_images/thumb/supmod_emojy-thumb.png" alt="" title="Auto Rule Message"/></a>
+							</div>
+						</div>
+					</section>
+				</article>
+
+
+				<article class="docs-article" id="section-6">
+					<header class="docs-header">
+						<h1 class="docs-heading">Soft Depend</h1>
+						<section class="docs-intro">
+							<p>Here are the plugins that SupMod is compatible with. Please note that the list may change over time with future additions.</p>
+						</section>
+						<section class="docs-section" id="item-6-1">
+							<h2 class="section-heading">PlaceHolder API</h2>
+							<p>Here is the list of all the placeholders supported by the plugin.</p>
+							<li>%supmod_count_kill% <> Show how many kills do the player</li>
+							<li>%supmod_count_death% <> Show how many death have the player</li>
+							<li>%supmod_time_played% <> Show how many times the player has played</li>
+							<li>%supmod_count_report% <> Show how many reports do the player</li>
+							<li>%supmod_count_active_report% <> Show how many active report the player have</li>
+							<li>%supmod_count_bad_words% <> Show how many bad words send the player</li>
+							<li>%supmod_last_connexion% <> Show when was his last connexion</li>
+							<li>%supmod_first_connexion% <> Show when was his first connexion</li>
+							<li>%supmod_coins% <> Display the number of coins that the player owns.</li>
+						</section>
+					</header>
+				</article>
+
+			    
+			    <article class="docs-article" id="section-Galery">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">Galery</h1>
+					    <section class="docs-intro">
+						    <p>See some pictures of the plugin</p>
+						</section>
+				    </header>
+					<div class="simplelightbox-gallery row mb-3">
+						<div class="col-12 col-md-4 mb-3">
+							<a href="assets/supmod_images/normal/supmod_webhook.png"><img class="figure-img img-fluid shadow rounded" src="assets/supmod_images/thumb/supmod_webhook-thumb.png" alt="" title="WebHook exemple"/></a>
+						</div>
+					</div>
+			    </article>
+
+			    
+			    <article class="docs-article" id="section-9">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">FAQs (under redaction)</h1>
+					    <section class="docs-intro">
+						    <p>Commonly asked questions and provide answers about SupMod.</p>
+						</section><!--//docs-intro-->
+				    </header>
+				     <section class="docs-section" id="item-9-1">
+						<h2 class="section-heading"><small>(FAQ Category One)</small></h2>
+						<h5 class="pt-3"><i class="fas fa-question-circle me-1"></i>What's sit amet quam eget lacinia?</h5>
+						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.</p>
+						<h5 class="pt-3"><i class="fas fa-question-circle me-1"></i>How to ipsum dolor sit amet quam tortor?</h5>
+						<p>Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. </p>
+						<h5 class="pt-3"><i class="fas fa-question-circle me-1"></i>Can I  bibendum sodales?</h5>
+						<p>Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. </p>
+						<h5 class="pt-3"><i class="fas fa-question-circle me-1"></i>Where arcu sed urna gravida?</h5>
+						<p>Aenean et sodales nisi, vel efficitur sapien. Quisque molestie diam libero, et elementum diam mollis ac. In dignissim aliquam est eget ullamcorper. Sed id sodales tortor, eu finibus leo. Vivamus dapibus sollicitudin justo vel fermentum. Curabitur nec arcu sed urna gravida lobortis. Donec lectus est, imperdiet eu viverra viverra, ultricies nec urna. </p>
+					</section>
+
+			    </article>
+
+			    <footer class="footer">
+				    <div class="container text-center py-5">
+				        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+			            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="theme-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+						<br>
+						<ul class="social-list list-unstyled pb-4 mb-0 mt-3">
+							<li class="list-inline-item"><a href="https://discord.gg/Va9yEBpa3F" target="_blank"><i class="fab fa-discord fa-fw"></i></a></li>
+						</ul>
+				    </div>
+			    </footer>
+		    </div> 
+	    </div>
+    </div><!--//docs-wrapper-->
+   
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+    
+    
+    <!-- Page Specific JS -->
+    <script src="assets/plugins/smoothscroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script src="assets/js/highlight-custom.js"></script> 
+    <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+    <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+    <script src="assets/js/docs.js"></script> 
+
+</body>
+</html> 
+
