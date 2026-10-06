@@ -1,0 +1,8 @@
+&d&m                                              
+&fWelcome &d%player%&f! Please respect the rules:
+&7- &fNo cheating, no duplication glitches
+&7- &fNo insults, no spam, no advertising
+&7- &fNo griefing or stealing
+&fUse &d/report &fto report a player to the staff.
+&8%online% player(s) online - %full_date%
+&d&m                                              

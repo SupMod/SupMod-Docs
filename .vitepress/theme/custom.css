@@ -1,0 +1,135 @@
+/* SupMod documentation: colours of the wolf logo, Rubik for reading, Pixelify Sans for the game menus. */
+
+:root {
+  --sm-wolf: #ca1c45;
+  --sm-wolf-deep: #a3153a;
+  --sm-wolf-soft: rgba(202, 28, 69, 0.12);
+  --sm-rust: #9d291c;
+  --sm-ink: #1e2233;
+
+  --vp-c-brand-1: var(--sm-wolf-deep);
+  --vp-c-brand-2: var(--sm-wolf);
+  --vp-c-brand-3: var(--sm-wolf);
+  --vp-c-brand-soft: var(--sm-wolf-soft);
+
+  --vp-font-family-base: 'Rubik', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --vp-home-hero-name-color: var(--sm-ink);
+  --vp-button-brand-bg: var(--sm-wolf-deep);
+  --vp-button-brand-hover-bg: var(--sm-wolf);
+  --vp-button-brand-active-bg: var(--sm-rust);
+}
+
+.dark {
+  --sm-wolf-soft: rgba(240, 87, 122, 0.16);
+  --vp-c-brand-1: #f0577a;
+  --vp-c-brand-2: #e23b63;
+  --vp-c-brand-3: #ca1c45;
+  --vp-home-hero-name-color: #ffffff;
+  --vp-button-brand-bg: #ca1c45;
+  --vp-button-brand-hover-bg: #e23b63;
+  --vp-button-brand-active-bg: #a3153a;
+}
+
+/* ---------------------------------------------------------------- home */
+
+.VPHero .name,
+.VPHero .name.clip {
+  font-family: 'Pixelify Sans', var(--vp-font-family-base);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.VPHero .text {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* the hero picture is the interactive menu (HeroMenu.vue), not an image */
+.VPHero .image {
+  margin: 0 0 32px !important;
+}
+
+.VPHero .image-container {
+  width: auto !important;
+  height: auto !important;
+  transform: none !important;
+  display: flex;
+  justify-content: center;
+}
+
+.VPHero .image-bg {
+  display: none;
+}
+
+@media (min-width: 960px) {
+  .VPHero .image {
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* ---------------------------------------------------------------- pages */
+
+.vp-doc h1 {
+  letter-spacing: -0.01em;
+}
+
+/* commands, permissions and placeholders are read and copied: they stay on one line */
+.vp-doc table code {
+  white-space: nowrap;
+}
+
+.vp-doc table td {
+  vertical-align: top;
+}
+
+/* small labels used in the tables: who has the permission by default */
+.vp-doc .who {
+  display: inline-block;
+  padding: 0 7px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.vp-doc .who.everyone {
+  background: rgba(63, 155, 58, 0.14);
+  color: #2f7a2b;
+}
+
+.vp-doc .who.staff {
+  background: rgba(59, 130, 246, 0.14);
+  color: #2563c4;
+}
+
+.vp-doc .who.admin {
+  background: var(--sm-wolf-soft);
+  color: var(--vp-c-brand-1);
+}
+
+.vp-doc .who.nobody {
+  background: var(--vp-c-default-soft);
+  color: var(--vp-c-text-2);
+}
+
+.dark .vp-doc .who.everyone {
+  color: #7fd67a;
+}
+
+.dark .vp-doc .who.staff {
+  color: #8db8ff;
+}
+
+/* a Minecraft chat line or menu text quoted in the pages */
+.vp-doc .mc {
+  font-family: 'Pixelify Sans', var(--vp-font-family-base);
+  background: #2b2b33;
+  color: #f4f4f4;
+  padding: 2px 8px;
+  border-radius: 3px;
+}

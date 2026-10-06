@@ -1,0 +1,22 @@
+# SupMod - Zones (managed in game: /sm zones, selection wand: /sm zones wand)
+# Example:
+# zones:
+#   spawn:
+#     world: world
+#     min: [-50, 60, -50]
+#     max: [50, 120, 50]
+#     priority: 0
+#     enter:
+#       title: "&d&lSPAWN"
+#       subtitle: "&7Safe zone"
+#       action-bar: ""
+#       message: ""
+#       sound: "block.note_block.pling"
+#       commands: []          # console commands (%player%, %zone%), edit needs supmod.admin.commands
+#     leave:
+#       action-bar: "&7You left the spawn"
+#     flags:
+#       deny-pvp: true
+#       deny-fly: false
+#       entry-permission: ""  # e.g. "supmod.zone.vip" to keep the other players out
+zones: {}

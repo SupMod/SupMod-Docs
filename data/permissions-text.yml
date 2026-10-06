@@ -1,0 +1,145 @@
+# Texts of the "Permissions" page (scripts/generate.py).
+# en: replaces the description of plugin.yml (only when it is missing or unclear); fr: French text.
+supmod.*: { en: "Same as supmod.admin (does not add supmod.admin.commands nor the exempt and bypass permissions)", fr: "Identique à supmod.admin (n'ajoute ni supmod.admin.commands ni les permissions d'exemption et de contournement)" }
+supmod.report: { fr: "Utiliser /report" }
+supmod.help: { fr: "Utiliser /supmod help" }
+supmod.playtime: { fr: "Utiliser /playtime" }
+supmod.playtime.others: { fr: "Voir le temps de jeu des autres joueurs et /playtime top" }
+supmod.coins: { fr: "Voir son propre solde de coins" }
+supmod.coins.pay: { fr: "Payer un autre joueur" }
+supmod.coins.player: { fr: "Voir le solde d'un autre joueur" }
+supmod.coins.top: { fr: "Voir les joueurs les plus riches" }
+supmod.coins.history: { fr: "Voir ses propres transactions (/coins history)" }
+supmod.rewards: { fr: "Utiliser /rewards et /daily, recevoir les récompenses" }
+supmod.bounty: { fr: "Placer des primes" }
+supmod.bounty.list: { fr: "Voir les primes" }
+supmod.stats: { fr: "Utiliser /stats" }
+supmod.stats.others: { fr: "Voir les statistiques des autres joueurs" }
+supmod.sidebar.toggle: { fr: "Afficher ou masquer la barre latérale avec /sidebar" }
+supmod.ticket: { fr: "Créer des tickets (/ticket, /helpop), y répondre, les fermer et les noter" }
+supmod.appeal: { fr: "Faire appel d'une sanction (/appeal)" }
+supmod.afk: { fr: "Utiliser /afk" }
+supmod.staff: { fr: "Toutes les permissions du staff (modérateurs)" }
+supmod.punish.warn: { fr: "Avertir des joueurs (/warn, menus)" }
+supmod.punish.mute: { fr: "Rendre des joueurs muets" }
+supmod.punish.unmute: { fr: "Lever un mute" }
+supmod.punish.kick: { fr: "Expulser des joueurs" }
+supmod.punish.ban: { fr: "Bannir des joueurs" }
+supmod.punish.unban: { fr: "Débannir des joueurs" }
+supmod.punish.ipban: { fr: "Ban IP / mute IP" }
+supmod.punish.permanent: { fr: "Bans et mutes définitifs (sinon une durée est obligatoire)" }
+supmod.punish.revoke: { fr: "Lever une sanction depuis l'historique" }
+supmod.punish.menu: { fr: "Ouvrir le menu des sanctions (/punish, fiche joueur, signalements, mode staff)" }
+supmod.punish.history: { fr: "Voir l'historique des sanctions d'un joueur" }
+supmod.punish.notify: { fr: "Voir les sanctions silencieuses et les levées de sanction" }
+supmod.punish.silent: { fr: "Sanctionner en silence avec -s" }
+supmod.punish.templates: { fr: "Créer et modifier les modèles de sanction en jeu" }
+supmod.punish.exempt: { fr: "Ne peut pas être sanctionné par un membre du staff (la console le peut)" }
+supmod.punish.template.cheat: { fr: "Utiliser le modèle de sanction « cheat »" }
+supmod.chat.history: { fr: "Voir l'historique du chat d'un joueur" }
+supmod.chat.history.commands: { fr: "Voir l'historique des commandes d'un joueur" }
+supmod.chat.manage: { en: "All the /sm chat commands (lock, clear, slow)", fr: "Toutes les commandes /sm chat (lock, clear, slow)" }
+supmod.chat.lock: { en: "Lock and unlock the chat (/sm chat lock)", fr: "Verrouiller et déverrouiller le chat (/sm chat lock)" }
+supmod.chat.clear: { en: "Clear the chat (/sm chat clear)", fr: "Vider le chat (/sm chat clear)" }
+supmod.chat.slow: { en: "Slow mode (/sm chat slow)", fr: "Mode lent (/sm chat slow)" }
+supmod.staffmode: { fr: "Utiliser le mode staff" }
+supmod.vanish: { fr: "Utiliser /vanish" }
+supmod.vanish.see: { fr: "Voir les membres du staff invisibles" }
+supmod.vanish.others: { fr: "Rendre invisible un autre membre du staff" }
+supmod.freeze: { fr: "Geler des joueurs, recevoir les alertes de freeze" }
+supmod.freeze.exempt: { fr: "Ne peut pas être gelé" }
+supmod.staffchat: { fr: "Lire et écrire dans le chat staff" }
+supmod.commandspy: { fr: "Utiliser /commandspy" }
+supmod.commandspy.exempt: { fr: "Ses commandes ne sont jamais montrées aux espions" }
+supmod.randomtp: { fr: "Téléportation aléatoire vers un joueur (/sm randomtp, mode staff)" }
+supmod.alerts.alts: { fr: "Recevoir les alertes multi-comptes" }
+supmod.alerts.xray: { fr: "Recevoir les alertes x-ray" }
+supmod.alerts.view: { fr: "Ouvrir l'historique des alertes (/sm alerts)" }
+supmod.bypass.spam: { fr: "Non concerné par l'anti-spam" }
+supmod.bypass.advertising: { fr: "Peut envoyer des liens et des adresses IP" }
+supmod.bypass.chatlock: { fr: "Peut parler quand le chat est verrouillé" }
+supmod.bypass.slowmode: { fr: "Non concerné par le mode lent" }
+supmod.bypass.chatclear: { fr: "Son chat n'est pas vidé" }
+supmod.bypass.xray: { fr: "Aucune alerte x-ray pour ce joueur" }
+supmod.announce.bypass: { fr: "Ne reçoit pas les annonces automatiques" }
+supmod.bounty.exempt: { fr: "Personne ne peut placer de prime sur ce joueur" }
+supmod.bounty.bypass-cooldown: { fr: "Pas de délai entre deux primes" }
+supmod.player: { en: "Open the player list and the player files (/sm players, /sm profile)", fr: "Ouvrir la liste des joueurs et les fiches (/sm players, /sm profile)" }
+supmod.admin.report.receive: { fr: "Être prévenu de chaque nouveau signalement" }
+supmod.admin.report.manage: { fr: "Ouvrir la liste des signalements et les traiter" }
+supmod.admin.chat.alerts: { fr: "Recevoir les alertes du filtre de mots" }
+supmod.admin.teleport: { fr: "Se téléporter à un joueur depuis sa fiche" }
+supmod.admin.spectatortp: { fr: "Utiliser /sm spectp et /sm return" }
+supmod.admin.inventory: { fr: "Voir l'inventaire et l'ender chest d'un joueur" }
+supmod.bypass.report.cooldown: { fr: "Pas de délai sur /report" }
+supmod.bypass.chatfilter: { fr: "Non concerné par le filtre de mots" }
+supmod.admin: { fr: "Toutes les permissions de SupMod" }
+supmod.admin.commands: { fr: "Modifier les commandes console lancées par SupMod (récompenses, zones, première connexion, redémarrage). Volontairement absente de supmod.admin." }
+supmod.health: { fr: "/sm health (tableau de bord de santé du serveur)" }
+supmod.health.alerts: { fr: "Recevoir les alertes de TPS bas / mémoire pleine" }
+supmod.lag: { fr: "/sm lag (chunks les plus chargés)" }
+supmod.lag.clear: { fr: "Nettoyer les objets au sol, tout de suite ou avec un compte à rebours" }
+supmod.worlds: { fr: "/sm worlds (statistiques des mondes)" }
+supmod.worlds.manage: { fr: "Changer l'heure, la météo, la difficulté, le PvP, le spawn, la bordure, la sauvegarde auto, décharger un monde" }
+supmod.worlds.load: { fr: "Charger un dossier de monde existant" }
+supmod.maintenance: { fr: "/sm maintenance" }
+supmod.maintenance.bypass: { fr: "Peut se connecter pendant la maintenance" }
+supmod.restart: { fr: "/sm restart" }
+supmod.bossbar.admin: { fr: "/sm bossbar" }
+supmod.zones.admin: { fr: "Créer et modifier les zones" }
+supmod.zones.bypass: { fr: "Ignore les règles des zones (permission d'entrée, pas de vol)" }
+supmod.holograms.admin: { fr: "Créer et modifier les hologrammes" }
+supmod.admin.settings: { fr: "Modifier la configuration en jeu (/sm settings)" }
+supmod.admin.report.override: { fr: "Traiter un signalement pris en charge par un autre membre du staff" }
+supmod.staff.log: { fr: "Voir l'historique des actions du staff (/sm staffhistory)" }
+supmod.announce.admin: { fr: "Gérer les annonces automatiques (/sm announce)" }
+supmod.rewards.admin: { fr: "Modifier les récompenses en jeu" }
+supmod.bounty.admin: { fr: "Retirer des primes, activer ou désactiver les primes" }
+supmod.stats.admin: { fr: "Activer ou désactiver /stats, rafraîchir les classements" }
+supmod.coins.history.others: { fr: "Voir les transactions des autres joueurs" }
+supmod.admin.ip: { fr: "Voir les adresses IP dans les fiches, chercher par IP (/sm ip)" }
+supmod.admin.drops: { fr: "Gérer le journal des objets jetés" }
+supmod.admin.gamerule: { fr: "Ouvrir le menu des règles du jeu" }
+supmod.admin.webhook: { fr: "Configurer le webhook Discord en jeu" }
+supmod.reload: { fr: "Recharger la configuration" }
+supmod.version: { fr: "Voir la version du plugin" }
+supmod.tasks.list: { fr: "Lister les tâches planifiées" }
+supmod.broadcast: { fr: "Utiliser /broadcast" }
+supmod.coins.admin: { fr: "Donner, retirer et définir des coins" }
+supmod.update.notify: { fr: "Être prévenu quand une nouvelle version sort" }
+supmod.blacklist.admin: { fr: "Toutes les commandes de la liste noire" }
+supmod.blacklist.reload: { en: "Reload the blacklist (/sm blacklist reload)", fr: "Recharger la liste noire (/sm blacklist reload)" }
+supmod.blacklist.ban: { en: "Add an IP or a name to the blacklist", fr: "Ajouter une IP ou un pseudo à la liste noire" }
+supmod.blacklist.unban: { en: "Remove an IP or a name from the blacklist", fr: "Retirer une IP ou un pseudo de la liste noire" }
+supmod.blacklist.list: { en: "See the blacklist (/sm blacklist list)", fr: "Voir la liste noire (/sm blacklist list)" }
+supmod.gamemode: { fr: "Utiliser /gm, /gmc, /gms, /gma, /gmsp (chaque mode demande aussi sa propre permission)" }
+supmod.gamemode.survival: { fr: "Mode survie avec /gm" }
+supmod.gamemode.creative: { fr: "Mode créatif avec /gm" }
+supmod.gamemode.adventure: { fr: "Mode aventure avec /gm" }
+supmod.gamemode.spectator: { fr: "Mode spectateur avec /gm" }
+supmod.gamemode.others: { fr: "Changer le mode de jeu des autres joueurs" }
+supmod.player.heal: { fr: "Soigner un joueur (fiche, actions rapides)" }
+supmod.player.feed: { fr: "Nourrir un joueur" }
+supmod.player.clear: { fr: "Vider l'inventaire d'un joueur (chaque objet est journalisé)" }
+supmod.player.tphere: { fr: "Téléporter un joueur vers soi" }
+supmod.player.exempt: { fr: "Protégé contre les actions rapides, le mode de jeu et l'édition d'inventaire des autres membres du staff (sauf opérateurs)" }
+supmod.admin.inventory.edit: { fr: "Prendre, donner et supprimer des objets dans l'inventaire et l'ender chest d'un joueur (chaque objet est journalisé)" }
+supmod.admin.inventory.log: { fr: "Voir le journal des modifications d'inventaire (/sm invlog)" }
+supmod.notes: { fr: "Lire et écrire les notes du staff, liste de surveillance (/sm notes, /sm note, /sm watchlist)" }
+supmod.notes.delete: { fr: "Supprimer des notes" }
+supmod.tags: { fr: "Taguer des joueurs (à surveiller, suspect cheat, VIP...)" }
+supmod.watch.notify: { fr: "Alerte quand un joueur tagué « à surveiller » se connecte" }
+supmod.timeline: { fr: "Chronologie d'un joueur, pseudos utilisés (/sm timeline)" }
+supmod.afk.exempt: { fr: "Jamais marqué AFK automatiquement" }
+supmod.afk.kickexempt: { fr: "Jamais expulsé pour AFK" }
+supmod.ticket.manage: { fr: "Traiter les tickets (liste, prise en charge, réponse, fermeture)" }
+supmod.ticket.notify: { fr: "Recevoir les nouveaux tickets" }
+supmod.ticket.override: { fr: "Prendre ou fermer un ticket pris en charge par quelqu'un d'autre" }
+supmod.ticket.bypass.cooldown: { fr: "Pas de délai entre deux tickets" }
+supmod.appeal.manage: { fr: "Accepter ou refuser les appels (/sm appeals)" }
+supmod.appeal.notify: { fr: "Recevoir les nouveaux appels" }
+supmod.appeal.create: { en: "Create an appeal for a player with his code (/sm appeal create, also needs supmod.appeal.manage), no delay", fr: "Créer un appel pour un joueur avec son code (/sm appeal create, demande aussi supmod.appeal.manage), sans délai" }
+supmod.activity: { fr: "Activité du serveur, statistiques quotidiennes et rétention (/sm activity)" }
+supmod.staffstats: { fr: "Ses propres statistiques de staff (/sm staffstats)" }
+supmod.staffstats.others: { fr: "Statistiques et classement de tous les membres du staff" }
+supmod.network: { fr: "État de la synchronisation réseau (/sm network)" }
