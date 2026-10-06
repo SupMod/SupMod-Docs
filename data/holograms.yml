@@ -1,0 +1,25 @@
+# SupMod - Holograms (managed in game: /sm holograms - live position editor)
+# They use the TextDisplay entities of Minecraft 1.19.4+: no armor stand, no hitbox.
+# leaderboard: playtime, kills, coins or streak (the /stats leaderboards).
+# Example:
+# holograms:
+#   welcome:
+#     world: world
+#     x: 0.5
+#     y: 70.0
+#     z: 0.5
+#     lines:
+#       - "&d&lWELCOME"
+#       - "&7%online% players online"
+#     scale: 1.0
+#     billboard: CENTER        # CENTER, VERTICAL, HORIZONTAL, FIXED
+#     alignment: CENTER        # CENTER, LEFT, RIGHT
+#     background: default      # default, none, #AARRGGBB
+#     shadow: true
+#     see-through: false
+#     line-width: 200
+#     view-range: 1.0
+#     update-seconds: 5        # 0 = static text
+#     leaderboard: ""
+#     leaderboard-size: 10
+holograms: {}

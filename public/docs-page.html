@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SupMod documentation</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="/SupMod-Docs/guide/">
+  <script>
+    // Links of the old documentation (docs-page.html#section-x) open the matching new page.
+    var pages = {
+      'section-1': 'guide/installation', 'section-2': 'reference/config-files', 'item-2-1': 'reference/config-files',
+      'item-2-2': 'reference/config-files#emojis-yml', 'section-3': 'guide/languages', 'item-3-1': 'guide/languages',
+      'item-3-2': 'guide/languages', 'section-4': 'reference/commands', 'item-4-1': 'reference/commands',
+      'item-4-2': 'features/economy', 'item-4-3': 'features/reports', 'item-4-4': 'features/announcements#broadcast',
+      'section-5': 'features/chat', 'item-5-1': 'features/chat#word-filter', 'item-5-2': 'features/announcements#rules-on-join',
+      'item-5-3': 'features/chat#mentions-and-emojis', 'section-6': 'reference/placeholders', 'item-6-1': 'reference/placeholders',
+      'section-9': 'guide/faq', 'item-9-1': 'guide/faq'
+    };
+    var target = pages[location.hash.replace('#', '')] || 'guide/';
+    location.replace('/SupMod-Docs/' + target);
+  </script>
+</head>
+<body>
+  <p>The documentation moved: <a href="/SupMod-Docs/guide/">open the new documentation</a>.</p>
+</body>
+</html>

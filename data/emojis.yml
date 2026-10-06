@@ -1,0 +1,17 @@
+# Emojis usable in the chat (chat.emojis in config.yml).
+# A player writes :name: (with the default prefix/suffix) to get the symbol.
+# Symbols outside the Minecraft font are shown as squares: test them first.
+heart: "❤"
+star: "★"
+sword: "⚔"
+pickaxe: "⛏"
+bow: "🏹"
+fire: "🔥"
+wave: "🌊"
+check: "✔"
+cross: "✖"
+arrow: "➜"
+music: "♪"
+sun: "☀"
+skull: "☠"
+smile: "☺"

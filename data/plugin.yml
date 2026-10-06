@@ -1,0 +1,678 @@
+name: SupMod
+main: fr.supmod.SupModPlugin
+version: '2.3.0'
+api-version: '1.21'
+author: Alstarte
+description: Moderation suite - reports, punishments, staff mode, anti-spam, alerts, rewards, bounties, stats and economy.
+website: https://www.spigotmc.org/resources/supmod.108806/
+softdepend:
+  - PlaceholderAPI
+  - Vault
+
+commands:
+  supmod:
+    description: SupMod staff and admin command
+    aliases: [sm]
+  report:
+    description: Report a player to the staff
+    aliases: [rp]
+  coins:
+    description: Coins economy
+    aliases: [c]
+  playtime:
+    description: Show play time
+    aliases: [pt]
+  broadcast:
+    description: Broadcast a message to the whole server
+    aliases: [br]
+  warn:
+    description: Warn a player
+    usage: /warn <player> [reason] [-s]
+  mute:
+    description: Mute a player (temporarily or permanently)
+    usage: /mute <player> [duration] [reason] [-s]
+    aliases: [tempmute]
+  unmute:
+    description: Unmute a player
+    usage: /unmute <player> [reason]
+  kick:
+    description: Kick a player
+    usage: /kick <player> [reason] [-s]
+  ban:
+    description: Ban a player (temporarily or permanently)
+    usage: /ban <player> [duration] [reason] [-s]
+    aliases: [tempban]
+  ipban:
+    description: Ban a player and his IP address
+    usage: /ipban <player> [duration] [reason] [-s]
+    aliases: [banip]
+  unban:
+    description: Unban a player
+    usage: /unban <player> [reason]
+  history:
+    description: Punishment history of a player
+    usage: /history <player>
+    aliases: [sanctions, hist]
+  punish:
+    description: Punishment menu of a player, or apply a template
+    usage: /punish <player> [template] [-s]
+    aliases: [sanction]
+  staffmode:
+    description: Toggle the staff mode
+    aliases: [staff, mod]
+  vanish:
+    description: Become invisible to the players
+    aliases: [v]
+  freeze:
+    description: Freeze or unfreeze a player
+    usage: /freeze <player>
+    aliases: [ss]
+  staffchat:
+    description: Staff chat (toggle, or send a message)
+    usage: /staffchat [message]
+    aliases: [sc]
+  commandspy:
+    description: See the commands typed by the players
+    aliases: [cmdspy, spy]
+  rewards:
+    description: Play time and daily rewards
+    aliases: [reward, recompenses]
+  daily:
+    description: Claim the daily reward
+    aliases: [dailyreward, journalier]
+  bounty:
+    description: Put a price on the head of a player
+    usage: /bounty <player> <amount> | list
+    aliases: [bounties, prime]
+  sidebar:
+    description: Show or hide the sidebar
+    aliases: [sb]
+  stats:
+    description: Statistics and leaderboards
+    usage: /stats [player] | top [board]
+    aliases: [statistics, statistiques]
+  gm:
+    description: Change the game mode (menu without argument)
+    usage: /gm <0-3|mode> [player]
+  gmc:
+    description: Creative mode
+    usage: /gmc [player]
+  gms:
+    description: Survival mode
+    usage: /gms [player]
+  gma:
+    description: Adventure mode
+    usage: /gma [player]
+  gmsp:
+    description: Spectator mode
+    usage: /gmsp [player]
+  ticket:
+    description: Ask the staff for help (tickets)
+    usage: /ticket <message> | reply | close | view
+    aliases: [tickets, support]
+  helpop:
+    description: Ask the staff for help (creates a ticket)
+    usage: /helpop <message>
+    aliases: [aide]
+  appeal:
+    description: Appeal a punishment
+    usage: /appeal <message> | /appeal <code> <message>
+    aliases: [appel, unbanrequest]
+  afk:
+    description: Away from keyboard
+    aliases: [away]
+
+permissions:
+  supmod.*:
+    description: Every SupMod permission
+    default: op
+    children:
+      supmod.admin: true
+
+  # ---------- Players ----------
+  supmod.report:
+    description: Use /report
+    default: true
+  supmod.help:
+    description: Use /supmod help
+    default: true
+  supmod.playtime:
+    description: Use /playtime
+    default: true
+  supmod.playtime.others:
+    description: See the play time of other players and /playtime top
+    default: true
+  supmod.coins:
+    description: See your own coins balance
+    default: true
+  supmod.coins.pay:
+    description: Pay another player
+    default: true
+  supmod.coins.player:
+    description: See the balance of another player
+    default: true
+  supmod.coins.top:
+    description: See the richest players
+    default: true
+  supmod.coins.history:
+    description: See your own transactions (/coins history)
+    default: true
+  supmod.rewards:
+    description: Use /rewards and /daily, receive the rewards
+    default: true
+  supmod.bounty:
+    description: Place bounties
+    default: true
+  supmod.bounty.list:
+    description: See the bounties
+    default: true
+  supmod.stats:
+    description: Use /stats
+    default: true
+  supmod.stats.others:
+    description: See the statistics of other players
+    default: true
+  supmod.sidebar.toggle:
+    description: Show or hide the sidebar with /sidebar
+    default: true
+  supmod.ticket:
+    description: Create tickets (/ticket, /helpop), answer, close and rate them
+    default: true
+  supmod.appeal:
+    description: Appeal a punishment (/appeal)
+    default: true
+  supmod.afk:
+    description: Use /afk
+    default: true
+
+  # ---------- Staff ----------
+  supmod.staff:
+    description: All staff permissions (moderators)
+    default: op
+    children:
+      supmod.player: true
+      supmod.admin.report.receive: true
+      supmod.admin.report.manage: true
+      supmod.admin.chat.alerts: true
+      supmod.admin.teleport: true
+      supmod.admin.spectatortp: true
+      supmod.admin.inventory: true
+      supmod.bypass.report.cooldown: true
+      supmod.punish.warn: true
+      supmod.punish.mute: true
+      supmod.punish.unmute: true
+      supmod.punish.kick: true
+      supmod.punish.menu: true
+      supmod.punish.history: true
+      supmod.punish.notify: true
+      supmod.punish.silent: true
+      supmod.punish.template.cheat: true
+      supmod.chat.history: true
+      supmod.chat.history.commands: true
+      supmod.chat.manage: true
+      supmod.staffmode: true
+      supmod.vanish: true
+      supmod.vanish.see: true
+      supmod.freeze: true
+      supmod.freeze.exempt: true
+      supmod.staffchat: true
+      supmod.commandspy: true
+      supmod.randomtp: true
+      supmod.alerts.alts: true
+      supmod.alerts.xray: true
+      supmod.alerts.view: true
+      supmod.bypass.spam: true
+      supmod.bypass.advertising: true
+      supmod.bypass.chatlock: true
+      supmod.bypass.slowmode: true
+      supmod.bypass.chatclear: true
+      supmod.health: true
+      supmod.worlds: true
+      supmod.gamemode: true
+      supmod.gamemode.survival: true
+      supmod.gamemode.spectator: true
+      supmod.gamemode.others: true
+      supmod.player.heal: true
+      supmod.player.feed: true
+      supmod.player.tphere: true
+      supmod.notes: true
+      supmod.tags: true
+      supmod.watch.notify: true
+      supmod.timeline: true
+      supmod.afk.exempt: true
+      supmod.afk.kickexempt: true
+      supmod.ticket.manage: true
+      supmod.ticket.notify: true
+      supmod.ticket.bypass.cooldown: true
+      supmod.appeal.notify: true
+      supmod.staffstats: true
+  supmod.punish.warn:
+    description: Warn players (/warn, menus)
+    default: op
+  supmod.punish.mute:
+    description: Mute players
+    default: op
+  supmod.punish.unmute:
+    description: Unmute players
+    default: op
+  supmod.punish.kick:
+    description: Kick players
+    default: op
+  supmod.punish.ban:
+    description: Ban players
+    default: op
+  supmod.punish.unban:
+    description: Unban players
+    default: op
+  supmod.punish.ipban:
+    description: IP ban / IP mute
+    default: op
+  supmod.punish.permanent:
+    description: Permanent bans and mutes (without, a duration is required)
+    default: op
+  supmod.punish.revoke:
+    description: Revoke a punishment from the history menu
+    default: op
+  supmod.punish.menu:
+    description: Open the punishment menu (/punish, player file, reports, staff mode)
+    default: op
+  supmod.punish.history:
+    description: See the punishment history of a player
+    default: op
+  supmod.punish.notify:
+    description: See the silent punishments and the revocations
+    default: op
+  supmod.punish.silent:
+    description: Punish silently with the -s flag
+    default: op
+  supmod.punish.templates:
+    description: Create and edit the punishment templates in game
+    default: op
+  supmod.punish.exempt:
+    description: Cannot be punished by a staff member (the console still can)
+    default: op
+  supmod.punish.template.cheat:
+    description: Use the "cheat" punishment template
+    default: op
+  supmod.chat.history:
+    description: See the chat history of a player
+    default: op
+  supmod.chat.history.commands:
+    description: See the command history of a player
+    default: op
+  supmod.chat.manage:
+    description: /sm chat lock | clear | slow
+    default: op
+    children:
+      supmod.chat.lock: true
+      supmod.chat.clear: true
+      supmod.chat.slow: true
+  supmod.chat.lock:
+    default: op
+  supmod.chat.clear:
+    default: op
+  supmod.chat.slow:
+    default: op
+  supmod.staffmode:
+    description: Use the staff mode
+    default: op
+  supmod.vanish:
+    description: Use /vanish
+    default: op
+  supmod.vanish.see:
+    description: See the vanished staff members
+    default: op
+  supmod.vanish.others:
+    description: Vanish another staff member
+    default: op
+  supmod.freeze:
+    description: Freeze players, receive the freeze alerts
+    default: op
+  supmod.freeze.exempt:
+    description: Cannot be frozen
+    default: op
+  supmod.staffchat:
+    description: Read and write in the staff chat
+    default: op
+  supmod.commandspy:
+    description: Use /commandspy
+    default: op
+  supmod.commandspy.exempt:
+    description: Commands are never shown to the spies
+    default: false
+  supmod.randomtp:
+    description: Random teleportation to a player (/sm randomtp, staff mode)
+    default: op
+  supmod.alerts.alts:
+    description: Receive the alt account alerts
+    default: op
+  supmod.alerts.xray:
+    description: Receive the x-ray alerts
+    default: op
+  supmod.alerts.view:
+    description: Open the alert history (/sm alerts)
+    default: op
+  supmod.bypass.spam:
+    description: Not affected by the anti-spam
+    default: op
+  supmod.bypass.advertising:
+    description: Can send links and IP addresses
+    default: op
+  supmod.bypass.chatlock:
+    description: Can talk when the chat is locked
+    default: op
+  supmod.bypass.slowmode:
+    description: Not affected by the slow mode
+    default: op
+  supmod.bypass.chatclear:
+    description: The chat is not cleared for this player
+    default: op
+  supmod.bypass.xray:
+    description: No x-ray alert for this player
+    default: false
+  supmod.announce.bypass:
+    description: Does not receive the automatic announcements
+    default: false
+  supmod.bounty.exempt:
+    description: No bounty can be placed on this player
+    default: false
+  supmod.bounty.bypass-cooldown:
+    description: No cooldown between two bounties
+    default: op
+  supmod.player:
+    description: Open the player list and player files (/sm menu player, /sm profile)
+    default: op
+  supmod.admin.report.receive:
+    description: Receive a notification for every new report
+    default: op
+  supmod.admin.report.manage:
+    description: Open the report list and handle reports
+    default: op
+  supmod.admin.chat.alerts:
+    description: Receive chat filter alerts
+    default: op
+  supmod.admin.teleport:
+    description: Teleport to a player from his file
+    default: op
+  supmod.admin.spectatortp:
+    description: Use /sm spectp and /sm return
+    default: op
+  supmod.admin.inventory:
+    description: See the inventory and ender chest of a player
+    default: op
+  supmod.bypass.report.cooldown:
+    description: No cooldown on /report
+    default: op
+  supmod.bypass.chatfilter:
+    description: Not affected by the chat filter
+    default: op
+
+  # ---------- Administration ----------
+  supmod.admin:
+    description: All SupMod permissions
+    default: op
+    children:
+      supmod.staff: true
+      supmod.admin.ip: true
+      supmod.admin.drops: true
+      supmod.admin.gamerule: true
+      supmod.admin.webhook: true
+      supmod.reload: true
+      supmod.version: true
+      supmod.tasks.list: true
+      supmod.broadcast: true
+      supmod.blacklist.admin: true
+      supmod.coins.admin: true
+      supmod.update.notify: true
+      supmod.bypass.chatfilter: true
+      supmod.punish.ban: true
+      supmod.punish.unban: true
+      supmod.punish.ipban: true
+      supmod.punish.permanent: true
+      supmod.punish.revoke: true
+      supmod.punish.templates: true
+      supmod.admin.settings: true
+      supmod.admin.report.override: true
+      supmod.staff.log: true
+      supmod.announce.admin: true
+      supmod.rewards.admin: true
+      supmod.bounty.admin: true
+      supmod.bounty.bypass-cooldown: true
+      supmod.stats.admin: true
+      supmod.coins.history.others: true
+      supmod.vanish.others: true
+      supmod.health.alerts: true
+      supmod.lag: true
+      supmod.lag.clear: true
+      supmod.worlds.manage: true
+      supmod.worlds.load: true
+      supmod.maintenance: true
+      supmod.maintenance.bypass: true
+      supmod.restart: true
+      supmod.bossbar.admin: true
+      supmod.zones.admin: true
+      supmod.zones.bypass: true
+      supmod.holograms.admin: true
+      supmod.gamemode.creative: true
+      supmod.gamemode.adventure: true
+      supmod.player.clear: true
+      supmod.player.exempt: true
+      supmod.admin.inventory.edit: true
+      supmod.admin.inventory.log: true
+      supmod.notes.delete: true
+      supmod.ticket.override: true
+      supmod.appeal.manage: true
+      supmod.appeal.create: true
+      supmod.activity: true
+      supmod.staffstats.others: true
+      supmod.network: true
+  supmod.admin.commands:
+    description: Edit console commands run by SupMod (rewards, zones, first join, restart). Not in supmod.admin on purpose.
+    default: op
+  supmod.health:
+    description: /sm health (server health dashboard)
+    default: op
+  supmod.health.alerts:
+    description: Receive the low TPS / memory alerts
+    default: op
+  supmod.lag:
+    description: /sm lag (most loaded chunks)
+    default: op
+  supmod.lag.clear:
+    description: Clear the ground items now or with a countdown
+    default: op
+  supmod.worlds:
+    description: /sm worlds (world statistics)
+    default: op
+  supmod.worlds.manage:
+    description: Change time, weather, difficulty, PvP, spawn, border, autosave, unload a world
+    default: op
+  supmod.worlds.load:
+    description: Load an existing world folder
+    default: op
+  supmod.maintenance:
+    description: /sm maintenance
+    default: op
+  supmod.maintenance.bypass:
+    description: Can join during the maintenance
+    default: op
+  supmod.restart:
+    description: /sm restart
+    default: op
+  supmod.bossbar.admin:
+    description: /sm bossbar
+    default: op
+  supmod.zones.admin:
+    description: Create and edit the zones
+    default: op
+  supmod.zones.bypass:
+    description: Ignores the zone flags (entry permission, no fly)
+    default: op
+  supmod.holograms.admin:
+    description: Create and edit the holograms
+    default: op
+  supmod.admin.settings:
+    description: Edit the configuration in game (/sm settings)
+    default: op
+  supmod.admin.report.override:
+    description: Handle a report claimed by another staff member
+    default: op
+  supmod.staff.log:
+    description: See the history of the staff actions (/sm staffhistory)
+    default: op
+  supmod.announce.admin:
+    description: Manage the automatic announcements (/sm announce)
+    default: op
+  supmod.rewards.admin:
+    description: Edit the rewards in game
+    default: op
+  supmod.bounty.admin:
+    description: Remove bounties, enable or disable the bounties
+    default: op
+  supmod.stats.admin:
+    description: Enable or disable /stats, refresh the leaderboards
+    default: op
+  supmod.coins.history.others:
+    description: See the transactions of other players
+    default: op
+  supmod.admin.ip:
+    description: See IP addresses in player files
+    default: op
+  supmod.admin.drops:
+    description: Manage the item drop log
+    default: op
+  supmod.admin.gamerule:
+    description: Open the game rules menu
+    default: op
+  supmod.admin.webhook:
+    description: Configure the Discord webhook in game
+    default: op
+  supmod.reload:
+    description: Reload the configuration
+    default: op
+  supmod.version:
+    description: See the plugin version
+    default: op
+  supmod.tasks.list:
+    description: List the scheduled tasks
+    default: op
+  supmod.broadcast:
+    description: Use /broadcast
+    default: op
+  supmod.coins.admin:
+    description: Give, remove and set coins
+    default: op
+  supmod.update.notify:
+    description: Be notified when a new version is available
+    default: op
+  supmod.blacklist.admin:
+    description: All blacklist commands
+    default: op
+    children:
+      supmod.blacklist.reload: true
+      supmod.blacklist.ban: true
+      supmod.blacklist.unban: true
+      supmod.blacklist.list: true
+  supmod.blacklist.reload:
+    default: op
+  supmod.blacklist.ban:
+    default: op
+  supmod.blacklist.unban:
+    default: op
+  supmod.blacklist.list:
+    default: op
+
+  # ---------- 2.3: player management ----------
+  supmod.gamemode:
+    description: Use /gm, /gmc, /gms, /gma, /gmsp (each mode also needs its own permission)
+    default: op
+  supmod.gamemode.survival:
+    description: Survival mode with /gm
+    default: op
+  supmod.gamemode.creative:
+    description: Creative mode with /gm
+    default: op
+  supmod.gamemode.adventure:
+    description: Adventure mode with /gm
+    default: op
+  supmod.gamemode.spectator:
+    description: Spectator mode with /gm
+    default: op
+  supmod.gamemode.others:
+    description: Change the game mode of other players
+    default: op
+  supmod.player.heal:
+    description: Heal a player (player file, quick actions)
+    default: op
+  supmod.player.feed:
+    description: Feed a player
+    default: op
+  supmod.player.clear:
+    description: Clear the inventory of a player (every item is logged)
+    default: op
+  supmod.player.tphere:
+    description: Teleport a player to you
+    default: op
+  supmod.player.exempt:
+    description: Protected from the quick actions, game mode and inventory edition of other staff members (operators excepted)
+    default: op
+  supmod.admin.inventory.edit:
+    description: Take, give and delete items in the inventory and ender chest of a player (every item is logged)
+    default: op
+  supmod.admin.inventory.log:
+    description: See the inventory edition log (/sm invlog)
+    default: op
+  supmod.notes:
+    description: Read and write staff notes, watch list (/sm notes, /sm note, /sm watchlist)
+    default: op
+  supmod.notes.delete:
+    description: Delete staff notes
+    default: op
+  supmod.tags:
+    description: Tag players (to watch, suspected cheat, VIP...)
+    default: op
+  supmod.watch.notify:
+    description: Alert when a player tagged "to watch" joins
+    default: op
+  supmod.timeline:
+    description: Timeline of a player, names used (/sm timeline)
+    default: op
+  supmod.afk.exempt:
+    description: Never marked AFK automatically
+    default: false
+  supmod.afk.kickexempt:
+    description: Never kicked for being AFK
+    default: op
+  supmod.ticket.manage:
+    description: Handle the tickets (list, claim, answer, close)
+    default: op
+  supmod.ticket.notify:
+    description: Receive the new tickets
+    default: op
+  supmod.ticket.override:
+    description: Take or close a ticket claimed by somebody else
+    default: op
+  supmod.ticket.bypass.cooldown:
+    description: No delay between two tickets
+    default: op
+  supmod.appeal.manage:
+    description: Accept or refuse the appeals (/sm appeals)
+    default: op
+  supmod.appeal.notify:
+    description: Receive the new appeals
+    default: op
+  supmod.appeal.create:
+    description: Create an appeal for a player with his code (/sm appeal create), no delay
+    default: op
+  supmod.activity:
+    description: Server activity, daily statistics and retention (/sm activity)
+    default: op
+  supmod.staffstats:
+    description: Your own staff statistics (/sm staffstats)
+    default: op
+  supmod.staffstats.others:
+    description: Statistics and ranking of every staff member
+    default: op
+  supmod.network:
+    description: Network synchronisation status (/sm network)
+    default: op

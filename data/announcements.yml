@@ -1,0 +1,42 @@
+# SupMod - Automatic announcements
+# Editable in game: /sm announce (permission supmod.announce.admin)
+#
+# Clickable parts:  [text](url:https://example.com|hover text)
+#                   [text](cmd:/rewards|hover text)        runs the command
+#                   [text](suggest:/report |hover text)    puts the command in the chat bar
+#                   [text](copy:play.example.com|hover)    copies the text
+# Colours: &a, &l... and hex &#RRGGBB. %online% = number of online players.
+
+enabled: true
+# Seconds between two announcements
+interval-seconds: 300
+# false = in the order of the file, true = random
+random: false
+# No announcement under this number of online players
+min-players: 1
+# Sound played with each announcement ("" = none), e.g. block.note_block.pling
+sound: "block.note_block.pling"
+header: "&8&m                                                  "
+footer: "&8&m                                                  "
+
+messages:
+  rules:
+    enabled: true
+    lines:
+      - "&d&lRULES &7» &fRespect the other players. Read the rules with [&d&n/rules](cmd:/rules|&7Click to read the rules)&f."
+  report:
+    enabled: true
+    lines:
+      - "&c&lREPORT &7» &fA cheater or an insult? Use [&c&n/report <player>](suggest:/report |&7Click to write the command)&f."
+  rewards:
+    enabled: true
+    lines:
+      - "&6&lREWARDS &7» &fPlay, come back every day and earn coins: [&6&n/rewards](cmd:/rewards|&7Open your rewards)&f!"
+  bounty:
+    enabled: true
+    lines:
+      - "&4&lBOUNTY &7» &fPut a price on a player's head with [&4&n/bounty](suggest:/bounty |&7/bounty <player> <amount>)&f."
+  discord:
+    enabled: false
+    lines:
+      - "&9&lDISCORD &7» &fJoin us: [&9&ndiscord.gg/example](url:https://discord.gg/example|&7Open the invite)&f - %online% players online!"

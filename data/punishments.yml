@@ -1,0 +1,114 @@
+# SupMod - Punishments
+# Editable in game: /sm templates (permission supmod.punish.templates)
+# Durations: 30s, 10m, 2h, 7d, 2w, 1mo, 1y (combinable: 1d12h) or "perm" for permanent.
+
+settings:
+  # Announce the punishments to every player (false = only to the staff with supmod.punish.notify)
+  broadcast: true
+  # Flag to add to a command to punish silently: /ban Steve 1d Cheat -s
+  silent-flag: "-s"
+  # Shown on the ban screen ("" = hidden)
+  appeal-url: ""
+  # Ask a confirmation before applying a punishment from a menu
+  confirm-in-menu: true
+  # Shows a big title to the warned player
+  warn-title: true
+  # Commands blocked while muted
+  muted-commands:
+    - msg
+    - tell
+    - w
+    - whisper
+    - r
+    - reply
+    - me
+    - say
+    - mail
+  default-reasons:
+    warn: "Breaking the rules"
+    mute: "Inappropriate behaviour in the chat"
+    kick: "Kicked by a staff member"
+    ban: "Breaking the rules"
+
+# Punishment ladders. The number of punishments already received with a template gives the step:
+# 1st time = first step, 2nd time = second step... The last step is repeated after that.
+#   type: WARN, MUTE, KICK or BAN   duration: for MUTE and BAN ("perm" = permanent)   ip: true = IP ban/mute
+#   permission (optional): needed to use the template
+templates:
+  insult:
+    name: "&cInsult"
+    icon: PAPER
+    reason: "Insults / disrespect"
+    description:
+      - "&7Insults, provocation, disrespect."
+    steps:
+      - type: WARN
+      - type: MUTE
+        duration: 1h
+      - type: MUTE
+        duration: 1d
+      - type: BAN
+        duration: 1d
+  spam:
+    name: "&eSpam / Flood"
+    icon: WRITABLE_BOOK
+    reason: "Spam / flood in the chat"
+    description:
+      - "&7Repeated messages, flood, capital letters."
+    steps:
+      - type: WARN
+      - type: MUTE
+        duration: 15m
+      - type: MUTE
+        duration: 2h
+      - type: MUTE
+        duration: 1d
+  advertising:
+    name: "&6Advertising"
+    icon: OAK_SIGN
+    reason: "Advertising for another server"
+    description:
+      - "&7IP addresses, links to other servers."
+    steps:
+      - type: MUTE
+        duration: 1d
+      - type: BAN
+        duration: 7d
+      - type: BAN
+        duration: perm
+  grief:
+    name: "&4Grief / theft"
+    icon: TNT
+    reason: "Grief / theft"
+    description:
+      - "&7Destruction or theft of the builds of others."
+    steps:
+      - type: BAN
+        duration: 3d
+      - type: BAN
+        duration: 14d
+      - type: BAN
+        duration: perm
+  cheat:
+    name: "&5Cheat"
+    icon: DIAMOND_SWORD
+    reason: "Use of a cheat client"
+    permission: "supmod.punish.template.cheat"
+    description:
+      - "&7Fly, kill aura, x-ray, speed..."
+    steps:
+      - type: BAN
+        duration: 30d
+      - type: BAN
+        duration: perm
+  freeze-quit:
+    name: "&bDisconnected while frozen"
+    icon: PACKED_ICE
+    reason: "Disconnected while frozen by a staff member"
+    description:
+      - "&7Applied automatically when a frozen player disconnects."
+    steps:
+      - type: BAN
+        duration: 7d
+      - type: BAN
+        duration: perm

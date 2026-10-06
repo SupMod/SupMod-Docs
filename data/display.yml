@@ -1,0 +1,142 @@
+# SupMod - Display: MOTD, tab, sidebar, boss bars, join messages
+# Editable in game: /sm settings (permission supmod.admin.settings)
+#
+# Colours: &a, &l... and hex &#RRGGBB.
+# Placeholders: %player% %online% (vanished staff not counted) %max% %staff_online% %ping% %tps% %world%
+#               %time% %date% %coins% %playtime% %kills% %deaths% %streak% %bounty% %maintenance%
+#               + every PlaceholderAPI placeholder when PlaceholderAPI is installed.
+
+# ---------------------------------------------------------------------------------------------- MOTD
+motd:
+  enabled: true
+  # true = a random MOTD at each ping, false = one after the other
+  random: true
+  # Each MOTD has 2 lines. Only %online% and %max% work here.
+  list:
+    - - "&d&lMY SERVER &8» &fSurvival 1.21"
+      - "&7%online%/%max% players online &8- &aJoin us!"
+    - - "&#ff6ec7&lMY SERVER &8» &fNew season"
+      - "&eDaily rewards, bounties and events"
+  # MOTD shown during the maintenance (/sm maintenance on)
+  maintenance:
+    - "&c&lMAINTENANCE &8» &fBack very soon"
+    - "&7Follow us on Discord for the news"
+  # Maximum shown in the server list (0 = the real value)
+  max-players: 0
+  # Vanished staff members are not counted and not listed
+  hide-vanished: true
+
+# ---------------------------------------------------------------------------------------------- tab
+tab:
+  enabled: true
+  # How often the tab is updated (ticks, 20 = 1 second). Only the changed values are sent.
+  update-ticks: 20
+  # How often the animation goes to the next frame (ticks)
+  frame-ticks: 40
+  header-frames:
+    - - ""
+      - "&d&lMY SERVER"
+      - "&7Welcome &f%player%"
+      - ""
+    - - ""
+      - "&#ff6ec7&lMY SERVER"
+      - "&7Welcome &f%player%"
+      - ""
+  footer-frames:
+    - - ""
+      - "&7Online: &f%online%/%max% &8| &7Ping: &f%ping% ms &8| &7TPS: &f%tps%"
+      - "&7Staff online: &d%staff_online% &8| &e%time%"
+      - ""
+  name-format:
+    enabled: true
+    # The first format whose permission the player has is used (smallest priority first)
+    formats:
+      admin:
+        permission: "supmod.admin"
+        format: "&c&lADMIN &f%player%"
+        priority: 1
+      staff:
+        permission: "supmod.staff"
+        format: "&d&lSTAFF &f%player%"
+        priority: 2
+      default:
+        permission: ""
+        format: "&7%player%"
+        priority: 99
+  # Sort the tab by priority (uses scoreboard teams: disable it if another plugin manages the teams / nametags)
+  sort-by-priority: false
+
+# ---------------------------------------------------------------------------------------------- sidebar
+scoreboard:
+  enabled: false
+  # Shown to new players (each player can hide it with /sidebar)
+  shown-by-default: true
+  # Never replace a scoreboard shown by another plugin (minigames...)
+  respect-other-plugins: true
+  update-ticks: 20
+  frame-ticks: 40
+  title-frames:
+    - "&d&lMY SERVER"
+    - "&#ff6ec7&lMY SERVER"
+  # 15 lines at most (empty lines and identical lines are allowed).
+  lines:
+    - "&7&m                    "
+    - "&fPlayer: &d%player%"
+    - "&fCoins: &6%coins%"
+    - "&fPlay time: &e%playtime%"
+    - "&fDaily streak: &b%streak%"
+    - "&8"
+    - "&fOnline: &a%online%"
+    - "&fPing: &7%ping% ms"
+    - "&7&m                    &r"
+    - "&dplay.myserver.com"
+  disabled-worlds: []
+
+# ---------------------------------------------------------------------------------------------- boss bars
+bossbar:
+  enabled: true
+  # Seconds between two announcements
+  interval-seconds: 300
+  random: false
+  # color: PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE - style: SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20
+  messages:
+    welcome:
+      enabled: true
+      text: "&d&lMY SERVER &8» &fWelcome! &7%online% players online"
+      color: PINK
+      style: SOLID
+      seconds: 10
+    rewards:
+      enabled: true
+      text: "&6✦ &eClaim your daily reward with &f/rewards"
+      color: YELLOW
+      style: SEGMENTED_10
+      seconds: 10
+
+# ---------------------------------------------------------------------------------------------- join messages
+join-messages:
+  enabled: true
+  # The first format whose permission the player has is used. "" = no message.
+  formats:
+    staff:
+      permission: "supmod.staff"
+      join: "&d&l» &d%player% &7joined the server"
+      quit: "&d&l« &d%player% &7left the server"
+      priority: 1
+    default:
+      permission: ""
+      join: "&a&l+ &7%player%"
+      quit: "&c&l- &7%player%"
+      priority: 99
+  first-join:
+    enabled: true
+    message: "&d&l✦ &fWelcome to &d%player% &f! &7(player #%number%)"
+    sound: "ui.toast.challenge_complete"
+    # Console commands run 2 seconds after the first join (%player% = name). Edit: supmod.admin.commands
+    commands: []
+  welcome-title:
+    enabled: true
+    title: "&d&lWelcome back"
+    subtitle: "&f%player%"
+    first-title: "&d&lWelcome!"
+    first-subtitle: "&7You are the player #%number%"

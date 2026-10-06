@@ -1,0 +1,15 @@
+{
+  "name": "supmod-docs",
+  "private": true,
+  "type": "module",
+  "description": "Documentation of the SupMod Minecraft plugin (VitePress)",
+  "scripts": {
+    "docs:generate": "python3 scripts/generate.py",
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}
