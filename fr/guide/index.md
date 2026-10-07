@@ -47,5 +47,5 @@ Tout passe par des **menus** : un modérateur a rarement besoin de retenir une c
 - **Référence** : toutes les [commandes](/fr/reference/commands), [permissions](/fr/reference/permissions), [placeholders](/fr/reference/placeholders) et [fichiers de configuration](/fr/reference/config-files). Ces pages sont générées à partir du plugin lui-même.
 
 ::: tip Besoin d'aide ?
-Posez votre question sur le [serveur Discord](https://discord.gg/f7eKwemeMX). Indiquez votre version de SupMod (`/sm version`), le logiciel de votre serveur et l'erreur de la console s'il y en a une.
+Posez votre question sur le [serveur Discord](https://discord.gg/WtKt5vG9Yn). Indiquez votre version de SupMod (`/sm version`), le logiciel de votre serveur et l'erreur de la console s'il y en a une.
 :::

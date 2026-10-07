@@ -40,7 +40,7 @@ Quand SupMod est mis à jour, les nouveaux messages sont ajoutés automatiquemen
 Un message absent de votre fichier est pris dans le fichier anglais inclus dans le plugin : une traduction partielle fonctionne donc quand même.
 
 ::: info Partagez votre traduction
-Une traduction complète peut être incluse dans la prochaine version de SupMod : envoyez-la sur le [serveur Discord](https://discord.gg/f7eKwemeMX).
+Une traduction complète peut être incluse dans la prochaine version de SupMod : envoyez-la sur le [serveur Discord](https://discord.gg/WtKt5vG9Yn).
 :::
 
 ## L'écran de ban {#the-ban-screen}

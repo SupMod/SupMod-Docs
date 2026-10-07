@@ -84,4 +84,4 @@ Rename or delete it and restart: SupMod creates it again with the default conten
 
 ### I found a bug or I have an idea {#i-found-a-bug-or-i-have-an-idea}
 
-Tell us on the [Discord server](https://discord.gg/f7eKwemeMX) with your version (`/sm version`) and, for a bug, the error of the console.
+Tell us on the [Discord server](https://discord.gg/WtKt5vG9Yn) with your version (`/sm version`) and, for a bug, the error of the console.

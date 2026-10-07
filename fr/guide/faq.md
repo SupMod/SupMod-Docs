@@ -84,4 +84,4 @@ Renommez-le ou supprimez-le, puis redémarrez : SupMod le recrée avec le conten
 
 ### J'ai trouvé un bug ou j'ai une idée {#i-found-a-bug-or-i-have-an-idea}
 
-Dites-le-nous sur le [serveur Discord](https://discord.gg/f7eKwemeMX) en indiquant votre version (`/sm version`) et, pour un bug, l'erreur de la console.
+Dites-le-nous sur le [serveur Discord](https://discord.gg/WtKt5vG9Yn) en indiquant votre version (`/sm version`) et, pour un bug, l'erreur de la console.
