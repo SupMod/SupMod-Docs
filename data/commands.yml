@@ -32,6 +32,13 @@ categories:
       - { cmd: "/coins top", perm: supmod.coins.top, en: "Richest players.", fr: "Joueurs les plus riches." }
       - { cmd: "/coins history", perm: supmod.coins.history, en: "Your transactions.", fr: "Tes transactions." }
       - { cmd: "/sidebar", perm: supmod.sidebar.toggle, en: "Show or hide the sidebar.", fr: "Afficher ou masquer la barre latérale." }
+      - { cmd: "/ignore <player>", perm: supmod.ignore, en: "Ignore a player (his chat messages, @mentions and bounty announcements are hidden from you), or stop ignoring him. Works for offline players.", fr: "Ignorer un joueur (ses messages du chat, ses @mentions et ses annonces de primes te sont cachés), ou arrêter de l'ignorer. Fonctionne hors ligne." }
+      - { cmd: "/ignore add <player>", perm: supmod.ignore, en: "Ignore a player, never removes him (for players named list, remove...).", fr: "Ignorer un joueur, sans jamais le retirer (pour les joueurs nommés list, remove...)." }
+      - { cmd: "/ignore list", perm: supmod.ignore, en: "Your ignored players (click a head to stop ignoring him).", fr: "Tes joueurs ignorés (clic sur une tête pour ne plus l'ignorer)." }
+      - { cmd: "/unignore <player> | /ignore remove <player>", perm: supmod.ignore, en: "Stop ignoring a player.", fr: "Ne plus ignorer un joueur." }
+      - { cmd: "/staff", perm: supmod.stafflist, en: "Staff members online with their role and status, and an \"Ask for help\" button.", fr: "Membres du staff en ligne avec leur rôle et leur statut, et un bouton « Demander de l'aide »." }
+      - { cmd: "/poll", perm: supmod.poll.vote, en: "Vote menu of the current poll.", fr: "Menu de vote du sondage en cours." }
+      - { cmd: "/poll vote <number> | /poll <number>", perm: supmod.poll.vote, en: "Vote for an answer (the answers of the announcement are also clickable).", fr: "Voter pour une réponse (les réponses de l'annonce sont aussi cliquables)." }
 
   - id: punishments
     en: Punishments
@@ -62,13 +69,18 @@ categories:
       - { cmd: "/ticket claim <id>", perm: supmod.ticket.manage, en: "Take a ticket in charge.", fr: "Prendre un ticket en charge." }
       - { cmd: "/ticket answer <id> <message>", perm: supmod.ticket.manage, en: "Answer a ticket.", fr: "Répondre à un ticket." }
       - { cmd: "/ticket done <id>", perm: supmod.ticket.manage, en: "Close a ticket (the player is asked to rate).", fr: "Fermer un ticket (le joueur est invité à noter)." }
+      - { cmd: "/poll create [duration] <question> | <answer> | <answer>...", perm: supmod.poll.manage, en: "Start a poll with 2 to 6 answers (duration: 5m, 90s... or minutes).", fr: "Lancer un sondage de 2 à 6 réponses (durée : 5m, 90s... ou des minutes)." }
+      - { cmd: "/poll create", perm: supmod.poll.manage, en: "Guided creation of a poll in the chat.", fr: "Création guidée d'un sondage dans le chat." }
+      - { cmd: "/poll end | cancel", perm: supmod.poll.manage, en: "End the poll now (results announced) or cancel it.", fr: "Terminer le sondage tout de suite (résultats annoncés) ou l'annuler." }
       - { cmd: "/broadcast <message>", perm: supmod.broadcast, en: "Message to the whole server.", fr: "Message à tout le serveur." }
 
   - id: sm-players
     en: "/sm: players and moderation"
     fr: "/sm : joueurs et modération"
     commands:
-      - { cmd: "/sm players", perm: supmod.player, en: "Online players and their files.", fr: "Joueurs en ligne et leurs fiches." }
+      - { cmd: "/sm", perm: "", en: "Staff hub: live counters and shortcuts to every staff menu (opened when you have at least one staff permission, otherwise the help).", fr: "Hub du staff : compteurs en direct et raccourcis vers tous les menus du staff (ouvert si tu as au moins une permission du staff, sinon l'aide)." }
+      - { cmd: "/sm players", perm: supmod.player, en: "Online players and their files, with filters and sort.", fr: "Joueurs en ligne et leurs fiches, avec filtres et tri." }
+      - { cmd: "/sm search <text>", perm: supmod.player, en: "Search a player by a part of his name, online or not.", fr: "Chercher un joueur par une partie de son pseudo, connecté ou non." }
       - { cmd: "/sm profile <player>", perm: supmod.player, en: "File of a player, even offline.", fr: "Fiche d'un joueur, même hors ligne." }
       - { cmd: "/sm actions <player>", perm: supmod.player, en: "Quick actions: heal, feed, game mode, teleport, inventories, clear.", fr: "Actions rapides : soigner, nourrir, mode de jeu, TP, inventaires, vider." }
       - { cmd: "/sm timeline <player>", perm: supmod.timeline, en: "Everything about a player in one view.", fr: "Tout l'historique d'un joueur en une vue." }
@@ -89,7 +101,7 @@ categories:
       - { cmd: "/sm chat lock|unlock", perm: supmod.chat.lock, en: "Lock the chat (lock on a locked chat unlocks it; unlock always unlocks).", fr: "Verrouiller le chat (lock sur un chat verrouillé le déverrouille ; unlock déverrouille toujours)." }
       - { cmd: "/sm chat clear", perm: supmod.chat.clear, en: "Clear the chat.", fr: "Vider le chat." }
       - { cmd: "/sm chat slow <seconds|off>", perm: supmod.chat.slow, en: "Slow mode.", fr: "Mode lent." }
-      - { cmd: "/sm alerts [xray|alt]", perm: supmod.alerts.view, en: "Alert history.", fr: "Historique des alertes." }
+      - { cmd: "/sm alerts [xray|alt|items]", perm: supmod.alerts.view, en: "Alert history.", fr: "Historique des alertes." }
       - { cmd: "/sm staffhistory [staff]", perm: supmod.staff.log, en: "Every staff action.", fr: "Toutes les actions du staff." }
       - { cmd: "/sm tp <player>", perm: supmod.admin.teleport, en: "Teleport to a player.", fr: "Se téléporter à un joueur." }
       - { cmd: "/sm spectp [on|off]", perm: supmod.admin.spectatortp, en: "Go into spectator mode when teleporting.", fr: "Passer en spectateur lors des téléportations." }
@@ -99,6 +111,27 @@ categories:
       - { cmd: "/sm mcstats <player>", perm: supmod.player, en: "Minecraft statistics of a player.", fr: "Statistiques Minecraft d'un joueur." }
       - { cmd: "/sm activity", perm: supmod.activity, en: "Server activity, graphs and retention.", fr: "Activité du serveur, graphiques et rétention." }
       - { cmd: "/sm staffstats [staff]", perm: supmod.staffstats, en: "Staff statistics (ranking: supmod.staffstats.others).", fr: "Statistiques du staff (classement : supmod.staffstats.others)." }
+
+  - id: sm-security
+    en: "/sm: security, drop log and item search"
+    fr: "/sm : sécurité, journal des drops et recherche d'objets"
+    commands:
+      - { cmd: "/sm drops", perm: supmod.admin.drops, en: "Drop log menu: watched players, add a player, on / off, mode, full log, settings.", fr: "Menu du journal des drops : joueurs surveillés, ajouter un joueur, activation, mode, journal complet, paramètres." }
+      - { cmd: "/sm drops list", perm: supmod.admin.drops, en: "Watched players in the chat (click a name: his drop log).", fr: "Joueurs surveillés dans le chat (clic sur un nom : son journal)." }
+      - { cmd: "/sm drops log [player]", perm: supmod.admin.drops, en: "The whole drop log, or the drops of one player.", fr: "Tout le journal des drops, ou les drops d'un joueur." }
+      - { cmd: "/sm drops add <player> [duration] [reason]", perm: supmod.admin.drops.watch, en: "Watch the drops of a player, even offline (default duration: drop-log.default-duration; perm = permanent). On a watched player: changes the duration and reason.", fr: "Surveiller les drops d'un joueur, même hors ligne (durée par défaut : drop-log.default-duration ; perm = définitif). Sur un joueur déjà surveillé : change la durée et la raison." }
+      - { cmd: "/sm drops remove <player>", perm: supmod.admin.drops.watch, en: "Stop watching a player.", fr: "Arrêter de surveiller un joueur." }
+      - { cmd: "/sm drops on|off", perm: supmod.admin.drops.watch, en: "Switch the drop log on or off.", fr: "Activer ou désactiver le journal des drops." }
+      - { cmd: "/sm drops mode <watchlist|all>", perm: supmod.admin.drops.watch, en: "Log the watched players only, or everybody.", fr: "Enregistrer seulement les joueurs surveillés, ou tout le monde." }
+      - { cmd: "/sm itemsearch <item> [min-amount]", perm: supmod.itemsearch, en: "Who has this item among the online players: inventory, ender chest, shulker boxes, bundles (aliases: searchitem, isearch).", fr: "Qui possède cet objet parmi les joueurs en ligne : inventaire, coffre de l'Ender, shulkers, sacs (alias : searchitem, isearch)." }
+      - { cmd: "/sm itemsearch scan", perm: supmod.itemsearch, en: "Players over the suspicious amounts of item-search.thresholds.", fr: "Joueurs au-dessus des quantités suspectes de item-search.thresholds." }
+      - { cmd: "/sm verify <player>", perm: supmod.verification.manage, en: "Mark a player as verified (released at once if he is verifying).", fr: "Marquer un joueur comme vérifié (libéré tout de suite s'il est en cours de vérification)." }
+      - { cmd: "/sm verify reset <player>", perm: supmod.verification.manage, en: "Forget the verification of a player (asked again at his next join).", fr: "Oublier la vérification d'un joueur (redemandée à sa prochaine connexion)." }
+      - { cmd: "/sm lockdown [status]", perm: supmod.lockdown, en: "State of the anti-raid lockdown and refused connections.", fr: "État du verrouillage anti-raid et connexions refusées." }
+      - { cmd: "/sm lockdown on [duration] [reason]", perm: supmod.lockdown, en: "Refuse the new accounts (no duration = until /sm lockdown off, 30 days max).", fr: "Refuser les nouveaux comptes (sans durée = jusqu'à /sm lockdown off, 30 jours maximum)." }
+      - { cmd: "/sm lockdown off", perm: supmod.lockdown, en: "End the lockdown.", fr: "Terminer le verrouillage." }
+      - { cmd: "/sm blacklist ban|unban ip|username <value>", perm: supmod.blacklist.admin, en: "IP (192.168.0.* accepted) and name blacklist (ban: supmod.blacklist.ban, unban: supmod.blacklist.unban).", fr: "Liste noire d'IP (192.168.0.* accepté) et de pseudos (ban : supmod.blacklist.ban, unban : supmod.blacklist.unban)." }
+      - { cmd: "/sm blacklist list|reload", perm: supmod.blacklist.list, en: "Show or reload the blacklist (reload: supmod.blacklist.reload).", fr: "Afficher ou recharger la liste noire (reload : supmod.blacklist.reload)." }
 
   - id: sm-server
     en: "/sm: server and configuration"
@@ -122,9 +155,6 @@ categories:
       - { cmd: "/sm announce [list|send <id>|on|off|reload]", perm: supmod.announce.admin, en: "Automatic announcements.", fr: "Annonces automatiques." }
       - { cmd: "/sm webhook [on|off|test|<event> on|off]", perm: supmod.admin.webhook, en: "Discord logs.", fr: "Logs Discord." }
       - { cmd: "/sm tasks", perm: supmod.tasks.list, en: "Scheduled commands.", fr: "Commandes planifiées." }
-      - { cmd: "/sm drops [on|off|add|remove <player>|list]", perm: supmod.admin.drops, en: "Item drop log of watched players.", fr: "Journal des objets jetés par les joueurs surveillés." }
-      - { cmd: "/sm blacklist ban|unban ip|username <value>", perm: supmod.blacklist.admin, en: "IP (192.168.0.* accepted) and name blacklist (ban: supmod.blacklist.ban, unban: supmod.blacklist.unban).", fr: "Liste noire d'IP (192.168.0.* accepté) et de pseudos (ban : supmod.blacklist.ban, unban : supmod.blacklist.unban)." }
-      - { cmd: "/sm blacklist list|reload", perm: supmod.blacklist.list, en: "Show or reload the blacklist (reload: supmod.blacklist.reload).", fr: "Afficher ou recharger la liste noire (reload : supmod.blacklist.reload)." }
       - { cmd: "/sm network", perm: supmod.network, en: "Status of the synchronisation between servers.", fr: "État de la synchronisation entre serveurs." }
       - { cmd: "/rewards admin | reload", perm: supmod.rewards.admin, en: "Rewards editor, reload rewards.yml.", fr: "Éditeur des récompenses, rechargement de rewards.yml." }
       - { cmd: "/bounty on|off | remove <player>", perm: supmod.bounty.admin, en: "Enable bounties, remove the bounties on a player.", fr: "Activer les primes, retirer les primes sur un joueur." }

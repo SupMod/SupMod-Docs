@@ -1,6 +1,6 @@
 name: SupMod
 main: fr.supmod.SupModPlugin
-version: '2.3.0'
+version: '2.4.0'
 api-version: '1.21'
 author: Alstarte
 description: Moderation suite - reports, punishments, staff mode, anti-spam, alerts, rewards, bounties, stats and economy.
@@ -59,7 +59,7 @@ commands:
     aliases: [sanction]
   staffmode:
     description: Toggle the staff mode
-    aliases: [staff, mod]
+    aliases: [mod]
   vanish:
     description: Become invisible to the players
     aliases: [v]
@@ -121,6 +121,21 @@ commands:
   afk:
     description: Away from keyboard
     aliases: [away]
+  # 2.4 social
+  ignore:
+    description: Ignore a player (his chat messages are hidden from you)
+    usage: /ignore <player> | add <player> | list | remove <player>
+    aliases: [ignorer]
+  unignore:
+    description: Stop ignoring a player
+    usage: /unignore <player>
+  staff:
+    description: Staff members online, who can help you
+    aliases: [stafflist, helpers, equipe]
+  poll:
+    description: Vote in the current poll; staff - create, end or cancel a poll
+    usage: /poll [vote <n>] | create [duration] <question> | <answer> | <answer>... | end | cancel
+    aliases: [polls, sondage]
 
 permissions:
   supmod.*:
@@ -246,6 +261,21 @@ permissions:
       supmod.ticket.bypass.cooldown: true
       supmod.appeal.notify: true
       supmod.staffstats: true
+      # 2.4 verify
+      supmod.verification.bypass: true
+      supmod.verification.manage: true
+      supmod.lockdown: true
+      supmod.lockdown.bypass: true
+      supmod.lockdown.notify: true
+      supmod.security.bypass-ip-limit: true
+      supmod.chat.bypass-new-delay: true
+      # 2.4 social
+      supmod.ignore.exempt: true
+      supmod.staff.listed: true
+      supmod.poll.manage: true
+      # 2.4 moderation
+      supmod.itemsearch: true
+      supmod.alerts.items: true
   supmod.punish.warn:
     description: Warn players (/warn, menus)
     default: op
@@ -415,6 +445,7 @@ permissions:
       supmod.staff: true
       supmod.admin.ip: true
       supmod.admin.drops: true
+      supmod.admin.drops.watch: true
       supmod.admin.gamerule: true
       supmod.admin.webhook: true
       supmod.reload: true
@@ -466,6 +497,10 @@ permissions:
       supmod.activity: true
       supmod.staffstats.others: true
       supmod.network: true
+      # 2.4 social
+      supmod.poll.color: true
+      # 2.4 moderation
+      supmod.punish.warn-acknowledge.bypass: true
   supmod.admin.commands:
     description: Edit console commands run by SupMod (rewards, zones, first join, restart). Not in supmod.admin on purpose.
     default: op
@@ -539,7 +574,7 @@ permissions:
     description: See IP addresses in player files
     default: op
   supmod.admin.drops:
-    description: Manage the item drop log
+    description: See the item drop log and the watched players (/sm drops)
     default: op
   supmod.admin.gamerule:
     description: Open the game rules menu
@@ -675,4 +710,68 @@ permissions:
     default: op
   supmod.network:
     description: Network synchronisation status (/sm network)
+    default: op
+  supmod.admin.drops.watch:
+    description: Manage the drop log (watch / unwatch players, on/off, mode)
+    default: op
+    children:
+      supmod.admin.drops: true
+  # 2.4 verify: join verification and anti-raid
+  supmod.verification.bypass:
+    description: Never asked to pass the join verification
+    default: op
+  supmod.verification.manage:
+    description: Mark a player as verified or reset his verification (/sm verify)
+    default: op
+  supmod.lockdown:
+    description: Anti-raid lockdown (/sm lockdown on|off)
+    default: op
+  supmod.lockdown.bypass:
+    description: Can join during a lockdown even with a new account
+    default: op
+  supmod.lockdown.notify:
+    description: Told when a lockdown starts or ends (automatic lockdown included)
+    default: op
+  supmod.security.bypass-ip-limit:
+    description: Not counted in security.max-accounts-per-ip
+    default: op
+  supmod.chat.bypass-new-delay:
+    description: Can chat at once even on a new account (chat.new-player-delay-seconds)
+    default: op
+
+  # ---------- 2.4: social ----------
+  supmod.ignore:
+    description: Use /ignore and /unignore
+    default: true
+  supmod.ignore.exempt:
+    description: Cannot be ignored by the players (staff)
+    default: op
+  supmod.stafflist:
+    description: Use /staff (list of the staff members online)
+    default: true
+  supmod.staff.listed:
+    description: Appear in /staff (negate it to stay hidden)
+    default: op
+  supmod.poll.vote:
+    description: Vote in the polls (/poll)
+    default: true
+  supmod.poll.manage:
+    description: Create, end and cancel polls, see the results before the end
+    default: op
+  supmod.poll.color:
+    description: Use colour codes in the question and answers of a poll
+    default: op
+
+  # ---------- 2.4 moderation ----------
+  supmod.itemsearch:
+    description: Search an item in the inventories and ender chests of the online players, scan the suspicious amounts (/sm itemsearch)
+    default: op
+  supmod.alerts.items:
+    description: Receive the alerts of the automatic suspicious amounts scan (item-search.auto-scan)
+    default: op
+  supmod.bypass.itemsearch:
+    description: Never reported by the automatic suspicious amounts scan (still found by /sm itemsearch)
+    default: false
+  supmod.punish.warn-acknowledge.bypass:
+    description: A warning is shown once without blocking anything (no forced "I understand" menu)
     default: op

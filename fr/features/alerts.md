@@ -1,6 +1,6 @@
-# Alertes multi-compte et x-ray
+# Alertes
 
-Les alertes sont envoyées aux membres du staff qui ont la permission, avec un clic pour agir. Elles sont conservées dans `/sm alerts` (permission `supmod.alerts.view`), peuvent être envoyées sur [Discord](/fr/features/discord) (événement `alert`) et sont partagées entre [plusieurs serveurs](/fr/guide/network).
+Les alertes sont envoyées aux membres du staff qui ont la permission, avec un clic pour agir. Elles sont conservées dans `/sm alerts` (permission `supmod.alerts.view` ; filtres : `/sm alerts xray`, `alt`, `items`), peuvent être envoyées sur [Discord](/fr/features/discord) (événement `alert`) et sont partagées entre [plusieurs serveurs](/fr/guide/network).
 
 ## Multi-comptes {#alt-accounts}
 
@@ -48,8 +48,17 @@ Permission : `supmod.alerts.xray`. `supmod.bypass.xray` (donnée à personne par
 Téléportez-vous vers le joueur (clic sur l'alerte), observez-le en [vanish](/fr/features/staff-tools#vanish) et regardez ses blocs minés avec `/sm mcstats <player>` avant de sanctionner.
 :::
 
+## Objets suspects {#suspicious-items}
+
+L'analyse automatique de la [recherche d'objets](/fr/features/item-search#automatic-scan) (désactivée par défaut, `item-search.auto-scan.enabled`) signale les joueurs qui possèdent plus que les quantités suspectes de `item-search.thresholds` (32 lingots de netherite, 2 élytres, 8 totems...) : une duplication possible.
+
+<p><span class="mc">[Objets] Steve possède Netherite Ingot x96 (&gt; 32) (clic : fiche)</span></p>
+
+Les alertes vont à `supmod.alerts.items`, dans le filtre **Objets suspects** de `/sm alerts` (`/sm alerts items`), sur Discord (événement `alert`) et sur les autres serveurs du réseau. Le même joueur n'est pas signalé de nouveau pour le même objet pendant `alert-cooldown-minutes` (60) minutes. `supmod.bypass.itemsearch` (donnée à personne par défaut) n'est jamais signalé, par exemple un builder en créatif.
+
 ## Autres alertes {#other-alerts}
 
 - **Santé du serveur** : TPS bas ou mémoire presque pleine, pour `supmod.health.alerts`. Voir [Santé et lag](/fr/features/server-health).
 - **Joueurs surveillés** : un joueur avec un tag se connecte, pour `supmod.watch.notify`. Voir [Notes et tags](/fr/features/player-management#notes-and-tags).
 - **Freeze** : un joueur gelé se déconnecte. Voir [Freeze](/fr/features/staff-tools#freeze).
+- **Verrouillage** : un verrouillage commence ou se termine, verrouillages automatiques compris, pour `supmod.lockdown.notify`. Voir [Vérification et anti-raid](/fr/features/verification#automatic-lockdown).

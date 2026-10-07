@@ -2,6 +2,70 @@
 
 Les nouveautés de chaque version de SupMod. Téléchargez la dernière version sur [SpigotMC](https://www.spigotmc.org/resources/supmod.108806/) ; pour mettre à jour, lisez [Mettre à jour](/fr/guide/updating).
 
+## 2.4.0 — Vérification, interactions et journal des drops {#v2-4-0}
+
+### Ajouté
+- **Journal des drops géré en jeu** :
+  - liste des joueurs surveillés en base de données, avec **durée** (`7d`, `12h`, `perm`…), **raison**, auteur et date ; les surveillances expirées sont retirées automatiquement ;
+  - `/sm drops` ouvre un menu : joueurs surveillés (raison, ajouté par, expiration, en ligne ou non), bouton pour surveiller un joueur, activation, mode, journal complet, paramètres ;
+  - `/sm drops add <joueur> [durée] [raison]`, `remove`, `list`, `log [joueur]`, `on|off`, `mode <watchlist|all>`, avec complétion, y compris pour les joueurs hors ligne ;
+  - fiche joueur : l'entonnoir indique si le joueur est surveillé et jusqu'à quand ; clic droit pour le surveiller ou arrêter ;
+  - `/sm players` : mention « Drops surveillés » et touche **Q** pour surveiller un joueur ;
+  - modes `WATCHLIST` (joueurs surveillés, par défaut) et `ALL` (tout le monde, pour les petits serveurs) ;
+  - surveillance automatique des joueurs ayant un tag du staff (`watch`, `cheat`) et, en option, des nouveaux joueurs pendant leurs premières minutes ;
+  - journal filtrable (tous, pas ramassés, ramassés par un autre) ; clic pour se téléporter sur le lieu du drop, clic droit pour la fiche de celui qui l'a ramassé ;
+  - ajouts et retraits écrits dans l'historique du staff et synchronisés entre les serveurs d'un réseau.
+- **Hub du staff** : `/sm` sans argument ouvre un tableau de bord :
+  - compteurs en direct : joueurs, staff connecté, signalements, tickets, appels, alertes de la dernière heure, TPS et mémoire, état du serveur ;
+  - raccourcis groupés (Modération, Joueurs, Serveur, Configuration) vers tous les menus du staff, selon les permissions ;
+  - actions rapides : verrouiller / ralentir / vider le chat, maintenance, redémarrage, verrouillage anti-raid, sondages ;
+  - `/sm help` affiche toujours l'aide ; `gui.hub.enabled: false` rétablit l'ancien comportement.
+- **Liste des joueurs** (`/sm players`) : filtres (staff, nouveaux joueurs, muets, gelés, tagués, AFK), tri (pseudo, durée de session, ping, monde), ping, durée de session et badges dans la description.
+- **Recherche de joueurs** (`/sm search <texte>` ou bouton de la liste) : par une partie du pseudo, parmi tous les joueurs connus, connectés ou non.
+- **Vérification à la connexion (anti-bot)**, désactivée par défaut :
+  - le nouveau compte doit cliquer sur l'objet demandé parmi 9 objets mélangés ;
+  - en attendant, il ne peut ni bouger, ni écrire, ni utiliser de commandes, ni interagir ; expulsion après le délai ou trop d'erreurs ;
+  - réussite mémorisée (partagée entre les serveurs d'un réseau) ; les joueurs ayant déjà du temps de jeu ne sont pas concernés ;
+  - `/sm verify <joueur>` et `/sm verify reset <joueur>`.
+- **Verrouillage anti-raid** :
+  - `/sm lockdown on [durée] [raison]`, `off`, état ;
+  - pendant un verrouillage, les comptes qui ne se sont jamais connectés (ou pas encore vérifiés) sont refusés ;
+  - verrouillage automatique quand trop de nouveaux comptes arrivent (8 en 30 s → 10 minutes par défaut), alerte au staff et événement Discord `lockdown` ;
+  - état conservé au redémarrage et partagé entre les serveurs.
+- **Comptes maximum par IP** (`security.max-accounts-per-ip`, désactivé par défaut).
+- **Délai de chat des nouveaux joueurs** (`chat.new-player-delay-seconds`, désactivé par défaut), aussi appliqué aux messages privés.
+- **Ignorer un joueur** (`/ignore <joueur>`, `/ignore add`, `/ignore list`, `/unignore`) : ses messages du chat, ses @mentions et ses annonces de primes ne sont plus reçus ; le staff ne peut pas être ignoré.
+- **Staff en ligne** (`/staff`) : membres du staff visibles avec leur rôle et leur statut (disponible, mode staff, AFK), bouton « Demander de l'aide ».
+- **Sondages** (`/poll`) : `/poll create [durée] <question> | <réponse> | ...` ou création guidée, réponses cliquables, menu de vote avec résultats en direct, barre de boss, rappel à mi-parcours, résultats en pourcentages.
+- **Avertissements à confirmer** : le joueur averti voit un menu (raison, staff, date, nombre d'avertissements, prochaine étape du modèle) et doit cliquer sur « J'ai compris » ; avertissements hors ligne montrés à la connexion ; date de confirmation visible dans l'historique ; option pour prévenir le staff.
+- **Recherche d'objets (anti-dupe)** :
+  - `/sm itemsearch <objet> [quantité]` : qui possède un objet parmi les joueurs en ligne (inventaire, coffre de l'Ender, shulkers, sacs) ;
+  - `/sm itemsearch scan` : joueurs au-dessus des quantités suspectes configurées ;
+  - analyse automatique optionnelle avec alertes « Objets suspects » (`/sm alerts items`, Discord, réseau).
+- **Sons des menus** : clic, ouverture et refus, réglables.
+- Nouvelle catégorie **Communauté** dans `/sm settings` ; toutes les nouvelles options sont modifiables en jeu.
+
+### Modifié
+- Le journal des drops est **activé par défaut** (sans risque : en mode `WATCHLIST`, rien n'est enregistré tant que personne n'est surveillé). Les serveurs existants gardent leur valeur.
+- `drop-log.players` (UUID dans config.yml) est migré automatiquement vers la base de données au démarrage.
+- Journal des drops plus léger : écritures groupées toutes les 3 secondes, limite de drops par joueur et par minute (le surplus est résumé), objets sans valeur ignorés, nombre de joueurs surveillés limité.
+- `supmod.admin.drops` permet de voir le journal ; gérer la surveillance demande `supmod.admin.drops.watch`.
+- `/staff` n'est plus un alias de `/staffmode` (`/mod` reste un alias) ; si la liste du staff est désactivée, `/staff` redevient le mode staff.
+- `gui.click-sound` et `gui.sound-volume` sont remplacés par la section `gui.sounds` (valeurs reprises automatiquement).
+- Le menu de freeze attend la fin de la vérification de connexion au lieu de la remplacer.
+
+### Corrigé
+- Une durée avec trop de chiffres (`99999999999999999999d`) provoquait une erreur au lieu d'être refusée.
+- Les aides de `/ticket` et `/appeal` s'affichaient sous la forme `[ligne1, ligne2]` au lieu d'une ligne par entrée.
+
+### Sécurité
+- Vérification : téléportations, portails, véhicules, flèches et complétion des commandes bloqués pendant la vérification ; délai maximum garanti même si la base de données ne répond pas.
+- Verrouillage : en cas d'erreur de la base de données pendant un verrouillage, le nouveau compte est refusé ; un compte expulsé une fois n'est pas considéré comme connu.
+- Les joueurs en vérification ou bloqués par un avertissement ne déclenchent plus l'anti-spam.
+- Recherche d'objets bornée (profondeur et nombre d'objets lus dans les conteneurs, temps par tick) : un shulker piégé ne peut pas bloquer le serveur.
+- Sondages : codes couleur supprimés jusqu'au bout sans la permission `supmod.poll.color`.
+- Limite d'IP : les connexions locales (`127.0.0.1`, proxy sur la même machine) ne sont jamais limitées.
+
 ## 2.3.0 — Gestion des joueurs {#v2-3-0}
 
 ### Ajouté
@@ -54,6 +118,7 @@ Les nouveautés de chaque version de SupMod. Téléchargez la dernière version 
 ### Corrigé
 - La catégorie Sécurité n'apparaissait pas dans `/sm settings`.
 - Les événements Discord `punishment`, `staff-chat`, `alert` et `bounty` n'étaient jamais envoyés.
+- Spigot 26.x : le menu des règles de jeu et le réglage du PvP par monde ne fonctionnaient pas (anciennes méthodes retirées par Spigot). Ils passent maintenant par l'API des règles de jeu disponible sur la version du serveur.
 
 ### Sécurité
 - L'inventaire du mode staff ne peut ni recevoir ni donner d'objets lors de l'édition d'un inventaire (les objets seraient perdus).

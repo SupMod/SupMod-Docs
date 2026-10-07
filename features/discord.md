@@ -19,7 +19,8 @@ Anyone with the webhook URL can write in your channel. Don't share `config.yml` 
 | `report` | on | a player is reported |
 | `punishment` | on | a player is warned, muted, kicked or banned |
 | `appeal` | on | a player appeals a punishment |
-| `alert` | on | alt account, x-ray, low TPS, maintenance |
+| `alert` | on | alt account, x-ray, [suspicious items](/features/item-search#automatic-scan), low TPS, maintenance |
+| `lockdown` | on | an [anti-raid lockdown](/features/verification#lockdown) starts (by a staff member or automatically) or ends |
 | `chat-filter` | on | a message contains a filtered word |
 | `ticket` | off | a ticket is created |
 | `staff-chat` | off | a message is written in the staff chat |

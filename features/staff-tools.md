@@ -2,13 +2,17 @@
 
 ## Staff mode {#staff-mode}
 
-`/staffmode` (aliases `/staff`, `/mod`) puts a moderator "on duty":
+`/staffmode` (alias `/mod`) puts a moderator "on duty":
 
 - his inventory, game mode and flight are **saved** (also in a file, so nothing is lost even if the server crashes);
 - he becomes invisible (`vanish`), can fly (`fly`) and cannot take damage (`invulnerable`);
 - he receives the tools in his hotbar.
 
 Typing `/staffmode` again, disconnecting or stopping the server gives everything back.
+
+::: info /staff is now the staff list
+Since 2.4, `/staff` is no longer an alias of `/staffmode`: it shows the [staff members online](/features/community#staff-list) to the players, and its menu has a button to switch the staff mode. With `staff-list.enabled: false`, `/staff` switches the staff mode again, as before.
+:::
 
 | Tool | Use |
 |---|---|

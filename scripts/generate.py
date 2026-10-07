@@ -69,6 +69,8 @@ def code(text):
 
 plugin = load('plugin.yml')
 permissions = plugin['permissions']
+# "2.4.0" -> "2.4": the version named in the introductions of the pages
+VERSION = '.'.join(str(plugin['version']).split('.')[:2])
 texts = load('permissions-text.yml')
 
 
@@ -124,9 +126,16 @@ PERMISSION_GROUPS = [
                              'supmod.randomtp', 'supmod.gamemode', 'supmod.player', 'supmod.admin.teleport', 'supmod.admin.spectatortp',
                              'supmod.admin.inventory', 'supmod.notes', 'supmod.tags', 'supmod.watch', 'supmod.timeline', 'supmod.admin.ip'))),
     ('chat', 'Chat and announcements', 'Chat et annonces',
-     lambda n: n.startswith(('supmod.chat.', 'supmod.bypass.', 'supmod.admin.chat.', 'supmod.announce.')) and n != 'supmod.bypass.xray'),
+     lambda n: n.startswith(('supmod.chat.', 'supmod.bypass.', 'supmod.admin.chat.', 'supmod.announce.'))
+     and n not in ('supmod.bypass.xray', 'supmod.bypass.itemsearch')),
     ('alerts', 'Alerts and AFK', 'Alertes et AFK',
-     lambda n: n.startswith(('supmod.alerts.', 'supmod.afk.', 'supmod.health.alerts')) or n == 'supmod.bypass.xray'),
+     lambda n: n.startswith(('supmod.alerts.', 'supmod.afk.', 'supmod.health.alerts'))
+     or n in ('supmod.bypass.xray', 'supmod.bypass.itemsearch')),
+    ('security', 'Security, anti-raid and anti-dupe', 'Sécurité, anti-raid et anti-dupe',
+     lambda n: n.startswith(('supmod.verification.', 'supmod.lockdown', 'supmod.security.', 'supmod.blacklist.',
+                             'supmod.admin.drops', 'supmod.itemsearch'))),
+    ('community', 'Community: ignore, staff list, polls', 'Communauté : ignorer, liste du staff, sondages',
+     lambda n: n.startswith(('supmod.ignore', 'supmod.stafflist', 'supmod.staff.listed', 'supmod.poll.'))),
     ('economy', 'Economy and statistics', 'Économie et statistiques',
      lambda n: n.startswith(('supmod.coins.', 'supmod.rewards.', 'supmod.bounty.', 'supmod.stats.', 'supmod.activity',
                              'supmod.staffstats', 'supmod.staff.log'))),
@@ -178,14 +187,14 @@ def commands_page(lang):
     out = [GENERATED]
     if fr:
         out.append('# Commandes\n\n')
-        out.append('Toutes les commandes de SupMod 2.3, avec la permission vérifiée par le plugin.\n\n')
+        out.append(f'Toutes les commandes de SupMod {VERSION}, avec la permission vérifiée par le plugin.\n\n')
         out.append('- `<argument>` : obligatoire, `[argument]` : facultatif, `a|b` : au choix.\n')
         out.append('- `/supmod` s\'écrit aussi `/sm`. Toutes les commandes du staff fonctionnent avec la complétion (<kbd>Tab</kbd>).\n')
         out.append('- Durées : `30s`, `10m`, `2h`, `7d`, `2w`, `1mo`, `1y`, combinables (`1d12h`), ou `perm`.\n')
         out.append('- `-s` à la fin d\'une sanction : sanction silencieuse (seul le staff est prévenu).\n\n')
     else:
         out.append('# Commands\n\n')
-        out.append('Every command of SupMod 2.3, with the permission checked by the plugin.\n\n')
+        out.append(f'Every command of SupMod {VERSION}, with the permission checked by the plugin.\n\n')
         out.append('- `<argument>`: required, `[argument]`: optional, `a|b`: one of them.\n')
         out.append('- `/supmod` can also be written `/sm`. Every staff command has tab completion.\n')
         out.append('- Durations: `30s`, `10m`, `2h`, `7d`, `2w`, `1mo`, `1y`, combinable (`1d12h`), or `perm`.\n')
@@ -210,9 +219,9 @@ def commands_page(lang):
             out.append(f'| {code("/" + name)} | {", ".join(code("/" + a) for a in aliases)} |\n')
     out.append('\n')
     out.append('::: tip Conflits avec d\'autres plugins\nSi un autre plugin (EssentialsX...) utilise le même nom, '
-               'écrivez la commande avec le préfixe du plugin : `/supmod:gm 1`, `/supmod:vanish`.\n:::\n' if fr else
+               'écrivez la commande avec le préfixe du plugin : `/supmod:gm 1`, `/supmod:vanish`, `/supmod:ignore`.\n:::\n' if fr else
                '::: tip Conflicts with other plugins\nIf another plugin (EssentialsX...) uses the same name, '
-               'add the plugin prefix: `/supmod:gm 1`, `/supmod:vanish`.\n:::\n')
+               'add the plugin prefix: `/supmod:gm 1`, `/supmod:vanish`, `/supmod:ignore`.\n:::\n')
     return ''.join(out)
 
 
@@ -254,14 +263,14 @@ def config_page(lang):
     out = [GENERATED]
     if fr:
         out.append('# Fichiers de configuration\n\n')
-        out.append('Les fichiers par défaut de SupMod 2.3, tels que le plugin les crée dans `plugins/SupMod/`. '
+        out.append(f'Les fichiers par défaut de SupMod {VERSION}, tels que le plugin les crée dans `plugins/SupMod/`. '
                    'Les commentaires des fichiers sont en anglais.\n\n')
         out.append('::: tip Vous n\'êtes pas obligé d\'ouvrir ces fichiers\nPresque tout se règle en jeu avec `/sm settings`. '
                    'À chaque mise à jour, les nouvelles options sont ajoutées automatiquement sans toucher à vos valeurs.\n:::\n\n')
         out.append('| Fichier | Contenu |\n|---|---|\n')
     else:
         out.append('# Configuration files\n\n')
-        out.append('The default files of SupMod 2.3, as the plugin creates them in `plugins/SupMod/`.\n\n')
+        out.append(f'The default files of SupMod {VERSION}, as the plugin creates them in `plugins/SupMod/`.\n\n')
         out.append('::: tip You don\'t have to open these files\nAlmost everything can be changed in game with `/sm settings`. '
                    'At each update, the new options are added automatically and your values are kept.\n:::\n\n')
         out.append('| File | Content |\n|---|---|\n')

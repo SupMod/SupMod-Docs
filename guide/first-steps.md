@@ -44,16 +44,21 @@ The `/report` menu shows the reasons of `config.yml` › `report.reasons` (cheat
 
 Create a webhook in a private channel of your Discord (channel settings › Integrations › Webhooks), paste its URL in `/sm settings` › **Discord** › **Webhook URL** (or `discord.webhook-url` in `config.yml`), then type `/sm webhook on`. Reports, punishments, appeals and alerts are sent by default. See [Discord](/features/discord).
 
-## 7. Optional: MySQL and several servers {#_7-optional-mysql-and-several-servers}
+## 7. Optional: protection against bots and raids {#_7-optional-protection-against-bots-and-raids}
+
+The automatic lockdown is on: if many new accounts arrive at once, they are refused for 10 minutes. If your server is a target of bots, also enable the join verification (`/sm settings` › **Security**). See [Join verification and anti-raid](/features/verification).
+
+## 8. Optional: MySQL and several servers {#_8-optional-mysql-and-several-servers}
 
 SQLite is perfect for one server. To share bans, mutes and the staff chat between several servers, use MySQL. See [Database](/guide/storage) and [Several servers](/guide/network).
 
 ## Try it {#try-it}
 
+- `/sm` opens the [staff hub](/features/staff-hub): live counters (players, reports, tickets, TPS...) and a shortcut to every staff menu.
 - `/staffmode` gives you the staff tools in the hotbar. Right click a player with the book to open his file.
 - `/report <player>` from another account, then `/sm reports` to handle it.
 - `/sm health` to see how your server is doing.
 
 ::: tip Most used commands of the staff
-`/sm profile <player>` · `/punish <player>` · `/history <player>` · `/sm reports` · `/staffmode` · `/vanish` · `/freeze <player>` · `/sc <message>` · `/ticket list`
+`/sm` · `/sm profile <player>` · `/punish <player>` · `/history <player>` · `/sm reports` · `/staffmode` · `/vanish` · `/freeze <player>` · `/sc <message>` · `/ticket list`
 :::

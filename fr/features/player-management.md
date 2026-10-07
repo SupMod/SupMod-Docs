@@ -2,6 +2,35 @@
 
 `/sm profile <player>` ouvre la fiche d'un joueur, **en ligne ou hors ligne**. Elle s'ouvre aussi avec le livre du [mode staff](/fr/features/staff-tools), `/sm players` et les signalements.
 
+## Liste des joueurs {#player-list}
+
+`/sm players` (aussi dans le [hub du staff](/fr/features/staff-hub)) liste les joueurs en ligne. Chaque tête affiche le monde, le mode de jeu, le **ping** et la durée de la **session**, et des badges : nouveau joueur, AFK (et depuis combien de temps), [tags](#notes-and-tags), vanish, mode staff, gelé, muet, [drops surveillés](/fr/features/drop-log).
+
+| Clic sur un joueur | |
+|---|---|
+| Clic | sa fiche |
+| Clic droit | se téléporter à lui |
+| Maj + clic | le [menu des sanctions](/fr/features/punishments#the-punishment-menu) |
+| <kbd>Q</kbd> | surveiller ses drops, ou arrêter (`supmod.admin.drops.watch`, voir [Journal des drops](/fr/features/drop-log)) |
+
+Les boutons du bas :
+
+| Bouton | |
+|---|---|
+| Filtre | tous, staff, nouveaux joueurs, muets, gelés, étiquetés, AFK (clic : suivant, clic droit : précédent) ; le filtre actif est dans le titre |
+| Tri | pseudo, durée de session (la plus longue d'abord), ping (le plus élevé d'abord), monde |
+| Rechercher un joueur | voir ci-dessous |
+
+Le filtre et le tri sont conservés quand vous revenez du menu des sanctions. Un joueur est **nouveau** quand sa première connexion date de moins de `gui.players.new-player-hours` (24) heures (0 = ni badge ni filtre).
+
+## Recherche de joueurs {#player-search}
+
+`/sm search <text>` (alias `/sm find`), ou le bouton **Rechercher un joueur** de la liste ou du [hub du staff](/fr/features/staff-hub), trouve les joueurs dont le pseudo contient le texte (2 à 16 caractères), parmi **tous les joueurs connus**, connectés ou non : les joueurs en ligne d'abord, puis les plus récemment vus. Cliquez sur un résultat pour ouvrir sa fiche, même hors ligne. Permission : `supmod.player`.
+
+```text
+/sm search ste      Steve, Steven_42, xXsteelXx...
+```
+
 ## Ce que montre la fiche {#what-the-file-shows}
 
 | | |
@@ -14,7 +43,7 @@
 | Chat | messages repérés par le filtre de mots, historique du chat et des commandes |
 | Sanctions | avertissements, mutes, kicks et bans, l'historique et le menu des sanctions |
 | Inventaire, coffre de l'Ender | les voir, ou les modifier (ci-dessous) |
-| Transactions, alertes, drops | historique des coins, alertes multi-compte et x-ray, journal des drops |
+| Transactions, alertes, drops | historique des coins, alertes multi-compte, x-ray et objets ; l'entonnoir ouvre le [journal des drops](/fr/features/drop-log) du joueur (clic droit : le surveiller ou arrêter) |
 | Actions rapides, notes, chronologie, statistiques, tickets, appels | voir ci-dessous |
 
 Chaque bouton n'apparaît que pour les membres du staff qui ont sa permission.

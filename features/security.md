@@ -34,17 +34,13 @@ security:
 
 If your server is behind a proxy that does not forward the real IPs, every player has the IP of the proxy: add it to the whitelist (or better, enable IP forwarding on the proxy).
 
+## Join verification and anti-raid {#anti-raid}
+
+The join verification (anti-bot), the anti-raid lockdown, the maximum number of accounts per IP and the chat delay of new players have their own page: [Join verification and anti-raid](/features/verification).
+
 ## Drop log {#drop-log}
 
-Logs the items dropped by some players, to check a suspicious trade or a duplication:
-
-| Command | |
-|---|---|
-| `/sm drops on` / `off` | enable the log |
-| `/sm drops add <player>` / `remove <player>` | watched players |
-| `/sm drops list` | watched players |
-
-The drops are visible in the player file (permission `supmod.admin.drops`).
+The drop log (watched players, durations, modes, automatic watch) has its own page since 2.4: [Drop log](/features/drop-log). To find duplicated items, see also the [item search](/features/item-search).
 
 ## What SupMod protects by itself {#what-supmod-protects-by-itself}
 
@@ -53,3 +49,4 @@ The drops are visible in the player file (permission `supmod.admin.drops`).
 - Player messages can't inject colours or formatting into the messages of the plugin, the menus or Discord.
 - Staff members can't punish operators (`supmod.punish.exempt`) or act on protected players (`supmod.player.exempt`).
 - Inventory edition can't duplicate items, and every item moved is logged.
+- The [item search](/features/item-search) reads containers with limits (depth, number of items, time per tick): a trapped shulker box cannot freeze the server.

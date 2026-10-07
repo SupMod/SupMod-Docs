@@ -2,7 +2,7 @@
 
 ## Installer {#install}
 
-1. Téléchargez `SupMod-2.3.0.jar` sur [SpigotMC](https://www.spigotmc.org/resources/supmod.108806/).
+1. Téléchargez `SupMod-2.4.0.jar` sur [SpigotMC](https://www.spigotmc.org/resources/supmod.108806/).
 2. Arrêtez le serveur et placez le fichier dans le dossier `plugins/`.
 3. Démarrez le serveur. SupMod crée `plugins/SupMod/` avec ses fichiers et la base de données SQLite.
 4. Tapez `/sm version` en jeu (en tant qu'opérateur) ou dans la console : SupMod répond avec sa version.

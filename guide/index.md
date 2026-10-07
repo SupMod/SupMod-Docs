@@ -18,6 +18,7 @@ Everything is built around **menus**: a moderator rarely needs to remember a com
 
 ### For the staff {#for-the-staff}
 
+- [Staff hub](/features/staff-hub): `/sm` opens a dashboard with live counters and a shortcut to every staff menu.
 - [Reports](/features/reports): `/report` with a reason menu, a comment and the last messages of the player as evidence. Moderators claim a report so that two of them never handle the same one.
 - [Punishments](/features/punishments): warn, mute, kick, ban and IP ban, temporary or permanent, silent with `-s`. **Templates** apply the right step automatically: first insult = warning, second = 1 h mute...
 - [Appeals](/features/appeals): the ban screen shows a code; the player appeals and the staff accepts or refuses in a menu.
@@ -25,7 +26,8 @@ Everything is built around **menus**: a moderator rarely needs to remember a com
 - [Player files](/features/player-management): everything about a player, even offline: play time, punishments, reports, chat history, notes and tags, timeline, IP and alt accounts, quick actions and inventory edition.
 - [Tickets](/features/tickets): `/helpop` questions in a queue, answered in game and rated by the players.
 - [Chat](/features/chat): anti-spam, anti-advertising, word filter, chat history, lock, clear and slow mode.
-- [Alerts](/features/alerts): alt accounts and ban evasion, x-ray detection.
+- [Alerts](/features/alerts): alt accounts and ban evasion, x-ray detection, suspicious amounts of items.
+- [Drop log](/features/drop-log) and [item search](/features/item-search): who gives items to whom, who owns too many valuable items (duplication).
 
 ### For the server {#for-the-server}
 
@@ -34,11 +36,13 @@ Everything is built around **menus**: a moderator rarely needs to remember a com
 - [MOTD, tab, sidebar, boss bars and join messages](/features/display).
 - [Zones](/features/zones) with messages and rules, [holograms](/features/holograms) and leaderboards.
 - [Announcements](/features/announcements), [Discord logs](/features/discord), [security](/features/security).
+- [Join verification and anti-raid](/features/verification): anti-bot puzzle, lockdown of new accounts during a raid, accounts per IP.
 - [Several servers](/guide/network) on one MySQL database: bans, mutes, staff chat and alerts are shared.
 
 ### For the players {#for-the-players}
 
 - [Rewards](/features/rewards) for play time and daily logins, [bounties](/features/bounties), [statistics and leaderboards](/features/statistics), [coins](/features/economy).
+- [/ignore, /staff and polls](/features/community): ignore a player, find a staff member online, vote in the polls of the staff.
 
 ## How the documentation is organised {#how-the-documentation-is-organised}
 

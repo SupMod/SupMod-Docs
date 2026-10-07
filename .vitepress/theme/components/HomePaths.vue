@@ -39,8 +39,16 @@ const TEXT = {
         ]
       }
     ],
-    news: 'New in 2.3: quick actions, inventory edition, notes, tickets, appeals, AFK, statistics and several servers on one database.',
-    newsLink: ['See what changed', '/changelog']
+    news: 'New in 2.4:',
+    newsLinks: [
+      ['staff hub', '/features/staff-hub'],
+      ['drop log', '/features/drop-log'],
+      ['join verification and anti-raid', '/features/verification'],
+      ['item search', '/features/item-search'],
+      ['/ignore, /staff and polls', '/features/community'],
+      ['warning acknowledgment', '/features/punishments#warning-acknowledgment']
+    ],
+    newsLink: ['See what changed', '/changelog#v2-4-0']
   },
   fr: {
     title: 'Par où commencer ?',
@@ -76,8 +84,16 @@ const TEXT = {
         ]
       }
     ],
-    news: 'Nouveau en 2.3 : actions rapides, édition d’inventaire, notes, tickets, appels, AFK, statistiques et plusieurs serveurs sur une même base.',
-    newsLink: ['Voir les nouveautés', '/fr/changelog']
+    news: 'Nouveau en 2.4 :',
+    newsLinks: [
+      ['hub du staff', '/fr/features/staff-hub'],
+      ['journal des drops', '/fr/features/drop-log'],
+      ['vérification et anti-raid', '/fr/features/verification'],
+      ['recherche d’objets', '/fr/features/item-search'],
+      ['/ignore, /staff et sondages', '/fr/features/community'],
+      ['avertissements à confirmer', '/fr/features/punishments#warning-acknowledgment']
+    ],
+    newsLink: ['Voir les nouveautés', '/fr/changelog#v2-4-0']
   }
 }
 
@@ -100,6 +116,9 @@ const t = computed(() => (lang.value.startsWith('fr') ? TEXT.fr : TEXT.en))
     </div>
     <p class="home-news">
       {{ t.news }}
+      <template v-for="(link, i) in t.newsLinks" :key="link[1]">
+        <a :href="withBase(link[1])">{{ link[0] }}</a><span v-if="i < t.newsLinks.length - 1">, </span>
+      </template>.
       <a :href="withBase(t.newsLink[1])">{{ t.newsLink[0] }}</a>
     </p>
   </section>

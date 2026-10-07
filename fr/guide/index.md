@@ -18,6 +18,7 @@ Tout passe par des **menus** : un modérateur a rarement besoin de retenir une c
 
 ### Pour le staff {#for-the-staff}
 
+- [Hub du staff](/fr/features/staff-hub) : `/sm` ouvre un tableau de bord avec des compteurs en direct et un raccourci vers chaque menu du staff.
 - [Signalements](/fr/features/reports) : `/report` avec un menu de raisons, un commentaire et les derniers messages du joueur comme preuve. Les modérateurs prennent en charge un signalement, pour que deux d'entre eux ne traitent jamais le même.
 - [Sanctions](/fr/features/punishments) : avertissement, mute, kick, ban et ban IP, temporaires ou définitifs, silencieux avec `-s`. Les **modèles de sanction** appliquent automatiquement le bon palier : première insulte = avertissement, deuxième = mute de 1 h...
 - [Appels](/fr/features/appeals) : l'écran de ban affiche un code ; le joueur fait appel et le staff accepte ou refuse dans un menu.
@@ -25,7 +26,8 @@ Tout passe par des **menus** : un modérateur a rarement besoin de retenir une c
 - [Fiches joueur](/fr/features/player-management) : tout sur un joueur, même hors ligne : temps de jeu, sanctions, signalements, historique du chat, notes et tags, chronologie, IP et doubles comptes, actions rapides et modification de l'inventaire.
 - [Tickets](/fr/features/tickets) : les questions `/helpop` arrivent dans une file d'attente, reçoivent une réponse en jeu et sont notées par les joueurs.
 - [Chat](/fr/features/chat) : anti-spam, anti-pub, filtre de mots, historique du chat, verrouillage, effacement et mode lent.
-- [Alertes](/fr/features/alerts) : doubles comptes et contournement de ban, détection de x-ray.
+- [Alertes](/fr/features/alerts) : doubles comptes et contournement de ban, détection de x-ray, quantités suspectes d'objets.
+- [Journal des drops](/fr/features/drop-log) et [recherche d'objets](/fr/features/item-search) : qui donne des objets à qui, qui possède trop d'objets de valeur (duplication).
 
 ### Pour le serveur {#for-the-server}
 
@@ -34,11 +36,13 @@ Tout passe par des **menus** : un modérateur a rarement besoin de retenir une c
 - [MOTD, tab, sidebar, boss bars et messages de connexion](/fr/features/display).
 - [Zones](/fr/features/zones) avec messages et règles, [hologrammes](/fr/features/holograms) et classements.
 - [Annonces](/fr/features/announcements), [logs Discord](/fr/features/discord), [sécurité](/fr/features/security).
+- [Vérification et anti-raid](/fr/features/verification) : énigme anti-bot, verrouillage des nouveaux comptes pendant un raid, comptes par IP.
 - [Plusieurs serveurs](/fr/guide/network) sur une seule base MySQL : bans, mutes, chat staff et alertes sont partagés.
 
 ### Pour les joueurs {#for-the-players}
 
 - [Récompenses](/fr/features/rewards) pour le temps de jeu et les connexions quotidiennes, [primes](/fr/features/bounties), [statistiques et classements](/fr/features/statistics), [coins](/fr/features/economy).
+- [/ignore, /staff et sondages](/fr/features/community) : ignorer un joueur, trouver un membre du staff en ligne, voter aux sondages du staff.
 
 ## Organisation de la documentation {#how-the-documentation-is-organised}
 

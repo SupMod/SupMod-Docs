@@ -21,23 +21,26 @@ Dates are in **milliseconds since 1970** (UTC), as returned by `System.currentTi
 | `sm_economy` | coins: `balance` |
 | `sm_transactions` | coins history: `kind`, `amount`, `balance`, `other_name`, `details`, `created_at` |
 | `sm_bounties` | bounties: `target_name`, `sponsor_name`, `amount`, `status`, `claimer_name` |
+| `sm_ignores` | `/ignore` lists (2.4): `uuid` (the player who ignores), `ignored_uuid`, `ignored_name`, `created_at` |
 
 ## Moderation {#moderation}
 
 | Table | Content |
 |---|---|
-| `sm_punishments` | `type` (`WARN`, `MUTE`, `KICK`, `BAN`), `reason`, `template`, `staff_name`, `created_at`, `expires_at` (0 = permanent), `active` (0 = revoked), `ip_ban`, `revoked_by`, `revoked_at`, `revoke_reason`, `report_id` |
+| `sm_punishments` | `type` (`WARN`, `MUTE`, `KICK`, `BAN`), `reason`, `template`, `staff_name`, `created_at`, `expires_at` (0 = permanent), `active` (0 = revoked), `ip_ban`, `revoked_by`, `revoked_at`, `revoke_reason`, `report_id`, `acknowledged_at` (2.4, warnings: `NULL` = no acknowledgment asked, `0` = waiting, otherwise the date the player clicked "I understand") |
 | `sm_reports` | `reporter_name`, `target_name`, `reason`, `comment`, `evidence`, `status` (`OPEN`, `RESOLVED`, `REJECTED`), `claimed_name`, `handler_name`, `handled_at`, `staff_note` |
 | `sm_tickets` | `name`, `message`, `server`, `status` (`OPEN`, `CLOSED`), `claimed_name`, `claimed_at`, `closed_by`, `closed_at`, `rating` (1-5) |
 | `sm_ticket_messages` | conversation: `ticket_id`, `author_name`, `staff` (1 = staff answer), `message`, `seen` |
 | `sm_appeals` | `punishment_id`, `name`, `message`, `source` (`GAME`, `STAFF`, `WEB`), `status` (`PENDING`, `ACCEPTED`, `REFUSED`), `handler_name`, `response`, `notified` |
 | `sm_chat_history` | last messages and commands: `kind` (`CHAT`, `CMD`), `message` |
 | `sm_chat_flags` | messages caught by the word filter |
-| `sm_alerts` | alt and x-ray alerts: `kind`, `details`, position |
+| `sm_alerts` | alerts: `kind` (`ALT`, `XRAY`, `ITEMS` for the suspicious items), `details`, position |
 | `sm_staff_log` | every staff action: `staff_name`, `action`, `target_name`, `details` |
 | `sm_inventory_log` | inventory edition: `staff_name`, `container`, `action` (`TAKE`, `GIVE`, `DELETE`, `CLEAR`), `item`, `amount` |
-| `sm_kills`, `sm_drops` | kills with the inventories, logged drops |
-| `sm_connection_log` | refused connections (blacklist, throttle) |
+| `sm_kills`, `sm_drops` | kills with the inventories, logged drops; in `sm_drops`, a row with `item` = `NULL` and `skipped` = N sums up N drops not logged because of the limit per minute (2.4) |
+| `sm_drop_watch` | players watched by the [drop log](/features/drop-log) (2.4): `uuid`, `name`, `reason`, `added_by_uuid`, `added_by_name`, `added_at`, `expires_at` (0 = permanent) |
+| `sm_verified` | accounts that passed the [join verification](/features/verification#join-verification) (2.4): `uuid`, `name`, `verified_at`, `verified_by` (`SELF`, or the staff member of `/sm verify`) |
+| `sm_connection_log` | refused connections: `name`, `ip`, `created_at`, `reason`: `IP_BLACKLISTED`, `NAME_BLACKLISTED`, `THROTTLED`; since 2.4 `LOCKDOWN`, `IP_LIMIT`, `VERIFICATION_TIMEOUT`, `VERIFICATION_FAILED` |
 
 ## Statistics for graphs {#statistics-for-graphs}
 
@@ -77,6 +80,9 @@ With [several servers](/guide/network), the servers talk through the table `sm_s
 | `ALERT` | `{"permission":"supmod.admin.report.receive","text":"...","command":"/supmod report 12"}` | staff alert. Only the alert permissions of SupMod are accepted, and only read-only commands can be clickable |
 | `TICKET_ANSWER` | `{"uuid":"..."}` | the player has unread ticket answers |
 | `APPEAL_DECIDED` | `{"uuid":"..."}` | the player has an appeal decision to read |
+| `DROP_WATCH` | `{"uuid":"..."}` | the drop log watch list changed: the servers read `sm_drop_watch` again (they also read it every 5 minutes) |
+| `LOCKDOWN` | `{"state":"on","until":"1767229200000","reason":"bots","by":"Steve","auto":"false"}` | an anti-raid lockdown starts (`until` = end date, `0` = until it is ended) or ends (`"state":"off"`). Ignored when `security.anti-raid.network-sync` is `false` |
+| `WARN_ACK` | `{"staff":"<uuid>","player":"Steve","id":"42","reason":"..."}` | a player acknowledged the warning 42: the staff member who gave it is told if he is on this server (`punishments.warn-acknowledge.notify-staff`) |
 
 The servers only read the events written after their start; events are deleted after `network.retention-hours`. SupMod adds `"origin"` (an id of the sending server) to its own events to recognise them; an event without `origin` is ignored only by the server whose name is in the `server` column.
 

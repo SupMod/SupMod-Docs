@@ -1,6 +1,6 @@
-# Alt and x-ray alerts
+# Alerts
 
-Alerts are sent to the staff members who have the permission, with a click to act. They are kept in `/sm alerts` (permission `supmod.alerts.view`), can be sent to [Discord](/features/discord) (`alert` event) and are shared between [several servers](/guide/network).
+Alerts are sent to the staff members who have the permission, with a click to act. They are kept in `/sm alerts` (permission `supmod.alerts.view`; filters: `/sm alerts xray`, `alt`, `items`), can be sent to [Discord](/features/discord) (`alert` event) and are shared between [several servers](/guide/network).
 
 ## Alt accounts {#alt-accounts}
 
@@ -48,8 +48,17 @@ Permission: `supmod.alerts.xray`. `supmod.bypass.xray` (given to nobody by defau
 Teleport to the player (click on the alert), watch him in [vanish](/features/staff-tools#vanish) and look at his blocks mined with `/sm mcstats <player>` before punishing.
 :::
 
+## Suspicious items {#suspicious-items}
+
+The automatic scan of the [item search](/features/item-search#automatic-scan) (off by default, `item-search.auto-scan.enabled`) reports the players who own more than the suspicious amounts of `item-search.thresholds` (32 netherite ingots, 2 elytras, 8 totems...): a possible duplication.
+
+<p><span class="mc">[Items] Steve has Netherite Ingot x96 (&gt; 32) (click: file)</span></p>
+
+The alerts go to `supmod.alerts.items`, to the **Suspicious items** filter of `/sm alerts` (`/sm alerts items`), to Discord (`alert` event) and to the other servers of the network. The same player is not reported again for the same item for `alert-cooldown-minutes` (60). `supmod.bypass.itemsearch` (given to nobody by default) is never reported, for example a creative builder.
+
 ## Other alerts {#other-alerts}
 
 - **Server health**: low TPS or memory almost full, to `supmod.health.alerts`. See [Health and lag](/features/server-health).
 - **Watched players**: a tagged player joins, to `supmod.watch.notify`. See [Notes and tags](/features/player-management#notes-and-tags).
 - **Freeze**: a frozen player disconnects. See [Freeze](/features/staff-tools#freeze).
+- **Lockdown**: a lockdown starts or ends, automatic lockdowns included, to `supmod.lockdown.notify`. See [Join verification and anti-raid](/features/verification#automatic-lockdown).

@@ -34,17 +34,13 @@ security:
 
 Si votre serveur est derrière un proxy qui ne transmet pas les vraies IP, tous les joueurs ont l'IP du proxy : ajoutez-la à la whitelist (ou mieux, activez l'IP forwarding sur le proxy).
 
-## Log des drops {#drop-log}
+## Vérification et anti-raid {#anti-raid}
 
-Enregistre les items lâchés par certains joueurs, pour vérifier un échange suspect ou une duplication :
+La vérification à la connexion (anti-bot), le verrouillage anti-raid, le nombre maximum de comptes par IP et le délai de chat des nouveaux joueurs ont leur propre page : [Vérification et anti-raid](/fr/features/verification).
 
-| Commande | |
-|---|---|
-| `/sm drops on` / `off` | activer le log |
-| `/sm drops add <player>` / `remove <player>` | joueurs surveillés |
-| `/sm drops list` | joueurs surveillés |
+## Journal des drops {#drop-log}
 
-Les drops sont visibles dans la fiche joueur (permission `supmod.admin.drops`).
+Le journal des drops (joueurs surveillés, durées, modes, surveillance automatique) a sa propre page depuis la 2.4 : [Journal des drops](/fr/features/drop-log). Pour retrouver des objets dupliqués, voir aussi la [recherche d'objets](/fr/features/item-search).
 
 ## Ce que SupMod protège de lui-même {#what-supmod-protects-by-itself}
 
@@ -53,3 +49,4 @@ Les drops sont visibles dans la fiche joueur (permission `supmod.admin.drops`).
 - Les messages des joueurs ne peuvent pas injecter de couleurs ni de mise en forme dans les messages du plugin, les menus ou Discord.
 - Les membres du staff ne peuvent pas sanctionner les opérateurs (`supmod.punish.exempt`) ni agir sur les joueurs protégés (`supmod.player.exempt`).
 - La modification d'inventaire ne peut pas dupliquer d'items, et chaque item déplacé est enregistré.
+- La [recherche d'objets](/fr/features/item-search) lit les conteneurs avec des limites (profondeur, nombre d'objets, temps par tick) : un shulker piégé ne peut pas bloquer le serveur.

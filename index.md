@@ -15,7 +15,7 @@ hero:
       text: What can it do?
       link: /guide/
     - theme: alt
-      text: Download 2.3.0
+      text: Download 2.4.0
       link: https://www.spigotmc.org/resources/supmod.108806/
 ---
 

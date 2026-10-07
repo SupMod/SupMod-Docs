@@ -44,16 +44,21 @@ Le menu de `/report` affiche les raisons de `config.yml` › `report.reasons` (t
 
 Créez un webhook dans un salon privé de votre Discord (paramètres du salon › Intégrations › Webhooks), collez son URL dans `/sm settings` › **Discord** › **URL du webhook** (ou `discord.webhook-url` dans `config.yml`), puis tapez `/sm webhook on`. Les signalements, les sanctions, les appels et les alertes sont envoyés par défaut. Voir [Discord](/fr/features/discord).
 
-## 7. Optionnel : MySQL et plusieurs serveurs {#_7-optional-mysql-and-several-servers}
+## 7. Optionnel : protection contre les bots et les raids {#_7-optional-protection-against-bots-and-raids}
+
+Le verrouillage automatique est activé : si beaucoup de nouveaux comptes arrivent d'un coup, ils sont refusés pendant 10 minutes. Si votre serveur est visé par des bots, activez aussi la vérification à la connexion (`/sm settings` › **Sécurité**). Voir [Vérification et anti-raid](/fr/features/verification).
+
+## 8. Optionnel : MySQL et plusieurs serveurs {#_8-optional-mysql-and-several-servers}
 
 SQLite est parfait pour un seul serveur. Pour partager les bans, les mutes et le chat staff entre plusieurs serveurs, utilisez MySQL. Voir [Base de données](/fr/guide/storage) et [Plusieurs serveurs](/fr/guide/network).
 
 ## Essayez {#try-it}
 
+- `/sm` ouvre le [hub du staff](/fr/features/staff-hub) : compteurs en direct (joueurs, signalements, tickets, TPS...) et un raccourci vers chaque menu du staff.
 - `/staffmode` place les outils du staff dans votre barre d'action. Faites un clic droit sur un joueur avec le livre pour ouvrir sa fiche.
 - `/report <player>` depuis un autre compte, puis `/sm reports` pour traiter le signalement.
 - `/sm health` pour voir comment se porte votre serveur.
 
 ::: tip Commandes les plus utilisées par le staff
-`/sm profile <player>` · `/punish <player>` · `/history <player>` · `/sm reports` · `/staffmode` · `/vanish` · `/freeze <player>` · `/sc <message>` · `/ticket list`
+`/sm` · `/sm profile <player>` · `/punish <player>` · `/history <player>` · `/sm reports` · `/staffmode` · `/vanish` · `/freeze <player>` · `/sc <message>` · `/ticket list`
 :::
