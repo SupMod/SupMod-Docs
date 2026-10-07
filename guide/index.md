@@ -47,5 +47,5 @@ Everything is built around **menus**: a moderator rarely needs to remember a com
 - **Reference**: every [command](/reference/commands), [permission](/reference/permissions), [placeholder](/reference/placeholders) and [configuration file](/reference/config-files). These pages are generated from the plugin itself.
 
 ::: tip Need help?
-Ask on the [Discord server](https://discord.gg/f7eKwemeMX). Give your SupMod version (`/sm version`), your server software and the error of the console if there is one.
+Ask on the [Discord server](https://discord.gg/WtKt5vG9Yn). Give your SupMod version (`/sm version`), your server software and the error of the console if there is one.
 :::

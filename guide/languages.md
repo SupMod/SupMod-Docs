@@ -40,7 +40,7 @@ When SupMod is updated, the new messages are added to your language file automat
 A message missing from your file is taken from the English file included in the plugin, so a partial translation still works.
 
 ::: info Share your translation
-A complete translation can be included in the next version of SupMod: send it on the [Discord server](https://discord.gg/f7eKwemeMX).
+A complete translation can be included in the next version of SupMod: send it on the [Discord server](https://discord.gg/WtKt5vG9Yn).
 :::
 
 ## The ban screen {#the-ban-screen}
