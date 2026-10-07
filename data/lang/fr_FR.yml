@@ -96,7 +96,7 @@ help:
   ticket: "&d/ticket <message> &8| &d/helpop <message> &7- demander de l'aide au staff"
   appeal: "&d/appeal <message> &8| &d/appeal <code> <message> &7- faire appel d'une sanction"
   afk: "&d/afk &7- absent du clavier"
-  ignore: "&d/ignore <joueur> &8| &d/ignore list &8| &d/unignore <joueur> &7- masquer les messages d'un joueur"
+  ignore: "&d/ignore <joueur> &8| &d/ignore add <joueur> &8| &d/ignore list &8| &d/unignore <joueur> &7- masquer les messages d'un joueur"
   stafflist: "&d/staff &7- membres du staff en ligne, demander de l'aide"
   poll: "&d/poll &7- voter au sondage en cours"
   poll-staff: "&d/poll create [durée] <question> | <réponse> | <réponse>... &8| &d/poll end|cancel &7- sondages"

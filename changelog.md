@@ -56,6 +56,7 @@ The changes of each version of SupMod. Download the latest version on [SpigotMC]
 
 ### Fixed
 - A duration with too many digits (`99999999999999999999d`) caused an error instead of being refused.
+- The help of `/ticket` and `/appeal` was printed as `[line1, line2]` instead of one line per entry.
 
 ### Security
 - Verification: teleports, portals, vehicles, arrows and command completion blocked during the verification; maximum delay guaranteed even if the database does not answer.

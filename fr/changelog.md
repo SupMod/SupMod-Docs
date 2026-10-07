@@ -56,6 +56,7 @@ Les nouveautés de chaque version de SupMod. Téléchargez la dernière version 
 
 ### Corrigé
 - Une durée avec trop de chiffres (`99999999999999999999d`) provoquait une erreur au lieu d'être refusée.
+- Les aides de `/ticket` et `/appeal` s'affichaient sous la forme `[ligne1, ligne2]` au lieu d'une ligne par entrée.
 
 ### Sécurité
 - Vérification : téléportations, portails, véhicules, flèches et complétion des commandes bloqués pendant la vérification ; délai maximum garanti même si la base de données ne répond pas.
