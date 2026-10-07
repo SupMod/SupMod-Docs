@@ -7,6 +7,18 @@
 
 The new options, messages and database tables are added automatically. Your values, your messages and your lists are kept. The console tells you when options were added to `config.yml`.
 
+### From 2.3 to 2.4 {#from-2-3-to-2-4}
+
+- Nothing to do. The new tables (`sm_drop_watch`, `sm_verified`, `sm_ignores`) and columns are created at the first start.
+- **Drop log**: the players of `drop-log.players` (config.yml) are moved to the database as permanent watches, and the key is removed. The drop log is now on by default for new installations (your `drop-log.enabled` value is kept); in the default `WATCHLIST` mode, only the watched players are logged. Watching players, `on` / `off` and the mode now need `supmod.admin.drops.watch` (included in `supmod.admin`). See [Drop log](/features/drop-log).
+- **Menu sounds**: `gui.click-sound` and `gui.sound-volume` are moved to the new `gui.sounds` section automatically. See [Menu sounds](/guide/configuration#menu-sounds).
+- **Join verification** is off by default: enable it in `/sm settings` › **Security** if bots join your server. The **automatic lockdown** is on (8 new accounts in 30 seconds): if many real new players can arrive at once (event, video), raise `security.anti-raid.auto-lockdown.new-accounts` or set it to 0. See [Join verification and anti-raid](/features/verification).
+- **Warnings** must now be acknowledged by the player (`punishments.warn-acknowledge.enabled`); warnings given before the update are never asked. See [Warning acknowledgment](/features/punishments#warning-acknowledgment).
+- `/sm` opens the [staff hub](/features/staff-hub) for the staff (`gui.hub.enabled: false` to keep the help).
+- `/staff` is no longer an alias of `/staffmode`: it shows the [staff online](/features/community#staff-list). Use `/staffmode` or `/mod`.
+- **Command conflicts**: EssentialsX (or another plugin) may already have `/ignore`, `/unignore` or `/staff`. If the other plugin answers, use `/supmod:ignore`, `/supmod:unignore`, `/supmod:staff`, or remove the commands of one of the plugins in `commands.yml` of the server.
+- New player permissions given to everyone: `supmod.ignore`, `supmod.stafflist`, `supmod.poll.vote`. The new staff permissions are in `supmod.staff` and `supmod.admin` (see [Permissions and ranks](/guide/permissions)).
+
 ### From 2.2 to 2.3 {#from-2-2-to-2-3}
 
 - Nothing to do. The new modules (tickets, appeals, AFK, statistics) are on by default; the network sync is off.

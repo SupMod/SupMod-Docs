@@ -30,12 +30,13 @@ help:
     help: "&d/%label% help &7- cette aide"
     players: "&d/%label% players &7- joueurs connectés et leurs fiches"
     profile: "&d/%label% profile <joueur> &7- fiche d'un joueur (même hors ligne)"
+    search: "&d/%label% search <pseudo> &7- rechercher un joueur (connecté ou non)"
     reports: "&d/%label% reports [open|closed|all] &7- liste des signalements"
     tp: "&d/%label% tp <joueur> &7- se téléporter à un joueur"
     spectp: "&d/%label% spectp [on|off] &7- mode spectateur lors des TP"
     return: "&d/%label% return &7- revenir à sa position d'avant la TP"
     gamerule: "&d/%label% gamerule [monde] &7- menu des règles du jeu"
-    drops: "&d/%label% drops [on|off|add|remove|list] &7- journal des objets jetés"
+    drops: "&d/%label% drops [add|remove|list|log|on|off|mode] &7- journal des objets jetés et joueurs surveillés"
     blacklist: "&d/%label% blacklist <ban|unban|list|reload> &7- liste noire IP / pseudos"
     webhook: "&d/%label% webhook [on|off|test|<événement> on|off] &7- logs Discord"
     tasks: "&d/%label% tasks &7- commandes planifiées"
@@ -46,7 +47,7 @@ help:
     templates: "&d/%label% templates &7- éditeur des modèles de sanction"
     chat: "&d/%label% chat <lock|unlock|clear|slow <s|off>> &7- contrôle du chat"
     randomtp: "&d/%label% randomtp &7- TP vers un joueur au hasard"
-    alerts: "&d/%label% alerts [xray|alt] &7- historique des alertes"
+    alerts: "&d/%label% alerts [xray|alt|items] &7- historique des alertes"
     staffhistory: "&d/%label% staffhistory [staff] &7- historique des actions du staff"
     announce: "&d/%label% announce [list|send <id>|on|off|reload] &7- annonces"
     settings: "&d/%label% settings &7- modifier la configuration en jeu"
@@ -73,6 +74,10 @@ help:
     mcstats: "&d/%label% mcstats <joueur> &7- statistiques Minecraft d'un joueur"
     invlog: "&d/%label% invlog [joueur] &7- journal des modifications d'inventaire"
     network: "&d/%label% network &7- synchronisation réseau"
+    # 2.4 verify
+    verify: "&d/%label% verify [reset] <joueur> &7- valider / réinitialiser la vérification de connexion"
+    lockdown: "&d/%label% lockdown [on [durée] [raison]|off] &7- verrouillage anti-raid"
+    itemsearch: "&d/%label% itemsearch <objet> [min] &8| &d/%label% itemsearch scan &7- qui possède un objet, quantités suspectes"
   report: "&d/report [joueur] &7- signaler un joueur au staff"
   playtime: "&d/playtime [joueur|top] &7- temps de jeu"
   coins: "&d/coins help &7- commandes des coins"
@@ -91,6 +96,10 @@ help:
   ticket: "&d/ticket <message> &8| &d/helpop <message> &7- demander de l'aide au staff"
   appeal: "&d/appeal <message> &8| &d/appeal <code> <message> &7- faire appel d'une sanction"
   afk: "&d/afk &7- absent du clavier"
+  ignore: "&d/ignore <joueur> &8| &d/ignore list &8| &d/unignore <joueur> &7- masquer les messages d'un joueur"
+  stafflist: "&d/staff &7- membres du staff en ligne, demander de l'aide"
+  poll: "&d/poll &7- voter au sondage en cours"
+  poll-staff: "&d/poll create [durée] <question> | <réponse> | <réponse>... &8| &d/poll end|cancel &7- sondages"
 
 admin:
   reloaded: "&aConfiguration rechargée en %ms% ms."
@@ -123,6 +132,10 @@ gui:
     tag-staff-mode: "&8• &dMode staff"
     tag-frozen: "&8• &bGelé"
     tag-muted: "&8• &6Muet"
+    tag-drops-watched: "&8• &dDrops surveillés"
+    tag-drops-auto: "&8• &dDrops enregistrés (auto)"
+    entry-drops-watch: "&eQ : &7surveiller ses drops"
+    entry-drops-unwatch: "&eQ : &7ne plus surveiller ses drops"
   report-target:
     title: "&8Signaler un joueur"
     header: "&dQui veux-tu signaler ?"
@@ -201,7 +214,14 @@ gui:
     drops:
       name: "&6Objets jetés"
       lore:
-        - "&eClique pour voir le journal des drops"
+        - ""
+        - "&eClic : &7journal des drops du joueur"
+      lore-watch:
+        - "&eClic droit : &7surveiller ses drops (%duration%)"
+        - "&eMaj + clic droit : &7durée et raison"
+      lore-unwatch:
+        - "&eClic droit : &7arrêter la surveillance"
+        - "&eMaj + clic droit : &7changer la durée"
     status-banned:
       - "&4&lBANNI &7(%remaining%)"
       - "&8%reason%"
@@ -341,6 +361,11 @@ gui:
       - "&7Journalisation : &aACTIVÉE"
     header-off:
       - "&7Journalisation : &cDÉSACTIVÉE &7(/sm drops on)"
+    header-hint:
+      - ""
+      - "&eClic : &7joueurs surveillés"
+    empty: "&7Rien d'enregistré pour l'instant"
+    empty-filter: "&7Aucun drop ne correspond à ce filtre"
     entry-lore:
       - ""
       - "&7Jeté par &f%player% &7le &f%date%"
@@ -349,6 +374,104 @@ gui:
       - "&7Ramassé par &f%player% &7le &f%date%"
     entry-not-picked:
       - "&7Pas ramassé"
+    entry-teleport:
+      - "&eClic : &7se téléporter sur place"
+    entry-picker-file:
+      - "&eClic droit : &7fiche de %player%"
+    summary-name: "&c%count% drop(s) non enregistré(s)"
+    summary-lore:
+      - "&7Limite de drops enregistrés par minute atteinte"
+      - "&7Joueur : &f%player% &7- &f%date%"
+      - "&7Dernier lieu : &f%world% %x% %y% %z%"
+    filter-name: "&6Filtre"
+    filter:
+      all: "Tous les drops"
+      not-picked: "Pas ramassés"
+      picked-by-other: "Ramassés par quelqu'un d'autre"
+    filter-hint:
+      - ""
+      - "&eClic : &7filtre suivant &8| &eDroit : &7précédent"
+  drop-watch:
+    title: "&8Drops : surveillés (%count%/%max%)"
+    header: "&dJoueurs surveillés"
+    mode-watchlist:
+      - "&7Mode : &fWATCHLIST"
+      - "&8Seuls les joueurs ci-dessous sont enregistrés"
+    mode-all:
+      - "&7Mode : &fALL"
+      - "&8Tous les joueurs sont enregistrés"
+    header-count:
+      - "&7Surveillés : &f%count%&7/&f%max% &8- &7durée par défaut : &f%duration%"
+    header-auto:
+      - "&7Tags surveillés automatiquement : &f%tags%"
+      - "&7Nouveaux joueurs (minutes) : &f%minutes%"
+    header-limit:
+      - "&7Enregistrés par joueur et par minute : &f%max%"
+      - "&7Non enregistrés (limite) depuis le démarrage : &f%skipped%"
+    empty: "&7Personne n'est surveillé : ajoute un joueur"
+    empty-all: "&7Mode ALL : tous les joueurs sont enregistrés"
+    entry-lore:
+      - "&7Raison : &f%reason%"
+      - "&7Ajouté par &f%staff% &7le &f%date%"
+    expires:
+      - "&7Jusqu'au &f%date% &8(%remaining%)"
+    expires-never:
+      - "&7Permanent"
+    auto-tag:
+      - "&dAuto : &7tag du staff"
+    auto-new:
+      - "&dAuto : &7nouveau joueur"
+    online: "&aEn ligne"
+    offline: "&8Hors ligne"
+    hint-view:
+      - ""
+      - "&eClic : &7journal des drops"
+    hint-manage:
+      - ""
+      - "&eClic : &7journal des drops"
+      - "&eClic droit : &7arrêter la surveillance"
+      - "&eMaj + clic : &7changer la durée"
+    hint-auto-manage:
+      - ""
+      - "&eClic : &7journal des drops"
+      - "&eClic droit : &7surveiller manuellement"
+    confirm-remove: "&8Ne plus surveiller %player% ?"
+    confirm-remove-lore:
+      - "&7Ses prochains drops ne seront plus enregistrés"
+      - "&7(le journal est conservé)"
+    add: "&aSurveiller un joueur"
+    add-lore:
+      - "&7Tape son pseudo, puis la durée"
+      - "&7et la raison (par défaut : &f%duration%&7)"
+    switch: "&fJournal des drops"
+    switch-lore:
+      - "&7Enregistre les drops et les ramassages"
+    mode: "&fMode : &e%mode%"
+    mode-name-watchlist: "WATCHLIST"
+    mode-name-all: "ALL"
+    mode-lore:
+      - "&7WATCHLIST : joueurs surveillés uniquement"
+      - "&7ALL : tous les joueurs (petits serveurs)"
+      - "&eClique pour changer"
+    log: "&6Tout le journal des drops"
+    log-lore:
+      - "&eClique pour l'ouvrir"
+    settings: "&fParamètres"
+    settings-lore:
+      - "&7Limites, objets ignorés, surveillance auto"
+    status-watched:
+      - "&dSurveillé &7par &f%staff%"
+      - "&7Raison : &f%reason%"
+    status-all:
+      - "&dEnregistré &7(mode ALL)"
+    status-tag:
+      - "&dEnregistré &7(tag surveillé)"
+    status-new:
+      - "&dEnregistré &7(nouveau joueur)"
+    status-none:
+      - "&7Pas surveillé"
+    status-disabled:
+      - "&cLe journal des drops est désactivé"
   gamerules:
     title: "&8Règles du jeu : %world%"
     header: "&dRègles du jeu de %world%"
@@ -618,6 +741,7 @@ gui:
       all: "toutes"
       xray: "X-ray"
       alt: "Multi-comptes"
+      items: "Objets suspects"
   freeze:
     title: "&8&lTu es gelé"
     info: "&b&lTU ES GELÉ"
@@ -847,6 +971,8 @@ gui:
         - "&eClic : objet en main &8| &eDroit : par défaut"
       commands:
         - "&eClic : modifier les commandes &8(supmod.admin.commands)"
+      amounts:
+        - "&eClic : modifier (lignes OBJET: quantité) &8| &eDroit : par défaut"
     category:
       modules: "&a&lModules"
       general: "&f&lGénéral"
@@ -874,6 +1000,7 @@ gui:
       support: "&d&lTickets et appels"
       statistics: "&a&lStatistiques"
       network: "&3&lRéseau"
+      community: "&a&lCommunauté"
     category-lore:
       modules:
         - "&7Activer ou désactiver chaque fonctionnalité"
@@ -904,7 +1031,7 @@ gui:
       discord:
         - "&7Webhook et événements"
       security:
-        - "&7Anti-connexions en masse, journal des drops"
+        - "&7Anti-connexions en masse, anti-raid, comptes par IP, vérification, journal des drops"
       server:
         - "&7Alertes de santé, nettoyage, redémarrages"
       motd-tab:
@@ -927,6 +1054,8 @@ gui:
         - "&7Statistiques Minecraft, agrégats quotidiens"
       network:
         - "&7Plusieurs serveurs sur une base MySQL"
+      community:
+        - "&7/ignore, /staff, sondages"
   health:
     title: "&8Santé du serveur"
     header: "&f&lSanté du serveur : %state%"
@@ -1613,6 +1742,93 @@ gui:
     animals_bred: "&7Animaux reproduits : &f%value%"
     trades: "&7Échanges avec les villageois : &f%value%"
     enchants: "&7Objets enchantés : &f%value%"
+  # 2.4 social
+  ignore:
+    title: "&8Joueurs ignorés"
+    header: "&c&lJoueurs ignorés"
+    header-lore:
+      - "&7Tu ne vois plus leurs messages"
+      - "&7ni leurs @mentions."
+      - "&8%count%/%max%"
+    empty: "&7Tu n'ignores personne"
+    entry: "&f%player%"
+    entry-lore:
+      - "&7Ignoré depuis le &f%date%"
+      - ""
+      - "&eClique pour ne plus l'ignorer"
+    help: "&e&lComment ignorer"
+    help-lore:
+      - "&d/ignore <joueur> &7- ignorer / ne plus ignorer"
+      - "&d/unignore <joueur> &7- ne plus ignorer"
+      - "&7Les membres du staff ne peuvent pas être ignorés."
+  stafflist:
+    title: "&8Staff en ligne"
+    header: "&d&lStaff en ligne &7(%count%)"
+    header-lore:
+      - "&a%available% &7disponible(s)"
+      - "&7Clique sur une tête pour envoyer un message privé,"
+      - "&7ou demande de l'aide avec le livre."
+    empty: "&7Aucun membre du staff en ligne. Utilise le livre pour laisser un ticket."
+    entry: "&f%player%"
+    entry-lore:
+      - "&7Rôle : %role%"
+      - "&7Statut : %status%"
+    entry-vanished:
+      - "&8• &7Invisible"
+    entry-click:
+      - ""
+      - "&eClique pour écrire à %player%"
+    help: "&a&lDemander de l'aide"
+    help-lore:
+      - "&7Ta question est envoyée au staff"
+      - "&7sous forme de ticket (/helpop)."
+      - ""
+      - "&eClique, puis écris ta question"
+    staff-mode: "&d&lMode staff"
+    staff-mode-on:
+      - "&7Tu es en mode staff"
+      - "&eClique pour le quitter"
+    staff-mode-off:
+      - "&7/staff affiche maintenant cette liste :"
+      - "&7utilise &f/staffmode &7ou &f/mod&7."
+      - "&eClique pour passer en mode staff"
+  poll:
+    title: "&8Sondage"
+    none: "&7Aucun sondage en cours"
+    none-lore:
+      - "&7Reviens quand le staff en lancera un !"
+    header: "&d&lSondage"
+    header-lore:
+      - ""
+      - "&7Fin dans &f%time% &8| &f%votes% &7vote(s)"
+      - "&8Lancé par %staff%"
+    not-voted:
+      - "&eClique sur une réponse pour voter"
+    voted:
+      - "&aTon vote : &f%answer%"
+      - "&7Tu peux le changer jusqu'à la fin"
+    answer: "&e[%number%] &f%answer%"
+    answer-results:
+      - "%bar% &f%percent% &7(%votes%)"
+    answer-hidden:
+      - "&8Résultats à la fin"
+    answer-chosen:
+      - ""
+      - "&a✔ Ton vote"
+    answer-click:
+      - ""
+      - "&eClique pour voter"
+    answer-change:
+      - ""
+      - "&eClique pour changer ton vote"
+    end: "&6&lTerminer maintenant"
+    end-lore:
+      - "&7Termine le sondage et affiche les résultats"
+    cancel: "&c&lAnnuler le sondage"
+    cancel-lore:
+      - "&7Aucun résultat n'est affiché"
+    end-confirm: "&8Terminer le sondage maintenant ?"
+    cancel-confirm: "&8Annuler le sondage ?"
 
 gamerule:
   changed: "&aRègle &f%rule% &adéfinie sur &f%value% &7(%world%)"
@@ -1725,13 +1941,27 @@ broadcast:
 drops:
   enabled: "&aJournal des drops activé."
   disabled: "&7Journal des drops désactivé."
-  added: "&f%player% &aest maintenant surveillé."
+  watch-added: "&f%player% &aest maintenant surveillé &7(%duration%)."
+  updated: "&7Surveillance de &f%player% &7modifiée &7(%duration%)."
   removed: "&f%player% &7n'est plus surveillé."
-  already-watched: "&7%player% est déjà surveillé."
   not-watched: "&7%player% n'est pas surveillé."
-  list-header: "&7Journal des drops %state%&7, &f%count% &7joueur(s) surveillé(s) :"
-  list-entry: "&8- &f%player% &8(%uuid%)"
-  usage: "&cUtilisation : /sm drops [on|off|list|add <joueur>|remove <joueur>]"
+  remove-ambiguous: "&cPlusieurs joueurs surveillés s'appelaient &f%player%&c : utilise l'UUID (&f%uuids%&c)."
+  limit: "&cTrop de joueurs surveillés (%max%). Retires-en un, ou augmente drop-log.max-watched."
+  warn-disabled: "&eLe journal des drops est désactivé : rien n'est enregistré (/sm drops on)."
+  warn-mode-all: "&eMode ALL : tous les joueurs sont déjà enregistrés."
+  permanent: "permanent"
+  until: "jusqu'au %date%"
+  list-title: "&7Journal des drops %state%&7, mode &f%mode%&7, &f%count%&7/&f%max% &7joueur(s) surveillé(s) :"
+  list-line: "&8- &f%player% &7(%expires%) &8%staff% &7%reason%"
+  list-hover: "&7Clic : journal des drops de %player%"
+  list-auto: "&7Enregistrés automatiquement en ce moment (%count%) : &f%players%"
+  list-mode-all: "&7Mode ALL : tous les joueurs sont enregistrés."
+  command-usage: "&cUtilisation : /sm drops [add <joueur> [durée] [raison]|remove <joueur>|list|log [joueur]|on|off|mode <watchlist|all>]"
+  mode-usage: "&cUtilisation : /sm drops mode <watchlist|all> &7(actuel : &f%mode%&7)"
+  mode-changed: "&aMode du journal des drops : &f%mode%"
+  teleported: "&aTéléporté sur le lieu du drop (&f%world% %x% %y% %z%&a)."
+  prompt-name: "&7Pseudo du joueur à surveiller :"
+  prompt-duration: "&7Durée et raison pour &f%player% &7(exemple : &f7d échanges suspects&7, &fperm&7, ou &f- &7= %duration%) :"
 
 blacklist:
   usage: "&cUtilisation : /sm blacklist <ban|unban> <ip|username> <valeur>, /sm blacklist list, /sm blacklist reload"
@@ -1855,6 +2085,24 @@ settings:
     config_auto_rules_enabled: "Règles à la connexion"
     config_chat_filter_enabled: "Filtre de mots"
     config_drop_log_enabled: "Journal des drops"
+    config_drop_log_mode: "Journal des drops : mode"
+    config_drop_log_mode-desc:
+      - "&7WATCHLIST : joueurs surveillés uniquement"
+      - "&7ALL : tous les joueurs (petits serveurs)"
+    config_drop_log_max_watched: "Journal des drops : joueurs surveillés max"
+    config_drop_log_default_duration: "Journal des drops : durée par défaut"
+    config_drop_log_default_duration-desc:
+      - "&7Exemple : 7d, 12h, perm"
+    config_drop_log_max_per_minute: "Journal des drops : drops par joueur et minute"
+    config_drop_log_max_per_minute-desc:
+      - "&70 = pas de limite (600 en mode ALL)"
+    config_drop_log_flush_seconds: "Journal des drops : écriture toutes les (s)"
+    config_drop_log_ignored_items: "Journal des drops : objets ignorés"
+    config_drop_log_auto_watch_tags: "Journal des drops : tags surveillés auto"
+    config_drop_log_auto_watch_new_players_minutes: "Journal des drops : nouveaux joueurs (min)"
+    config_drop_log_auto_watch_new_players_minutes-desc:
+      - "&7Drops enregistrés pendant les premières"
+      - "&7minutes de jeu (0 = désactivé)"
     config_discord_enabled: "Logs Discord"
     config_security_enabled: "Sécurité (liste noire, anti-flood de connexions)"
     config_language: "Langue"
@@ -1863,8 +2111,12 @@ settings:
     config_check_update: "Vérifier les mises à jour"
     config_gui_border_material: "Bordure des menus"
     config_gui_accent_material: "Accent des menus"
-    config_gui_click_sound: "Son des clics"
-    config_gui_sound_volume: "Volume des clics"
+    config_gui_sounds_enabled: "Sons des menus"
+    config_gui_sounds_volume: "Sons des menus : volume"
+    config_gui_sounds_pitch: "Sons des menus : hauteur du clic"
+    config_gui_sounds_click: "Son : clic sur un bouton"
+    config_gui_sounds_open: "Son : ouverture d'un menu"
+    config_gui_sounds_error: "Son : clic refusé"
     config_storage_log_retention_days: "Rétention des logs (jours)"
     config_storage_chat_history_retention_days: "Rétention du chat (jours)"
     config_storage_staff_log_retention_days: "Rétention des actions staff (jours)"
@@ -1895,6 +2147,11 @@ settings:
     punishments_settings_default_reasons_mute: "Raison par défaut : mute"
     punishments_settings_default_reasons_kick: "Raison par défaut : expulsion"
     punishments_settings_default_reasons_ban: "Raison par défaut : ban"
+    config_punishments_warn_acknowledge_enabled: "Avertissements : menu « J'ai compris »"
+    config_punishments_warn_acknowledge_block_actions: "Avertissements : bloquer jusqu'à la lecture"
+    config_punishments_warn_acknowledge_allowed_commands: "Avertissements : commandes autorisées en attendant"
+    config_punishments_warn_acknowledge_min_read_seconds: "Avertissements : temps de lecture (s)"
+    config_punishments_warn_acknowledge_notify_staff: "Avertissements : prévenir le staff de la lecture"
     config_chat_mentions_enabled: "Mentions (@pseudo)"
     config_chat_mentions_sound: "Son des mentions"
     config_chat_mentions_highlight: "Couleur des mentions"
@@ -1960,6 +2217,16 @@ settings:
     config_alerts_xray_ores_diamond_max_per_100: "Diamant : max pour 100 blocs"
     config_alerts_xray_ores_ancient_debris_min_veins: "Débris antiques : filons min"
     config_alerts_xray_ores_ancient_debris_max_per_100: "Débris antiques : max pour 100 blocs"
+    config_item_search_enabled: "Recherche d'objets (anti-dupe)"
+    config_item_search_players_per_tick: "Recherche d'objets : joueurs par tick"
+    config_item_search_thresholds: "Quantités suspectes"
+    config_item_search_thresholds-desc:
+      - "&7Alerte quand un joueur possède plus que cette quantité"
+      - "&7(contenu des shulkers et des sacs compris)."
+    config_item_search_auto_scan_enabled: "Analyse automatique des quantités"
+    config_item_search_auto_scan_interval_minutes: "Analyse automatique : intervalle (min)"
+    config_item_search_auto_scan_ignore_creative: "Analyse automatique : ignorer le créatif"
+    config_item_search_auto_scan_alert_cooldown_minutes: "Analyse automatique : délai entre deux alertes (min)"
     config_coins_vault: "Économie Vault (redémarrage)"
     config_coins_start_balance: "Solde de départ"
     config_coins_allow_negative: "Soldes négatifs"
@@ -2097,8 +2364,37 @@ settings:
     config_network_sync_punishments: "Partager les sanctions"
     config_network_sync_staff_chat: "Partager le chat staff"
     config_network_sync_alerts: "Partager les alertes staff"
+    # 2.4 hub
+    config_gui_hub_enabled: "Hub du staff sur /sm"
+    config_gui_players_new_player_hours: "Badge nouveau joueur (heures)"
     config_discord_events_ticket_enabled: "Discord : tickets"
     config_discord_events_appeal_enabled: "Discord : appels"
+    # 2.4 verify
+    config_discord_events_lockdown_enabled: "Discord : verrouillages"
+    config_chat_new_player_delay_seconds: "Nouveaux joueurs : chat après (s, 0 = désactivé)"
+    config_security_anti_raid_enabled: "Anti-raid (verrouillage)"
+    config_security_anti_raid_auto_lockdown_new_accounts: "Verrouillage auto : nouveaux comptes (0 = jamais)"
+    config_security_anti_raid_auto_lockdown_seconds: "Verrouillage auto : en (s)"
+    config_security_anti_raid_auto_lockdown_minutes: "Verrouillage auto : durée (min)"
+    config_security_anti_raid_network_sync: "Verrouillage partagé sur le réseau"
+    config_security_max_accounts_per_ip: "Comptes max par IP (0 = illimité)"
+    config_verification_enabled: "Vérification de connexion (anti-bot)"
+    config_verification_only_new_players: "Seulement les comptes jamais vérifiés"
+    config_verification_remember: "Mémoriser les comptes vérifiés"
+    config_verification_trust_playtime_minutes: "Confiance après temps de jeu (min)"
+    config_verification_timeout_seconds: "Temps pour se vérifier (s)"
+    config_verification_max_attempts: "Mauvais clics avant expulsion"
+    config_verification_allowed_commands: "Commandes autorisées avant vérification"
+    # 2.4 social
+    config_ignore_enabled: "/ignore"
+    config_ignore_max: "Joueurs ignorés au maximum"
+    config_staff_list_enabled: "/staff (staff en ligne)"
+    config_staff_list_show_afk: "Afficher le staff AFK"
+    config_polls_enabled: "Sondages"
+    config_polls_max_duration_minutes: "Durée max d'un sondage (min)"
+    config_polls_default_duration_minutes: "Durée par défaut d'un sondage (min)"
+    config_polls_bossbar: "Barre de boss du sondage"
+    config_polls_show_results_live: "Résultats en direct"
   commands-permission: "&cModifier des commandes console demande la permission &fsupmod.admin.commands&c."
 
 punish:
@@ -2631,3 +2927,614 @@ network:
   tag: "&8[&3%server%&8] "
   status-on: "&aSynchronisation réseau active &7- serveur &f%server% &8| &7envoyés &f%sent% &8| &7reçus &f%received% &8| &7dernière lecture &f%last%"
   status-off: "&7Synchronisation réseau désactivée &8(network.enabled, MySQL requis)&7. Nom du serveur : &f%server%"
+
+# 2.4: hub du staff (/sm), filtres de la liste des joueurs et recherche de joueurs
+hub:
+  menu:
+    title: "&8SupMod &7- &dHub du staff"
+    header: "&d&lHub du staff &7- &f%player%"
+    header-lore:
+      - "&7Tout ce dont le staff a besoin, au même endroit."
+      - "&7SupMod &f%version% &8| &7en ligne depuis &f%uptime%"
+      - "&8Compteurs actualisés toutes les 2 secondes."
+    group:
+      moderation: "&c&lModération"
+      players: "&b&lJoueurs"
+      server: "&a&lServeur"
+      configuration: "&e&lConfiguration"
+    group-lore:
+      moderation:
+        - "&7Signalements, tickets, appels, alertes, chat"
+      players:
+        - "&7Liste des joueurs, recherche, surveillance, statistiques, drops"
+      server:
+        - "&7Performances, mondes, maintenance, redémarrages, verrouillage"
+      configuration:
+        - "&7Paramètres, annonces, sondages, zones, hologrammes"
+    counter:
+      players: "&bJoueurs : &f%online%&7/&f%max%"
+      players-lore:
+        - "&7Pic du jour : &f%peak%"
+        - "&7Nouveaux joueurs : &f%new% &8| &7AFK : &f%afk%"
+      staff: "&dStaff connecté : &f%count%"
+      staff-lore:
+        - "&7En mode staff : &f%mode%"
+        - "&7Invisibles : &f%vanished%"
+      reports: "&eSignalements ouverts : %count%"
+      tickets: "&eTickets en attente : %count%"
+      appeals: "&eAppels en attente : %count%"
+      alerts: "&eAlertes (dernière heure) : %count%"
+      cached-lore:
+        - "&8Mis à jour toutes les 30 secondes"
+      tps: "&7TPS : %tps%"
+      tps-lore:
+        - "&7Tick : &f%mspt% ms"
+        - "&7Mémoire : &f%used%&7/&f%max% Mo"
+      status: "&6État du serveur"
+      status-lore:
+        - "&7Chat verrouillé : %chat%"
+        - "&7Mode lent : %slow%"
+        - "&7Maintenance : %maintenance%"
+        - "&7Redémarrage : %restart%"
+    click-open:
+      - ""
+      - "&eClique pour ouvrir"
+    click-search:
+      - ""
+      - "&eClique pour écrire un pseudo"
+    count-line: "&7En attente : &f%count%"
+    help: "&dAide"
+    help-lore:
+      - "&7Affiche la liste des commandes dans le chat."
+      - "&8/sm help"
+    button:
+      reports:
+        name: "&eSignalements"
+        lore:
+          - "&7Signalements des joueurs : prise en charge, traitement."
+          - "&8/sm reports"
+      tickets:
+        name: "&eTickets"
+        lore:
+          - "&7Demandes d'aide des joueurs."
+          - "&8/sm tickets"
+      appeals:
+        name: "&eAppels"
+        lore:
+          - "&7Contestations de sanctions."
+          - "&8/sm appeals"
+      alerts:
+        name: "&eAlertes"
+        lore:
+          - "&7Alertes x-ray et doubles comptes."
+          - "&8/sm alerts"
+      chat:
+        name: "&eGestion du chat"
+        lore:
+          - "&7Verrouiller, ralentir ou vider le chat."
+          - "&8/sm chat <lock|slow|clear>"
+      templates:
+        name: "&eModèles de sanctions"
+        lore:
+          - "&7Motifs, durées et paliers."
+          - "&8/sm templates"
+      staffhistory:
+        name: "&eHistorique du staff"
+        lore:
+          - "&7Toutes les actions des membres du staff."
+          - "&8/sm staffhistory"
+      players:
+        name: "&bListe des joueurs"
+        lore:
+          - "&7Joueurs connectés : filtres, tri, fiches."
+          - "&8/sm players"
+      search:
+        name: "&bRechercher un joueur"
+        lore:
+          - "&7Connecté ou non, par une partie du pseudo."
+          - "&8/sm search <pseudo>"
+      watchlist:
+        name: "&bSurveillance"
+        lore:
+          - "&7Joueurs ayant une étiquette staff."
+          - "&8/sm watchlist"
+      activity:
+        name: "&bActivité"
+        lore:
+          - "&7Connexions, nouveaux joueurs, fidélisation."
+          - "&8/sm activity"
+      staffstats:
+        name: "&bStatistiques du staff"
+        lore:
+          - "&7Sanctions, signalements et tickets par membre."
+          - "&8/sm staffstats"
+      health:
+        name: "&aSanté du serveur"
+        lore:
+          - "&7TPS, mémoire, entités et graphiques."
+          - "&8/sm health"
+      lag:
+        name: "&aOutils anti-lag"
+        lore:
+          - "&7Nettoyage des objets au sol, chunks chargés."
+          - "&8/sm lag"
+      worlds:
+        name: "&aMondes"
+        lore:
+          - "&7Heure, météo, bordure, règles du jeu."
+          - "&8/sm worlds"
+      maintenance:
+        name: "&aMaintenance"
+        lore:
+          - "&7Seuls les joueurs autorisés peuvent se connecter."
+          - "&8/sm maintenance"
+      restart:
+        name: "&aRedémarrage"
+        lore:
+          - "&7Redémarrage avec compte à rebours et avertissements."
+          - "&8/sm restart"
+      settings:
+        name: "&eParamètres"
+        lore:
+          - "&7Modifier la configuration en jeu."
+          - "&8/sm settings"
+      announcements:
+        name: "&eAnnonces"
+        lore:
+          - "&7Messages automatiques du serveur."
+          - "&8/sm announce"
+      zones:
+        name: "&eZones"
+        lore:
+          - "&7Zones protégées et leurs règles."
+          - "&8/sm zones"
+      holograms:
+        name: "&eHologrammes"
+        lore:
+          - "&7Textes flottants."
+          - "&8/sm holograms"
+      drops:
+        name: "&bJournal des drops"
+        lore:
+          - "&7Joueurs surveillés et objets jetés."
+          - "&8/sm drops"
+      itemsearch:
+        name: "&bScan des objets"
+        lore:
+          - "&7Trouve les joueurs qui ont trop"
+          - "&7d'objets de valeur (seuils configurés)."
+          - "&8/sm itemsearch scan"
+      lockdown:
+        name: "&aVerrouillage"
+        lore:
+          - "&7Anti-raid : refuse les nouveaux comptes."
+          - "&8/sm lockdown"
+      verify:
+        name: "&aVérification à la connexion"
+        lore:
+          - "&7Vérifier un joueur à la main."
+          - "&8/sm verify <joueur>"
+      polls:
+        name: "&eSondages"
+        lore:
+          - "&7Poser une question aux joueurs connectés."
+          - "&8/poll"
+    drops:
+      state:
+        - ""
+        - "&7Joueurs surveillés : &f%count% &8| &7mode : &f%mode%"
+    itemsearch:
+      hint:
+        - ""
+        - "&eClic : &7scanner les joueurs connectés"
+    lockdown:
+      state:
+        - ""
+        - "&7Verrouillage : %state%"
+        - "&7Fin : &f%end%"
+      hint-on:
+        - ""
+        - "&eClic : &7verrouiller le serveur (jusqu'à la fin manuelle)"
+      hint-off:
+        - ""
+        - "&eClic : &7terminer le verrouillage"
+      hint-status: "&eClic droit : &7état dans le chat"
+      confirm-on: "&8Verrouiller le serveur aux nouveaux comptes ?"
+      confirm-off: "&8Terminer le verrouillage ?"
+    verify:
+      state:
+        - ""
+        - "&7Joueurs en cours de vérification : &f%pending%"
+      hint:
+        - ""
+        - "&eClic : &7taper le nom d'un joueur à vérifier"
+      prompt: "&eNom du joueur à vérifier &7(il n'aura plus à se vérifier) :"
+    polls:
+      none:
+        - ""
+        - "&7Aucun sondage en cours."
+      active:
+        - ""
+        - "&7En cours : &f%question%"
+        - "&7Votes : &f%votes% &8| &7temps restant : &f%time%"
+      hint-open:
+        - ""
+        - "&eClic : &7ouvrir le sondage"
+      hint-create:
+        - ""
+        - "&eClic : &7créer un sondage dans le chat"
+    chat:
+      state:
+        - ""
+        - "&7Verrouillé : %locked%"
+        - "&7Mode lent : %slow%"
+        - ""
+      hint-lock: "&eClic : &7verrouiller le chat"
+      hint-unlock: "&eClic : &7déverrouiller le chat"
+      hint-slow: "&eClic droit : &7mode lent"
+      hint-clear: "&eShift clic : &7vider le chat"
+      clear-confirm: "&8Vider le chat pour tout le monde ?"
+      slow-prompt: "&eSecondes entre deux messages &7(actuel : &f%current%&7, &f0 &7ou &foff &7= désactivé) :"
+      slow-invalid: "&cÉcris un nombre de secondes (0 à 3600) ou &foff&c."
+    maintenance:
+      state:
+        - ""
+        - "&7État : %state%"
+        - "&7Depuis : &f%since%"
+        - "&7Joueurs autorisés : &f%count%"
+      hint-on:
+        - ""
+        - "&eClic : &7activer la maintenance"
+      hint-off:
+        - ""
+        - "&eClic : &7désactiver la maintenance"
+      confirm-on: "&8Activer la maintenance maintenant ?"
+      confirm-off: "&8Désactiver la maintenance ?"
+    restart:
+      state:
+        - ""
+        - "&7Redémarrage prévu : &f%pending%"
+        - "&7Prochain programmé : &f%next%"
+      hint-schedule:
+        - ""
+        - "&eClic : &7redémarrer dans 5 minutes"
+      hint-cancel:
+        - ""
+        - "&eClic : &7annuler le redémarrage"
+      hint-custom: "&eClic droit : &7choisir le délai"
+      prompt: "&eDélai avant le redémarrage &7(par exemple &f10m&7, &f1h&7 ou &fnow&7) :"
+      confirm-schedule: "&8Redémarrer le serveur dans 5 minutes ?"
+      confirm-cancel: "&8Annuler le redémarrage prévu ?"
+  players:
+    title-filtered: "&8Joueurs (%online%) &7- %filter%"
+    header-state:
+      - ""
+      - "&7Filtre : &f%filter% &8| &7Tri : &f%sort%"
+    filter-button: "&dFiltre : &f%filter%"
+    sort-button: "&dTri : &f%sort%"
+    cycle-lore:
+      - ""
+      - "&eClic : &7suivant &8| &eClic droit : &7précédent"
+    filter:
+      all: "Tous"
+      staff: "Staff"
+      new: "Nouveaux joueurs"
+      muted: "Muets"
+      frozen: "Gelés"
+      tagged: "Étiquetés"
+      afk: "AFK"
+    sort:
+      name: "Pseudo"
+      session: "Durée de session"
+      ping: "Ping (le plus élevé d'abord)"
+      world: "Monde"
+    empty-filter: "&7Aucun joueur connecté ne correspond au filtre &f%filter%&7."
+    search: "&dRechercher un joueur"
+    search-lore:
+      - "&7Joueurs connectés ou non,"
+      - "&7par une partie du pseudo."
+      - ""
+      - "&eClique pour écrire un pseudo"
+    entry-info:
+      - "&7Ping : &f%ping% ms &8- &7Session : &f%session%"
+    tag-new: "&8• &aNouveau joueur &8(%age%)"
+    tag-afk: "&8• &7AFK &8(%time%)"
+    tag-tags: "&8• &7Étiquettes : %tags%"
+  search:
+    usage: "&cUtilisation : &f/sm search <partie d'un pseudo>"
+    prompt: "&eÉcris un pseudo ou une partie de pseudo &7(2 à 16 lettres, chiffres ou _) :"
+    invalid: "&cÉcris 2 à 16 caractères : lettres, chiffres ou _."
+    too-fast: "&cAttends un instant avant une nouvelle recherche."
+    title: "&8Recherche : %query%"
+    header: "&dJoueurs correspondant à &f%query%"
+    header-lore:
+      - "&7Joueurs connectés d'abord,"
+      - "&7puis les plus récemment vus."
+    empty: "&7Aucun joueur connu ne correspond à &f%query%&7."
+    entry-online:
+      - "&a● En ligne &8- &7Monde : &f%world%"
+    entry-offline:
+      - "&7Vu pour la dernière fois : &f%date% &8(il y a %ago%)"
+    entry-info:
+      - "&7Première connexion : &f%first%"
+      - "&7Temps de jeu : &f%playtime%"
+    entry-click:
+      - ""
+      - "&eClic : &7fiche du joueur"
+    again: "&dNouvelle recherche"
+    again-lore:
+      - "&eClique pour écrire un autre pseudo"
+# 2.4 verify: join verification (anti-bot)
+verification:
+  intro:
+    - "&d&lVérification &8» &7Bienvenue ! Clique sur l'objet demandé dans le menu pour prouver que tu n'es pas un robot."
+    - "&7Tu as &f%time% &7et &f%attempts% &7essais."
+  menu-title: "&8Clique : &5&l%item%"
+  menu-title-wait: "&8Vérification..."
+  header: "&d&lClique sur : %item%"
+  header-lore:
+    - "&7Trouve l'objet &f%item% &7parmi"
+    - "&7ceux ci-dessous et clique dessus."
+    - ""
+    - "&7Essais restants : &f%left%"
+    - "&7Temps restant : &f%time%"
+  wrong: "&cMauvais objet ! &7Nouvelle énigme, essais restants : &f%left%"
+  closed: "&eTermine d'abord la vérification : le menu va se rouvrir."
+  success: "&a&l✔ &aVérification réussie, bon jeu !"
+  success-staff: "&a&l✔ &aTu as été vérifié par &f%staff%&a, bon jeu !"
+  kick-timeout:
+    - "&c&lVÉRIFICATION"
+    - ""
+    - "&7Tu n'as pas terminé la vérification à temps."
+    - "&eReconnecte-toi pour réessayer."
+  kick-failed:
+    - "&c&lVÉRIFICATION"
+    - ""
+    - "&7Trop de mauvaises réponses (%attempts%)."
+    - "&eReconnecte-toi pour réessayer."
+  blocked-chat: "&cTermine la vérification avant d'écrire dans le chat."
+  blocked-command: "&cTermine la vérification avant d'utiliser des commandes."
+  usage: "&7/sm verify <joueur> &8| &7/sm verify reset <joueur>"
+  status: "&7Vérification de connexion : %state% &8| &7joueurs en cours de vérification : &f%pending%"
+  staff-verified: "&f%player% &aest maintenant vérifié."
+  staff-reset: "&7Vérification de &f%player% &7réinitialisée : il devra se vérifier à sa prochaine connexion."
+  staff-not-verified: "&7%player% n'était pas vérifié : rien à réinitialiser."
+  items:
+    diamond: "Diamant"
+    emerald: "Émeraude"
+    gold_ingot: "Lingot d'or"
+    iron_ingot: "Lingot de fer"
+    redstone: "Redstone"
+    coal: "Charbon"
+    apple: "Pomme"
+    bread: "Pain"
+    carrot: "Carotte"
+    bone: "Os"
+    feather: "Plume"
+    book: "Livre"
+    clock: "Horloge"
+    compass: "Boussole"
+    bucket: "Seau"
+    arrow: "Flèche"
+    snowball: "Boule de neige"
+    egg: "Œuf"
+    slime_ball: "Boule de slime"
+    ender_pearl: "Perle de l'Ender"
+    cake: "Gâteau"
+    pumpkin: "Citrouille"
+    cactus: "Cactus"
+    tnt: "TNT"
+
+# 2.4 verify: anti-raid lockdown, accounts per IP, chat delay of new players
+anti-raid:
+  usage: "&7/sm lockdown [on [durée] [raison]|off|status]"
+  kick:
+    - "&c&lSERVEUR VERROUILLÉ"
+    - ""
+    - "&7Le serveur n'accepte pas de nouveaux comptes pour le moment."
+    - "&7Raison : &f%reason%"
+    - "&7Fin : &f%time%"
+    - ""
+    - "&eReviens plus tard !"
+  no-end: "quand le staff le lèvera"
+  auto-reason: "%count% nouveaux comptes en %seconds%s"
+  started: "&c&l🔒 Verrouillage &7par &f%staff% &8(&7%time%&8)&7 : les nouveaux comptes sont refusés. &7Raison : &f%reason%"
+  auto-started: "&c&l🔒 Verrouillage automatique &8(&7%time%&8)&7 : %reason%. Les nouveaux comptes sont refusés."
+  ended: "&a&l🔓 Verrouillage terminé &7(%staff%)&7, &f%refused% &7connexion(s) refusée(s)."
+  status-hover: "&eClique pour l'état du verrouillage"
+  status-on:
+    - "&c&lVerrouillage ACTIF &7depuis &f%since% &8| &7fin : &f%time%"
+    - "&7Par &f%staff% &8| &7raison : &f%reason% &8| &7refusées : &f%refused%"
+  status-off:
+    - "&7Verrouillage : &aINACTIF &8| &7automatique : %auto% &8(&f%count% &7nouveaux comptes en &f%seconds%s&8)"
+  done-on: "&aVerrouillage activé."
+  done-off: "&aVerrouillage terminé."
+  not-active: "&7Aucun verrouillage en cours."
+  disabled: "&cL'anti-raid est désactivé sur ce serveur (security.anti-raid.enabled)."
+  ip-limit-kick:
+    - "&c&lTROP DE COMPTES"
+    - ""
+    - "&7Déjà &f%max% &7compte(s) connecté(s) depuis ton adresse."
+  chat-new-player: "&cLes nouveaux joueurs pourront écrire dans &f%time%&c."
+  discord:
+    title: "🔒 Verrouillage activé"
+    auto-title: "🔒 Verrouillage automatique (raid ?)"
+    description: "Par **%staff%** pour %time%\nRaison : %reason%"
+    end-title: "🔓 Verrouillage terminé"
+    end-description: "Par **%staff%** : %refused% connexion(s) refusée(s)"
+# 2.4 social
+ignore:
+  disabled: "&c/ignore est désactivé."
+  usage-unignore: "&7/%label% <joueur>"
+  help:
+    - "&d&lIgnorer &7(%count%/%max%)"
+    - "&d/ignore <joueur> &7- ignorer un joueur (ou ne plus l'ignorer)"
+    - "&d/ignore add <joueur> &7- ignorer un joueur (n'importe quel nom, même \"list\")"
+    - "&d/ignore list &7- les joueurs que tu ignores"
+    - "&d/unignore <joueur> &7- ne plus ignorer un joueur"
+    - "&7Tu ne vois plus les messages ni les @mentions des joueurs que tu ignores."
+  loading: "&7Ta liste est en cours de chargement, réessaie dans une seconde."
+  too-fast: "&cDoucement, pas si vite."
+  self: "&cTu ne peux pas t'ignorer toi-même."
+  added: "&7Tu ignores maintenant &f%player% &8(%count%/%max%)&7. &8/unignore %player%"
+  removed: "&7Tu n'ignores plus &f%player%&7."
+  not-ignored: "&cTu n'ignores pas &f%player%&c."
+  limit: "&cTu ne peux pas ignorer plus de %max% joueurs : &f/ignore list"
+  exempt: "&cTu ne peux pas ignorer &f%player% &c(membre du staff)."
+  error: "&cTa liste n'a pas pu être enregistrée, réessaie plus tard."
+
+stafflist:
+  disabled: "&c/staff est désactivé."
+  role-admin: "&cAdministrateur"
+  role-moderator: "&9Modérateur"
+  status-available: "&adisponible"
+  status-staff-mode: "&doccupé &8(mode staff)"
+  status-afk: "&7AFK"
+  message: "&7Clique ici pour écrire à &f%player%"
+  message-hover: "&e/msg %player% <message>"
+  ask: "&a» Clique ici pour demander de l'aide au staff &8(/helpop)"
+  ask-hover: "&eÉcrit /helpop dans ton chat : ajoute ta question"
+  ask-chat: "&7Pose ta question dans le chat, un membre du staff te répondra."
+  chat-header: "&d&lStaff en ligne &7(%count%)"
+  chat-line: "&8- &f%player% &8| %role% &8| %status%"
+
+poll:
+  disabled: "&cLes sondages sont désactivés."
+  already-active: "&cUn sondage est déjà en cours : &f/poll end &cou &f/poll cancel&c."
+  invalid-duration: "&cDurée invalide : de 30 s à %max% minutes (ex. 5m, 90s, 10)."
+  invalid-question: "&cLa question doit faire entre 1 et %max% caractères."
+  invalid-answer-count: "&cUn sondage a besoin de %min% à %max% réponses, séparées par &f|&c."
+  invalid-answer: "&cChaque réponse doit faire entre 1 et %max% caractères."
+  duplicate-answer: "&cDeux réponses sont identiques : &f%answer%"
+  none: "&7Aucun sondage en cours."
+  expired: "&cCe sondage est terminé."
+  invalid-number: "&cChoisis une réponse entre 1 et %max%."
+  choose: "&7Clique sur une réponse :"
+  voted: "&aTu as voté pour &f%answer%&a."
+  already-voted: "&7Tu as déjà voté pour &f%answer%&7."
+  vote-changed: "&eVote modifié : &f%answer%"
+  cancelled: "&7Le sondage &f%question% &7a été annulé &8(%staff%)&7."
+  bossbar: "&d&lSondage &8» &f%question% &8| &7%time% &8| &e/poll"
+  announce-header: "&8&m          &r &d&lSONDAGE &8&m          "
+  announce-question: "&f&l%question%"
+  announce-answer: "  &d[%number%] &f%answer%"
+  announce-footer: "&7Clique sur une réponse ou tape &f/poll &8- fin dans %time%"
+  vote-hover: "&eVoter pour : &f%answer%"
+  reminder: "&dSondage : &f%question% &7- encore &f%time%&7. &eClique pour voter !"
+  reminder-hover: "&eOuvrir le sondage"
+  results-header: "&8&m        &r &d&lRÉSULTATS DU SONDAGE &8&m        "
+  results-question: "&f&l%question% &8(%total% vote(s))"
+  results-line: "&d%rank%. &f%answer% &8» %bar% &f%percent% &7(%votes%)"
+  results-none: "&7Personne n'a voté."
+  results-winner: "&a&l✔ &aGagnant : &f%answer%"
+  results-tie: "&eÉgalité : &f%answers%"
+  results-tie-separator: "&e, &f"
+  bar-full: "&a■"
+  bar-empty: "&8■"
+  time-left: "&7Fin dans &f%time%&7."
+  help:
+    - "&d&lSondages"
+    - "&d/%label% &7- voter au sondage en cours"
+    - "&d/%label% vote <numéro> &7- voter directement"
+  help-staff:
+    - "&d/%label% create [durée] <question> | <réponse> | <réponse>... &7- 2 à 6 réponses, %default% min par défaut (max %max%)"
+    - "&d/%label% create &7- création guidée dans le chat"
+    - "&d/%label% end &8| &d/%label% cancel &7- terminer maintenant (résultats) ou annuler"
+  usage-create: "&7/%label% create [durée] <question> | <réponse> | <réponse>..."
+  prompt-question: "&eÉcris la question du sondage &7(%max% caractères max) :"
+  prompt-answers: "&eÉcris les réponses séparées par &f| &7(de %min% à %max%, ex. Oui | Non) :"
+  prompt-duration: "&eDurée du sondage &7(ex. 5m, 90s ; &f- &7= %default% min, max %max% min) :"
+# ---------------------------------------------------------------------------------------------- 2.4 modération
+warn-ack:
+  acknowledged: "&aMerci, l'avertissement est bien pris en compte."
+  read-first: "&7Prends le temps de lire l'avertissement (&f%seconds% s&7)."
+  blocked: "&cLis d'abord ton avertissement et clique sur &fJ'ai compris&c."
+  gave-up: "&7Tu as &f%count% &7avertissement(s) à lire : ils te seront remontrés à ta prochaine connexion."
+  staff-notice: "&a%player% &7a pris connaissance de ton avertissement &f#%id% &8(%reason%)"
+  history:
+    acknowledged: "&aLu et confirmé le %date%"
+    pending: "&6Pas encore confirmé"
+  gui:
+    title: "&8&lTu as reçu un avertissement"
+    title-count: "&8&lAvertissement %index%/%total%"
+    header: "&c&lAVERTISSEMENT"
+    header-lore:
+      - "&7Le staff t'a averti."
+      - "&7Lis-le, puis clique sur &aJ'ai compris&7."
+    warning: "&c&lAvertissement &7#%id%"
+    warning-lore:
+      - "&7Raison : &f%reason%"
+      - "&7Par : &f%staff%"
+      - "&7Date : &f%date%"
+    info: "&6&lEt ensuite ?"
+    info-count:
+      - "&7Avertissements reçus : &f%count%"
+    info-next:
+      - "&7La prochaine fois : &c%next%"
+    info-lore:
+      - ""
+      - "&7Recommencer entraîne des sanctions"
+      - "&7plus lourdes."
+    accept: "&a&lJ'AI COMPRIS"
+    accept-lore:
+      - "&7J'ai lu cet avertissement."
+      - ""
+      - "&eClique pour confirmer"
+item-search:
+  disabled: "&cLa recherche d'objets est désactivée sur ce serveur."
+  usage: "&cUsage : /sm itemsearch <objet> [quantité-min] &7ou &c/sm itemsearch scan"
+  unknown-item: "&cObjet inconnu : &f%item%"
+  bad-amount: "&cQuantité invalide : &f%value% &7(1 - 1000000)"
+  no-thresholds: "&cAucune quantité suspecte n'est configurée (item-search.thresholds)."
+  busy: "&cUne recherche est déjà en cours, patiente un instant."
+  searching: "&7Recherche de &f%item% &7chez &f%players% &7joueur(s)..."
+  scanning: "&7Analyse des quantités suspectes chez &f%players% &7joueur(s)..."
+  done: "&aRecherche terminée : &f%count% &ajoueur(s) trouvé(s)."
+  console-line: "&8- &f%player%&7 : %items% &8(inventaire/coffre de l'Ender/conteneurs)"
+  alert: "&6[Objets] &f%player% &7possède &c%items% &8(clic : fiche)"
+  alert-summary: "&6[Objets] &f%count% &7joueurs dépassent les quantités suspectes : &f%players% &8(clic : analyse)"
+  alert-summary-hover: "&eClique pour lancer l'analyse et voir le détail"
+  nested-short: "trop d'objets dans des conteneurs (> %max%)"
+  discord:
+    title: "Objets suspects : %player%"
+    description: "**%player%** possède %items%"
+    summary-title: "Objets suspects : %count% joueurs"
+    summary-description: "%count% joueurs dépassent les quantités suspectes : %players%"
+  gui:
+    title: "&8Recherche : %item% (%count%)"
+    title-scan: "&8Quantités suspectes (%count%)"
+    empty: "&7Personne en ligne ne possède cet objet."
+    empty-scan: "&aPersonne en ligne ne dépasse les seuils."
+    header: "&6&l%item%"
+    header-lore:
+      - "&7Joueurs qui en ont au moins &f%min%&7, du plus au moins."
+      - "&7Inventaires, coffres de l'Ender, shulkers"
+      - "&7et sacs des joueurs en ligne."
+      - "&8Recherche du %date%"
+    header-scan: "&6&lQuantités suspectes"
+    header-scan-lore:
+      - "&7Joueurs au-dessus d'un seuil (item-search.thresholds)."
+      - "&8Analyse du %date%"
+    threshold-line: "&8- &7%item% : &f> %amount%"
+    entry: "&e%player%"
+    entry-offline: "&7%player% &8(hors ligne)"
+    entry-lore:
+      - "&7Total : &f%total%"
+      - "&7Inventaire : &f%inventory%"
+      - "&7Coffre de l'Ender : &f%enderchest%"
+      - "&7Dans des conteneurs : &f%containers% &8(shulkers, sacs)"
+    entry-scan:
+      - "&c%item% : &f%total% &8(> %threshold%)"
+      - "&8  inventaire %inventory%, coffre de l'Ender %enderchest%, conteneurs %containers%"
+    entry-nested:
+      - "&c&lTrop d'objets dans des conteneurs &8(> %max%)"
+      - "&7Le comptage s'est arrêté : quantités incomplètes."
+      - "&7Objets dupliqués ou piégés possibles, à vérifier."
+    entry-hint:
+      - ""
+      - "&eClic : &7inventaire"
+      - "&eMaj + clic : &7coffre de l'Ender"
+      - "&eClic droit : &7fiche du joueur"
+    refresh: "&a&lRelancer la recherche"
+    refresh-lore:
+      - "&7Relance la même recherche sur les joueurs en ligne maintenant."

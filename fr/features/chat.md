@@ -49,6 +49,14 @@ Le filtre est désactivé par défaut. Ajoutez vos mots dans `chat.filter.words`
 | `/sm chat clear` | `supmod.chat.clear` | envoie `clear-lines` (150) lignes vides, sauf à `supmod.bypass.chatclear` |
 | `/sm chat slow <seconds>` / `off` | `supmod.chat.slow` | un message toutes les X secondes, sauf `supmod.bypass.slowmode` |
 
+## Nouveaux joueurs {#new-players}
+
+`chat.new-player-delay-seconds` (0 = désactivé) arrête les bots de spam : un compte dont la première connexion date de moins de X secondes ne peut pas encore écrire, ni utiliser les commandes de messages privés de `anti-spam.commands`. Le temps restant lui est indiqué. `supmod.chat.bypass-new-delay` (staff) n'est pas concerné. Voir [Vérification et anti-raid](/fr/features/verification#new-player-chat-delay).
+
+## Ignorer un joueur {#ignore}
+
+Les joueurs peuvent cacher les messages d'un autre joueur avec `/ignore <player>` : ses messages du chat, ses @mentions et ses annonces de primes ne leur sont plus montrés. Les membres du staff ne peuvent pas être ignorés. Voir [Ignorer, liste du staff et sondages](/fr/features/community#ignore).
+
 ## Historique du chat {#chat-history}
 
 Les 50 derniers messages et commandes de chaque joueur (`chat-history.keep-per-player`) sont conservés pour le staff : fiche joueur › Historique du chat, et comme preuves dans les [signalements](/fr/features/reports). Les commandes avec mot de passe (`/login`, `/register`...) ne sont jamais enregistrées (`chat-history.ignored-commands`).
@@ -57,7 +65,7 @@ Permissions : `supmod.chat.history`, `supmod.chat.history.commands`.
 
 ## Mentions et emojis {#mentions-and-emojis}
 
-- **Mentions** : écrire `@Steve` met son pseudo en valeur et lui joue un son (`chat.mentions`).
+- **Mentions** : écrire `@Steve` met son pseudo en valeur et lui joue un son (`chat.mentions`), sauf si Steve [ignore](/fr/features/community#ignore) l'auteur du message.
 - **Emojis** : désactivés par défaut. Avec `chat.emojis.enabled: true`, `:heart:` devient ❤. La liste est dans `emojis.yml` :
 
 ```yaml

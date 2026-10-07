@@ -7,6 +7,18 @@
 
 Les nouvelles options, les nouveaux messages et les nouvelles tables de la base de données sont ajoutés automatiquement. Vos valeurs, vos messages et vos listes sont conservés. La console vous indique quand des options ont été ajoutées à `config.yml`.
 
+### De la 2.3 à la 2.4 {#from-2-3-to-2-4}
+
+- Rien à faire. Les nouvelles tables (`sm_drop_watch`, `sm_verified`, `sm_ignores`) et colonnes sont créées au premier démarrage.
+- **Journal des drops** : les joueurs de `drop-log.players` (config.yml) sont déplacés dans la base de données en surveillances définitives, et la clé est retirée. Le journal des drops est maintenant activé par défaut pour les nouvelles installations (votre valeur de `drop-log.enabled` est conservée) ; dans le mode `WATCHLIST` par défaut, seuls les joueurs surveillés sont enregistrés. Surveiller des joueurs, `on` / `off` et le mode demandent maintenant `supmod.admin.drops.watch` (incluse dans `supmod.admin`). Voir [Journal des drops](/fr/features/drop-log).
+- **Sons des menus** : `gui.click-sound` et `gui.sound-volume` sont déplacés automatiquement dans la nouvelle section `gui.sounds`. Voir [Sons des menus](/fr/guide/configuration#menu-sounds).
+- La **vérification à la connexion** est désactivée par défaut : activez-la dans `/sm settings` › **Sécurité** si des bots se connectent à votre serveur. Le **verrouillage automatique** est activé (8 nouveaux comptes en 30 secondes) : si beaucoup de vrais nouveaux joueurs peuvent arriver d'un coup (événement, vidéo), augmentez `security.anti-raid.auto-lockdown.new-accounts` ou mettez-le à 0. Voir [Vérification et anti-raid](/fr/features/verification).
+- Les **avertissements** doivent maintenant être confirmés par le joueur (`punishments.warn-acknowledge.enabled`) ; les avertissements donnés avant la mise à jour ne sont jamais demandés. Voir [Avertissements à confirmer](/fr/features/punishments#warning-acknowledgment).
+- `/sm` ouvre le [hub du staff](/fr/features/staff-hub) pour le staff (`gui.hub.enabled: false` pour garder l'aide).
+- `/staff` n'est plus un alias de `/staffmode` : il affiche le [staff en ligne](/fr/features/community#staff-list). Utilisez `/staffmode` ou `/mod`.
+- **Conflits de commandes** : EssentialsX (ou un autre plugin) a peut-être déjà `/ignore`, `/unignore` ou `/staff`. Si c'est l'autre plugin qui répond, utilisez `/supmod:ignore`, `/supmod:unignore`, `/supmod:staff`, ou retirez les commandes de l'un des deux plugins dans le fichier `commands.yml` du serveur.
+- Nouvelles permissions données à tous les joueurs : `supmod.ignore`, `supmod.stafflist`, `supmod.poll.vote`. Les nouvelles permissions du staff sont dans `supmod.staff` et `supmod.admin` (voir [Permissions et grades](/fr/guide/permissions)).
+
 ### De la 2.2 à la 2.3 {#from-2-2-to-2-3}
 
 - Rien à faire. Les nouveaux modules (tickets, appels, AFK, statistiques) sont activés par défaut ; la synchronisation réseau est désactivée.

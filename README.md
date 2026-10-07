@@ -30,7 +30,7 @@ Rules that keep the build working:
 
 The pages **Commands**, **Permissions** and **Configuration files** are generated from the plugin.
 
-1. Copy the files of the plugin (`src/main/resources/`) into `data/`: `plugin.yml`, `config.yml`, `punishments.yml`, `display.yml`, `rewards.yml`, `announcements.yml`, `zones.yml`, `holograms.yml`, `emojis.yml`, `auto_rules.txt` (replace `'${project.version}'` by the version in `plugin.yml`).
+1. Copy the files of the plugin (`src/main/resources/`) into `data/`: `plugin.yml`, `config.yml`, `punishments.yml`, `display.yml`, `rewards.yml`, `announcements.yml`, `zones.yml`, `holograms.yml`, `emojis.yml`, `auto_rules.txt`, and `lang/en_US.yml`, `lang/fr_FR.yml` into `data/lang/` (replace `'${project.version}'` by the version in `plugin.yml`).
 2. Add the new commands to `data/commands.yml` and the French texts of the new permissions to `data/permissions-text.yml`.
 3. Generate and check:
 

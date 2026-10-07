@@ -13,7 +13,7 @@ Warnings, mutes, kicks, bans and IP bans, temporary or permanent, with a full hi
 | `/ipban <player> [duration] [reason] [-s]` | ban the player and his IP |
 | `/unmute`, `/unban <player> [reason]` | lift the punishment |
 | `/punish <player> [template] [-s]` | the punishment menu, or the next step of a template |
-| `/history <player>` | the history, click a punishment in force to revoke it |
+| `/history <player>` | the history, click a punishment in force to revoke it; a warning shows when the player acknowledged it |
 
 Durations: `30s`, `10m`, `2h`, `7d`, `2w`, `1mo`, `1y`, combinable (`1d12h`). Without `supmod.punish.permanent`, a duration is required.
 
@@ -85,7 +85,39 @@ Templates are also used automatically by the [anti-spam](/features/chat#anti-spa
 
 - **Ban**: the ban screen with the reason, the staff member, the duration and the [appeal code](/features/appeals). Its text is `punish.screen.*` in the language file.
 - **Mute**: a message at each attempt to talk; the commands of `muted-commands` (`/msg`, `/r`...) are blocked too.
-- **Warning**: a message, a big title (`warn-title`) and a sound; shown at the next connection if he was offline.
+- **Warning**: a message, a big title (`warn-title`) and a sound; shown at the next connection if he was offline. Then he must acknowledge it (below).
+
+## Warning acknowledgment {#warning-acknowledgment}
+
+A warned player sees a menu with his warning and must click **I understand**. A warning read in the chat is easy to miss; a warning that must be acknowledged is not.
+
+The menu shows the reason, the staff member, the date, the number of warnings he received and, for a template, the next punishment ("Next time: mute 1 h"). Warnings given while he was offline are shown at his next connection, one after the other ("Warning 1/3").
+
+Until he clicks (with `block-actions: true`):
+
+- he cannot move away, chat or use commands, except the `allowed-commands` (`/msg`, `/r`, `/tell`, `/helpop`, `/ticket`, `/appeal`);
+- closing the menu opens it again;
+- the button can only be clicked after `min-read-seconds` (3), to give him the time to read.
+
+A player is never trapped:
+
+- in staff mode or with `supmod.punish.warn-acknowledge.bypass` (admin), the menu is shown once, can be closed and blocks nothing; the warning is shown again at the next connection until it is acknowledged;
+- the menu never opens over the menu of another plugin or over the [freeze](/features/staff-tools#freeze) menu: it waits. If it cannot be shown (refused by another plugin, other menu kept open more than 2 minutes), the restrictions are lifted until the next connection;
+- a revoked warning no longer needs to be acknowledged.
+
+The date of the acknowledgment is saved and shown in the history: "Read and acknowledged on ..." or "Not acknowledged yet". With `notify-staff: true`, the staff member who gave the warning is told when it is acknowledged, also on another server of the [network](/guide/network).
+
+Only the warnings given since 2.4 with the option on are concerned: older warnings are never asked.
+
+| Option (`punishments.warn-acknowledge.`, config.yml) | Default | |
+|---|---|---|
+| `enabled` | `true` | warnings must be acknowledged |
+| `block-actions` | `true` | block movement, chat and commands until the acknowledgment |
+| `allowed-commands` | `msg`, `r`, `tell`, `helpop`, `ticket`, `appeal` | commands allowed while blocked |
+| `min-read-seconds` | `3` | seconds before the button can be clicked (0-30) |
+| `notify-staff` | `false` | tell the staff member who gave the warning |
+
+These options are in `/sm settings` › **Punishments**.
 
 ## Settings (punishments.yml) {#settings-punishments-yml}
 
@@ -114,3 +146,4 @@ Templates are also used automatically by the [anti-spam](/features/chat#anti-spa
 | `supmod.punish.menu`, `.history`, `.notify`, `.silent` | staff |
 | `supmod.punish.templates` | edit the templates (admin) |
 | `supmod.punish.template.<id>` | templates that require a permission |
+| `supmod.punish.warn-acknowledge.bypass` | warnings shown once without blocking anything (admin) |

@@ -2,6 +2,35 @@
 
 `/sm profile <player>` opens the file of a player, **online or offline**. It is also opened by the book of the [staff mode](/features/staff-tools), `/sm players` and the reports.
 
+## Player list {#player-list}
+
+`/sm players` (also in the [staff hub](/features/staff-hub)) lists the online players. Each head shows the world, the game mode, the **ping** and the **session** duration, and badges: new player, AFK (and for how long), [tags](#notes-and-tags), vanished, staff mode, frozen, muted, [drops watched](/features/drop-log).
+
+| Click on a player | |
+|---|---|
+| Click | his file |
+| Right click | teleport to him |
+| Shift + click | the [punishment menu](/features/punishments#the-punishment-menu) |
+| <kbd>Q</kbd> | watch his drops, or stop watching (`supmod.admin.drops.watch`, see [Drop log](/features/drop-log)) |
+
+The buttons at the bottom:
+
+| Button | |
+|---|---|
+| Filter | all, staff, new players, muted, frozen, tagged, AFK (click: next, right click: previous); the active filter is in the title |
+| Sort | name, session duration (longest first), ping (highest first), world |
+| Search a player | see below |
+
+The filter and the sort are kept when you come back from the punishment menu. A player is **new** when his first connection is less than `gui.players.new-player-hours` (24) hours old (0 = no badge nor filter).
+
+## Player search {#player-search}
+
+`/sm search <text>` (alias `/sm find`), or the **Search a player** button of the list or of the [staff hub](/features/staff-hub), finds the players whose name contains the text (2 to 16 characters), among **every known player**, online or not: the online players first, then the most recently seen. Click a result to open his file, even offline. Permission: `supmod.player`.
+
+```text
+/sm search ste      Steve, Steven_42, xXsteelXx...
+```
+
 ## What the file shows {#what-the-file-shows}
 
 | | |
@@ -14,7 +43,7 @@
 | Chat | messages caught by the word filter, chat and command history |
 | Punishments | warnings, mutes, kicks and bans, the history and the punishment menu |
 | Inventory, ender chest | see them, or edit them (below) |
-| Transactions, alerts, drops | coins history, alt and x-ray alerts, drop log |
+| Transactions, alerts, drops | coins history, alt, x-ray and item alerts; the hopper opens the [drop log](/features/drop-log) of the player (right click: watch him or stop watching) |
 | Quick actions, notes, timeline, statistics, tickets, appeals | see below |
 
 Each button only appears for the staff members who have its permission.

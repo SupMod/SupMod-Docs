@@ -2,13 +2,17 @@
 
 ## Mode staff {#staff-mode}
 
-`/staffmode` (alias `/staff`, `/mod`) met un modérateur « en service » :
+`/staffmode` (alias `/mod`) met un modérateur « en service » :
 
 - son inventaire, son mode de jeu et son vol sont **sauvegardés** (aussi dans un fichier : rien n'est perdu, même si le serveur plante) ;
 - il devient invisible (`vanish`), peut voler (`fly`) et ne peut pas subir de dégâts (`invulnerable`) ;
 - il reçoit les outils dans sa barre d'action.
 
 Retaper `/staffmode`, se déconnecter ou arrêter le serveur rend tout.
+
+::: info /staff est maintenant la liste du staff
+Depuis la 2.4, `/staff` n'est plus un alias de `/staffmode` : il montre aux joueurs les [membres du staff en ligne](/fr/features/community#staff-list), et son menu a un bouton pour passer en mode staff. Avec `staff-list.enabled: false`, `/staff` redevient le mode staff, comme avant.
+:::
 
 | Outil | Utilisation |
 |---|---|

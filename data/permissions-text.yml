@@ -98,7 +98,7 @@ supmod.bounty.admin: { fr: "Retirer des primes, activer ou désactiver les prime
 supmod.stats.admin: { fr: "Activer ou désactiver /stats, rafraîchir les classements" }
 supmod.coins.history.others: { fr: "Voir les transactions des autres joueurs" }
 supmod.admin.ip: { fr: "Voir les adresses IP dans les fiches, chercher par IP (/sm ip)" }
-supmod.admin.drops: { fr: "Gérer le journal des objets jetés" }
+supmod.admin.drops: { fr: "Voir le journal des drops et les joueurs surveillés (/sm drops)" }
 supmod.admin.gamerule: { fr: "Ouvrir le menu des règles du jeu" }
 supmod.admin.webhook: { fr: "Configurer le webhook Discord en jeu" }
 supmod.reload: { fr: "Recharger la configuration" }
@@ -143,3 +143,22 @@ supmod.activity: { fr: "Activité du serveur, statistiques quotidiennes et réte
 supmod.staffstats: { fr: "Ses propres statistiques de staff (/sm staffstats)" }
 supmod.staffstats.others: { fr: "Statistiques et classement de tous les membres du staff" }
 supmod.network: { fr: "État de la synchronisation réseau (/sm network)" }
+supmod.admin.drops.watch: { en: "Manage the drop log: watch and unwatch players, on / off, mode (includes supmod.admin.drops)", fr: "Gérer le journal des drops : surveiller et ne plus surveiller des joueurs, activation, mode (inclut supmod.admin.drops)" }
+supmod.verification.bypass: { fr: "Jamais soumis à la vérification de connexion" }
+supmod.verification.manage: { fr: "Valider un joueur ou réinitialiser sa vérification (/sm verify)" }
+supmod.lockdown: { fr: "Verrouillage anti-raid (/sm lockdown on|off)" }
+supmod.lockdown.bypass: { fr: "Peut se connecter pendant un verrouillage, même avec un nouveau compte" }
+supmod.lockdown.notify: { fr: "Prévenu quand un verrouillage commence ou se termine (verrouillage automatique compris)" }
+supmod.security.bypass-ip-limit: { en: "Not limited by security.max-accounts-per-ip (maximum accounts per IP)", fr: "Non limité par security.max-accounts-per-ip (nombre maximum de comptes par IP)" }
+supmod.chat.bypass-new-delay: { fr: "Peut écrire tout de suite, même avec un nouveau compte (chat.new-player-delay-seconds)" }
+supmod.ignore: { fr: "Utiliser /ignore et /unignore" }
+supmod.ignore.exempt: { fr: "Ne peut pas être ignoré par les joueurs (staff)" }
+supmod.stafflist: { fr: "Utiliser /staff (liste des membres du staff en ligne)" }
+supmod.staff.listed: { fr: "Apparaître dans /staff (retirez-la pour rester caché)" }
+supmod.poll.vote: { fr: "Voter dans les sondages (/poll)" }
+supmod.poll.manage: { fr: "Créer, terminer et annuler des sondages, voir les résultats avant la fin" }
+supmod.poll.color: { fr: "Utiliser des codes couleur dans la question et les réponses d'un sondage" }
+supmod.itemsearch: { en: "Search an item in the inventories and ender chests of the online players, scan the suspicious amounts (/sm itemsearch)", fr: "Chercher un objet dans les inventaires et coffres de l'Ender des joueurs en ligne, analyser les quantités suspectes (/sm itemsearch)" }
+supmod.alerts.items: { fr: "Recevoir les alertes de l'analyse automatique des quantités suspectes (item-search.auto-scan)" }
+supmod.bypass.itemsearch: { fr: "Jamais signalé par l'analyse automatique des quantités suspectes (toujours trouvé par /sm itemsearch)" }
+supmod.punish.warn-acknowledge.bypass: { en: "A warning is shown once without blocking anything (the \"I understand\" menu can be closed)", fr: "Un avertissement est affiché une fois sans rien bloquer (le menu « J'ai compris » peut être fermé)" }

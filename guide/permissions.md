@@ -1,18 +1,18 @@
 # Permissions and ranks
 
-SupMod has about 140 permissions, but you rarely need to give them one by one. The full list is on the [Permissions](/reference/permissions) page.
+SupMod has about 160 permissions, but you rarely need to give them one by one. The full list is on the [Permissions](/reference/permissions) page.
 
 ## Without permission plugin {#without-permission-plugin}
 
-- Every player has the player permissions: `/report`, `/ticket`, `/appeal`, `/rewards`, `/stats`, `/coins`, `/playtime`, `/afk`...
+- Every player has the player permissions: `/report`, `/ticket`, `/appeal`, `/rewards`, `/stats`, `/coins`, `/playtime`, `/afk`, `/ignore`, `/staff`, `/poll`...
 - Operators have everything.
 
 ## The groups {#the-groups}
 
 | Permission | Give it to | Contains |
 |---|---|---|
-| `supmod.staff` | moderators | player files, teleport, inventory view, reports, warn / mute / unmute / kick, punishment menu and history, staff mode, vanish, freeze, staff chat, command spy, chat control, alerts, anti-spam bypass, health, worlds (view), game mode survival / spectator, heal, feed, notes, tags, timeline, tickets, staff statistics |
-| `supmod.admin` | administrators | everything in `supmod.staff` + ban / ipban / unban / permanent / revoke, templates, settings, staff history, IP addresses, inventory edition, clear, creative / adventure, appeals, server tools (lag, maintenance, restart, zones, holograms...), economy administration, network |
+| `supmod.staff` | moderators | player files, teleport, inventory view, reports, warn / mute / unmute / kick, punishment menu and history, staff mode, vanish, freeze, staff chat, command spy, chat control, alerts, anti-spam bypass, health, worlds (view), game mode survival / spectator, heal, feed, notes, tags, timeline, tickets, staff statistics, item search and suspicious item alerts, join verification and lockdown (with their bypass), polls |
+| `supmod.admin` | administrators | everything in `supmod.staff` + ban / ipban / unban / permanent / revoke, templates, settings, staff history, IP addresses, inventory edition, clear, creative / adventure, appeals, server tools (lag, maintenance, restart, zones, holograms...), economy administration, network, drop log (`supmod.admin.drops`, `supmod.admin.drops.watch`), colours in polls |
 | `supmod.*` | owner | same as `supmod.admin`; it does not add `supmod.admin.commands` nor the exempt and bypass permissions (a permission plugin such as LuckPerms may expand the wildcard itself) |
 
 `supmod.admin.commands` is in no group on purpose: it allows editing console commands run by the plugin. See [Configuration](/guide/configuration).
@@ -20,7 +20,7 @@ SupMod has about 140 permissions, but you rarely need to give them one by one. T
 ## LuckPerms example {#luckperms-example}
 
 ```text
-# Helper: reports, tickets, warn and mute
+# Helper: reports, tickets, warn and mute, listed in /staff
 /lp group helper permission set supmod.player true
 /lp group helper permission set supmod.admin.report.receive true
 /lp group helper permission set supmod.admin.report.manage true
@@ -31,6 +31,7 @@ SupMod has about 140 permissions, but you rarely need to give them one by one. T
 /lp group helper permission set supmod.punish.menu true
 /lp group helper permission set supmod.punish.history true
 /lp group helper permission set supmod.staffchat true
+/lp group helper permission set supmod.staff.listed true
 
 # Moderator: the whole staff toolkit
 /lp group moderator parent add helper
@@ -57,6 +58,15 @@ SupMod has about 140 permissions, but you rarely need to give them one by one. T
 | `supmod.commandspy.exempt` | commands never shown to the spies | nobody |
 | `supmod.announce.bypass` | does not receive the automatic announcements | nobody |
 | `supmod.bounty.exempt` | no bounty can be placed on this player | nobody |
+| `supmod.admin.drops.watch` | watch players in the [drop log](/features/drop-log); give it to the moderators who should manage it | admin |
+| `supmod.verification.bypass` | never asked to pass the [join verification](/features/verification#join-verification) | staff |
+| `supmod.lockdown.bypass` | can join during a [lockdown](/features/verification#lockdown), even with a new account | staff |
+| `supmod.security.bypass-ip-limit` | not limited by `security.max-accounts-per-ip` | staff |
+| `supmod.chat.bypass-new-delay` | can chat at once on a new account | staff |
+| `supmod.ignore.exempt` | cannot be [ignored](/features/community#ignore) | staff |
+| `supmod.staff.listed` | listed in `/staff`; set it to `false` to hide a staff member | staff |
+| `supmod.punish.warn-acknowledge.bypass` | [warnings](/features/punishments#warning-acknowledgment) shown once without blocking anything | admin |
+| `supmod.bypass.itemsearch` | never reported by the automatic [item scan](/features/item-search#automatic-scan) (creative builders...) | nobody |
 
 ::: tip Template permissions
 A punishment template can require its own permission (`permission:` in `punishments.yml`), like `supmod.punish.template.cheat`. Use it to keep the heaviest templates for senior moderators.

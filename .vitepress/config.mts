@@ -4,7 +4,7 @@ import { enSidebar, frSidebar } from './sidebar'
 const DISCORD = 'https://discord.gg/WtKt5vG9Yn'
 const SPIGOT = 'https://www.spigotmc.org/resources/supmod.108806/'
 const REPO = 'https://github.com/SupMod/SupMod-Docs'
-const VERSION = '2.3.0'
+const VERSION = '2.4.0'
 
 export default defineConfig({
   base: '/SupMod-Docs/',

@@ -18,7 +18,7 @@ Yes. Bedrock names can contain spaces or dots: SupMod never inserts such a name 
 
 ### A command of SupMod opens the command of another plugin {#a-command-of-supmod-opens-the-command-of-another-plugin}
 
-Two plugins use the same name (`/gm`, `/vanish`, `/ban`...). Write it with the plugin name: `/supmod:gm 1`, `/supmod:ban Steve 1d`. To choose the plugin used by default, set the command in the `commands.yml` file of the server ([Bukkit aliases](https://bukkit.fandom.com/wiki/Commands.yml)):
+Two plugins use the same name (`/gm`, `/vanish`, `/ban`, `/ignore`, `/staff`...). Write it with the plugin name: `/supmod:gm 1`, `/supmod:ban Steve 1d`. To choose the plugin used by default, set the command in the `commands.yml` file of the server ([Bukkit aliases](https://bukkit.fandom.com/wiki/Commands.yml)):
 
 ```yaml
 aliases:

@@ -18,7 +18,7 @@ Oui. Les pseudos Bedrock peuvent contenir des espaces ou des points : SupMod n'i
 
 ### Une commande de SupMod ouvre la commande d'un autre plugin {#a-command-of-supmod-opens-the-command-of-another-plugin}
 
-Deux plugins utilisent le même nom (`/gm`, `/vanish`, `/ban`...). Écrivez-la avec le nom du plugin : `/supmod:gm 1`, `/supmod:ban Steve 1d`. Pour choisir le plugin utilisé par défaut, définissez la commande dans le fichier `commands.yml` du serveur ([alias Bukkit](https://bukkit.fandom.com/wiki/Commands.yml)) :
+Deux plugins utilisent le même nom (`/gm`, `/vanish`, `/ban`, `/ignore`, `/staff`...). Écrivez-la avec le nom du plugin : `/supmod:gm 1`, `/supmod:ban Steve 1d`. Pour choisir le plugin utilisé par défaut, définissez la commande dans le fichier `commands.yml` du serveur ([alias Bukkit](https://bukkit.fandom.com/wiki/Commands.yml)) :
 
 ```yaml
 aliases:

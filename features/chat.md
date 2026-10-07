@@ -49,6 +49,14 @@ The filter is off by default. Add your words in `chat.filter.words` and choose t
 | `/sm chat clear` | `supmod.chat.clear` | sends `clear-lines` (150) empty lines, except to `supmod.bypass.chatclear` |
 | `/sm chat slow <seconds>` / `off` | `supmod.chat.slow` | one message every X seconds, except `supmod.bypass.slowmode` |
 
+## New players {#new-players}
+
+`chat.new-player-delay-seconds` (0 = off) stops the spam bots: an account whose first connection is less than X seconds old cannot chat yet, nor use the private message commands of `anti-spam.commands`. He is told how long to wait. `supmod.chat.bypass-new-delay` (staff) is not affected. See [Join verification and anti-raid](/features/verification#new-player-chat-delay).
+
+## Ignore a player {#ignore}
+
+Players can hide the messages of another player with `/ignore <player>`: his chat messages, his @mentions and his bounty announcements are no longer shown to them. Staff members cannot be ignored. See [Ignore, staff list and polls](/features/community#ignore).
+
 ## Chat history {#chat-history}
 
 The last 50 messages and commands of each player (`chat-history.keep-per-player`) are kept for the staff: player file › Chat history, and as evidence in the [reports](/features/reports). Commands with passwords (`/login`, `/register`...) are never saved (`chat-history.ignored-commands`).
@@ -57,7 +65,7 @@ Permissions: `supmod.chat.history`, `supmod.chat.history.commands`.
 
 ## Mentions and emojis {#mentions-and-emojis}
 
-- **Mentions**: writing `@Steve` highlights his name and plays a sound for him (`chat.mentions`).
+- **Mentions**: writing `@Steve` highlights his name and plays a sound for him (`chat.mentions`), unless Steve [ignores](/features/community#ignore) the sender.
 - **Emojis**: off by default. With `chat.emojis.enabled: true`, `:heart:` becomes ❤. The list is in `emojis.yml`:
 
 ```yaml

@@ -2,6 +2,69 @@
 
 The changes of each version of SupMod. Download the latest version on [SpigotMC](https://www.spigotmc.org/resources/supmod.108806/); to update, read [Updating](/guide/updating).
 
+## 2.4.0 — Verification, interactions and drop log {#v2-4-0}
+
+### Added
+- **Drop log managed in game**:
+  - list of watched players in the database, with a **duration** (`7d`, `12h`, `perm`…), a **reason**, the author and the date; expired watches are removed automatically;
+  - `/sm drops` opens a menu: watched players (reason, added by, expiry, online or not), button to watch a player, on / off, mode, full log, settings;
+  - `/sm drops add <player> [duration] [reason]`, `remove`, `list`, `log [player]`, `on|off`, `mode <watchlist|all>`, with tab completion, offline players included;
+  - player file: the hopper shows whether the player is watched and until when; right-click to watch him or stop;
+  - `/sm players`: "Drops watched" badge and the **Q** key to watch a player;
+  - modes `WATCHLIST` (watched players, default) and `ALL` (everybody, for small servers);
+  - automatic watch of the players with a staff tag (`watch`, `cheat`) and, optionally, of new players during their first minutes;
+  - log with filters (all, not picked up, picked up by somebody else); click to teleport to the place of the drop, right-click for the file of the player who picked it up;
+  - additions and removals are written to the staff history and synchronised between the servers of a network.
+- **Staff hub**: `/sm` without argument opens a dashboard:
+  - live counters: players, staff online, reports, tickets, appeals, alerts of the last hour, TPS and memory, server state;
+  - grouped shortcuts (Moderation, Players, Server, Configuration) to every staff menu, according to the permissions;
+  - quick actions: lock / slow down / clear the chat, maintenance, restart, anti-raid lockdown, polls;
+  - `/sm help` still shows the help; `gui.hub.enabled: false` restores the old behaviour.
+- **Player list** (`/sm players`): filters (staff, new players, muted, frozen, tagged, AFK), sort (name, session length, ping, world), ping, session length and badges in the description.
+- **Player search** (`/sm search <text>` or button of the list): by a part of the name, among every known player, online or not.
+- **Join verification (anti-bot)**, disabled by default:
+  - the new account must click the asked item among 9 shuffled items;
+  - meanwhile, he can neither move, chat, use commands nor interact; kicked after the time limit or too many mistakes;
+  - success remembered (shared between the servers of a network); players who already have play time are not concerned;
+  - `/sm verify <player>` and `/sm verify reset <player>`.
+- **Anti-raid lockdown**:
+  - `/sm lockdown on [duration] [reason]`, `off`, status;
+  - during a lockdown, accounts that never joined (or are not verified yet) are refused;
+  - automatic lockdown when too many new accounts arrive (8 in 30 s → 10 minutes by default), staff alert and Discord event `lockdown`;
+  - state kept after a restart and shared between the servers.
+- **Maximum accounts per IP** (`security.max-accounts-per-ip`, disabled by default).
+- **New player chat delay** (`chat.new-player-delay-seconds`, disabled by default), also applied to private messages.
+- **Ignore a player** (`/ignore <player>`, `/ignore add`, `/ignore list`, `/unignore`): his chat messages, @mentions and bounty announcements are no longer received; the staff cannot be ignored.
+- **Staff online** (`/staff`): visible staff members with their role and status (available, staff mode, AFK), "Ask for help" button.
+- **Polls** (`/poll`): `/poll create [duration] <question> | <answer> | ...` or guided creation, clickable answers, vote menu with live results, boss bar, reminder halfway, results in percentages.
+- **Warnings to acknowledge**: the warned player sees a menu (reason, staff, date, number of warnings, next step of the template) and must click "I understand"; warnings given while offline are shown at the next login; acknowledgment date visible in the history; option to tell the staff.
+- **Item search (anti-dupe)**:
+  - `/sm itemsearch <item> [amount]`: who owns an item among the online players (inventory, ender chest, shulker boxes, bundles);
+  - `/sm itemsearch scan`: players over the configured suspicious amounts;
+  - optional automatic scan with "Suspicious items" alerts (`/sm alerts items`, Discord, network).
+- **Menu sounds**: click, opening and refusal, adjustable.
+- New **Community** category in `/sm settings`; every new option can be changed in game.
+
+### Changed
+- The drop log is **enabled by default** (harmless: in `WATCHLIST` mode, nothing is logged until somebody is watched). Existing servers keep their value.
+- `drop-log.players` (UUIDs in config.yml) is migrated automatically to the database at startup.
+- Lighter drop log: writes grouped every 3 seconds, limit of drops per player and per minute (the surplus is summed up), worthless items ignored, number of watched players limited.
+- `supmod.admin.drops` allows viewing the log; managing the watch list requires `supmod.admin.drops.watch`.
+- `/staff` is no longer an alias of `/staffmode` (`/mod` still is); if the staff list is disabled, `/staff` is the staff mode again.
+- `gui.click-sound` and `gui.sound-volume` are replaced by the `gui.sounds` section (values carried over automatically).
+- The freeze menu waits for the end of the join verification instead of replacing it.
+
+### Fixed
+- A duration with too many digits (`99999999999999999999d`) caused an error instead of being refused.
+
+### Security
+- Verification: teleports, portals, vehicles, arrows and command completion blocked during the verification; maximum delay guaranteed even if the database does not answer.
+- Lockdown: if the database fails during a lockdown, the new account is refused; an account kicked once is not considered known.
+- Players in verification or blocked by a warning no longer trigger the anti-spam.
+- Bounded item search (depth and number of items read in containers, time per tick): a trapped shulker box cannot block the server.
+- Polls: colour codes fully removed without the `supmod.poll.color` permission.
+- IP limit: local connections (`127.0.0.1`, proxy on the same machine) are never limited.
+
 ## 2.3.0 — Player management {#v2-3-0}
 
 ### Added
@@ -54,6 +117,7 @@ The changes of each version of SupMod. Download the latest version on [SpigotMC]
 ### Fixed
 - The Security category did not appear in `/sm settings`.
 - The Discord events `punishment`, `staff-chat`, `alert` and `bounty` were never sent.
+- Spigot 26.x: the game rules menu and the PvP setting per world did not work (old methods removed by Spigot). They now use the game rules API available on the server version.
 
 ### Security
 - The staff mode inventory can neither receive nor give items while editing an inventory (the items would be lost).

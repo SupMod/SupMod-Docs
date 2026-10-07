@@ -15,7 +15,7 @@ hero:
       text: Que sait-il faire ?
       link: /fr/guide/
     - theme: alt
-      text: Télécharger la 2.3.0
+      text: Télécharger la 2.4.0
       link: https://www.spigotmc.org/resources/supmod.108806/
 ---
 

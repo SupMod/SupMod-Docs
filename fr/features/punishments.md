@@ -13,7 +13,7 @@ Avertissements, mutes, kicks, bans et bans IP, temporaires ou permanents, avec u
 | `/ipban <player> [duration] [reason] [-s]` | bannit le joueur et son IP |
 | `/unmute`, `/unban <player> [reason]` | lever la sanction |
 | `/punish <player> [template] [-s]` | le menu des sanctions, ou l'étape suivante d'un modèle |
-| `/history <player>` | l'historique ; cliquez sur une sanction en cours pour la révoquer |
+| `/history <player>` | l'historique ; cliquez sur une sanction en cours pour la révoquer ; un avertissement indique quand le joueur l'a confirmé |
 
 Durées : `30s`, `10m`, `2h`, `7d`, `2w`, `1mo`, `1y`, que l'on peut combiner (`1d12h`). Sans `supmod.punish.permanent`, une durée est obligatoire.
 
@@ -85,7 +85,39 @@ Les modèles sont aussi utilisés automatiquement par l'[anti-spam](/fr/features
 
 - **Ban** : l'écran de ban avec le motif, le membre du staff, la durée et le [code d'appel](/fr/features/appeals). Son texte se trouve dans `punish.screen.*` du fichier de langue.
 - **Mute** : un message à chaque tentative de parler ; les commandes de `muted-commands` (`/msg`, `/r`...) sont aussi bloquées.
-- **Avertissement** : un message, un grand titre (`warn-title`) et un son ; affiché à la prochaine connexion s'il était hors ligne.
+- **Avertissement** : un message, un grand titre (`warn-title`) et un son ; affiché à la prochaine connexion s'il était hors ligne. Il doit ensuite le confirmer (ci-dessous).
+
+## Avertissements à confirmer {#warning-acknowledgment}
+
+Un joueur averti voit un menu avec son avertissement et doit cliquer sur **J'ai compris**. Un avertissement lu dans le chat passe facilement inaperçu ; un avertissement à confirmer, non.
+
+Le menu affiche la raison, le membre du staff, la date, le nombre d'avertissements reçus et, pour un modèle, la prochaine sanction (« La prochaine fois : mute 1 h »). Les avertissements reçus hors ligne sont montrés à la prochaine connexion, l'un après l'autre (« Avertissement 1/3 »).
+
+Tant qu'il n'a pas cliqué (avec `block-actions: true`) :
+
+- il ne peut ni s'éloigner, ni écrire, ni utiliser de commandes, sauf les `allowed-commands` (`/msg`, `/r`, `/tell`, `/helpop`, `/ticket`, `/appeal`) ;
+- fermer le menu le rouvre ;
+- le bouton ne peut être cliqué qu'après `min-read-seconds` (3) secondes, pour lui laisser le temps de lire.
+
+Un joueur n'est jamais bloqué indéfiniment :
+
+- en mode staff ou avec `supmod.punish.warn-acknowledge.bypass` (admin), le menu est montré une fois, peut être fermé et ne bloque rien ; l'avertissement est remontré à chaque connexion tant qu'il n'est pas confirmé ;
+- le menu ne s'ouvre jamais par-dessus le menu d'un autre plugin ni par-dessus le menu de [freeze](/fr/features/staff-tools#freeze) : il attend. S'il ne peut pas être affiché (refusé par un autre plugin, autre menu gardé ouvert plus de 2 minutes), les restrictions sont levées jusqu'à la prochaine connexion ;
+- un avertissement annulé n'a plus à être confirmé.
+
+La date de confirmation est enregistrée et affichée dans l'historique : « Lu et confirmé le ... » ou « Pas encore confirmé ». Avec `notify-staff: true`, le membre du staff qui a donné l'avertissement est prévenu quand il est confirmé, même sur un autre serveur du [réseau](/fr/guide/network).
+
+Seuls les avertissements donnés depuis la 2.4 avec l'option activée sont concernés : les anciens avertissements ne sont jamais demandés.
+
+| Option (`punishments.warn-acknowledge.`, config.yml) | Par défaut | |
+|---|---|---|
+| `enabled` | `true` | les avertissements doivent être confirmés |
+| `block-actions` | `true` | bloquer les déplacements, le chat et les commandes jusqu'à la confirmation |
+| `allowed-commands` | `msg`, `r`, `tell`, `helpop`, `ticket`, `appeal` | commandes autorisées pendant le blocage |
+| `min-read-seconds` | `3` | secondes avant de pouvoir cliquer sur le bouton (0-30) |
+| `notify-staff` | `false` | prévenir le membre du staff qui a donné l'avertissement |
+
+Ces options sont dans `/sm settings` › **Sanctions**.
 
 ## Paramètres (punishments.yml) {#settings-punishments-yml}
 
@@ -114,3 +146,4 @@ Les modèles sont aussi utilisés automatiquement par l'[anti-spam](/fr/features
 | `supmod.punish.menu`, `.history`, `.notify`, `.silent` | staff |
 | `supmod.punish.templates` | modifier les modèles (admin) |
 | `supmod.punish.template.<id>` | modèles qui demandent une permission |
+| `supmod.punish.warn-acknowledge.bypass` | avertissements montrés une fois sans rien bloquer (admin) |

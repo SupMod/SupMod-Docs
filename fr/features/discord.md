@@ -19,7 +19,8 @@ N'importe qui avec l'URL du webhook peut écrire dans votre salon. Ne partagez p
 | `report` | activé | un joueur est signalé |
 | `punishment` | activé | un joueur reçoit un avertissement, un mute, un kick ou un ban |
 | `appeal` | activé | un joueur fait appel d'une sanction |
-| `alert` | activé | double compte, x-ray, TPS bas, maintenance |
+| `alert` | activé | double compte, x-ray, [objets suspects](/fr/features/item-search#automatic-scan), TPS bas, maintenance |
+| `lockdown` | activé | un [verrouillage anti-raid](/fr/features/verification#lockdown) commence (lancé par le staff ou automatique) ou se termine |
 | `chat-filter` | activé | un message contient un mot filtré |
 | `ticket` | désactivé | un ticket est créé |
 | `staff-chat` | désactivé | un message est écrit dans le chat du staff |
